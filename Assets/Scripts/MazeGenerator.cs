@@ -7,8 +7,11 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] MazeNode nodePrefab;
     [SerializeField] Vector2Int mazeSize;
+    [SerializeField] Vector3 nodeScale;
+
     private void Start()
     {
+        nodePrefab.transform.localScale = nodeScale;
         StartCoroutine(GenerateMaze(mazeSize));
     }
     IEnumerator GenerateMaze(Vector2Int size)
@@ -18,7 +21,7 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int z = 0; z < size.y; z++)
             {
-                Vector3 nodePos = new Vector3(x - (size.x / 2f), 0, z - (size.y / 2));
+                Vector3 nodePos = new Vector3((x - (size.x / 2f)) * nodePrefab.transform.localScale.x, 0, (z - (size.y / 2)) * nodePrefab.transform.localScale.z);
                 MazeNode newNode = Instantiate(nodePrefab, nodePos, Quaternion.identity, transform);
                 nodes.Add(newNode);
                 newNode.name = "Maze node " + (nodes.Count - 1);
@@ -126,23 +129,23 @@ public class MazeGenerator : MonoBehaviour
         nodes[Random.Range(0, size.y)].RemoveWall(1);
         nodes[Random.Range(nodes.Count - size.y, nodes.Count)].RemoveWall(0);
 
-        for (int i = 0; i < size.x; i++)
+        for (int i = 0; i < Mathf.Max(size.x, size.y); i++)
         {
-            int index = Random.Range(0,nodes.Count);
+            int index = Random.Range(0, nodes.Count);
             //Random.Range(0,nodes.Count);
             if ((index < nodes.Count - mazeSize.y))
             {
+                //   Debug.Log(index + " " + (index + mazeSize.y));
 
                 nodes[index].RemoveWall(0);
-                nodes[index + mazeSize.x].RemoveWall(1);
-                Debug.Log(index + " " + (index + mazeSize.x));
+                nodes[index + mazeSize.y].RemoveWall(1);
             }
-            if (index % 10 != 9)
+            if (index % size.y != size.y - 1)
             {
                 nodes[index].RemoveWall(2);
                 nodes[index + 1].RemoveWall(3);
                 Debug.Log(index + " " + (index + 1));
-
+                //Debug.Log(size.y+" "+(size.y-1) );
             }
         }
     }
