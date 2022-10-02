@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class Maze : MonoBehaviour
 {
+    public class Cell
+    {
+        bool visited;
+        public GameObject north;
+        public GameObject east;
+        public GameObject west;
+        public GameObject south;
+
+
+    }
     public GameObject wallObject;
     public float wallLenght = 1.0f;
     public int xLenght;
     public int yWidht;
     public Vector3 initialPos;
+    public Cell[] cells;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +51,25 @@ public class Maze : MonoBehaviour
 
             }
         }
+        //createCells();
     }
+/*
+    void createCells(){
+        int childCount=transform.childCount;
+        int eastWestProcess=0;
+        GameObject[] allWalls= new GameObject[childCount];
+        cells= new Cell[xLenght*yWidht];
+        for (int i=0;i<childCount;i++){
+            allWalls[i]=transform.GetChild(i).gameObject;
+
+        }
+     for (int cellprocess=0;cellprocess<cells.Length;cellprocess++){
+        cells[cellprocess]=new Cell();
+        cells[cellprocess].east=allWalls[eastWestProcess];
+        cells[cellprocess].south=allWalls[];
+     }
+
+    }*/
 
     // Update is called once per frame
     void Update()
