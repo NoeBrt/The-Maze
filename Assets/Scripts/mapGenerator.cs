@@ -11,8 +11,8 @@ public class mapGenerator : MonoBehaviour
     {
         Debug.Log("test");
         //maze = GetComponent<MazeGenerator>();
-        maze = new MazeGenerator(10, 10, wall);
-        maze.showMaze();
+       // maze = new MazeGenerator(10, 10, wall);
+        //maze.showMaze();
     }
 
     // Update is called once per frame

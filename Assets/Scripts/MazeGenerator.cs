@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
     List<int> wall;
     List<int> line;
@@ -14,7 +14,7 @@ public class MazeGenerator : MonoBehaviour
     public GameObject objectWall;
 
 
-    public MazeGenerator(int x, int y, GameObject objectWall1)
+   /* public MazeGenerator(int x, int y, GameObject objectWall1)
     {
     Debug.Log("test");
         wall = new List<int>();
@@ -23,6 +23,15 @@ public class MazeGenerator : MonoBehaviour
         this.x=x;
         this.y=y;
         createGrid();
+    }*/
+    private void Start() {
+        Debug.Log("test");
+        wall = new List<int>();
+        line = new List<int>();
+        maze= new List<List<int>>();
+        createGrid();
+        generateMaze();
+        showMaze();
     }
 
     void createGrid()
@@ -31,13 +40,15 @@ public class MazeGenerator : MonoBehaviour
         for (int i = 0; i < x; i++)
         {
             wall.Add(-1);
-            if (i % 2 == 1)
+            if (i % 2 == 0)
             {
-                line.Add(0);
+                //Debug.Log(i % 2 == 1);
+            line.Add(-1);
+
             }
             else
             {
-                line.Add(-1);
+            line.Add(0);
             }
         }
         for (int i = 0; i < y; i++)
@@ -48,10 +59,10 @@ public class MazeGenerator : MonoBehaviour
             }
             else
             {
-                maze.Add(line);
+               maze.Add(line);
             }
         }
-        for (int i = 0; i < x; i++)
+    /*   for (int i = 0; i < x; i++)
         {
             for (int i1 = 0; i1 < y; i1++)
             {
@@ -61,10 +72,10 @@ public class MazeGenerator : MonoBehaviour
                     maze[i][i1] = nb;
                 }
             }
-        }
+        }*/
 
-        maze[1][0] = 0;
-        maze[x - 1][y - 1] = 0;
+        //maze[1][0] = 0;
+        //maze[x - 1][y - 1] = 0;
 
 
     }
