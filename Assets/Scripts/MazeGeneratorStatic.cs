@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MazeGenerator : MonoBehaviour
+public static  class MazeGenerator
 {
-    [SerializeField] MazeNode nodePrefab;
-    [SerializeField] Vector2Int mazeSize;
-    [SerializeField] Vector3 nodeScale;
+     MazeNode nodePrefab;
+    Vector2Int mazeSize;
+     Vector3 nodeScale;
+
+
+    static void generateMaze(Vector2Int size){
+
+    }
 
     private void Start()
     {
         nodePrefab.transform.localScale = nodeScale;
         StartCoroutine(GenerateMaze(mazeSize));
     }
+
     IEnumerator GenerateMaze(Vector2Int size)
     {
         List<MazeNode> nodes = new List<MazeNode>();
