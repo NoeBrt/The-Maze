@@ -5,31 +5,65 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
-    [SerializeField] MazeNode nodePrefab;
-    [SerializeField] Vector2Int mazeSize;
-    [SerializeField] Vector3 nodeScale;
+    [SerializeField] private MazeNode nodePrefab;
+    [SerializeField] private Vector2Int mazeSize;
+    [SerializeField] private Vector3 nodeScale;
+    private Vector3 offsetParent;
+    public MazeNode startNode;
+    public MazeNode finishNode;
+    private bool isFinished = false;
+    private List<MazeNode> nodes;
+
+    public Vector2Int MazeSize { get => mazeSize; set => mazeSize = value; }
+    public Vector3 NodeScale { get => nodeScale; set => nodeScale = value; }
+    public MazeNode StartNode { get => startNode; set => startNode = value; }
+    public MazeNode FinishNode { get => finishNode; set => finishNode = value; }
+    public bool IsFinished { get => isFinished; set => isFinished = value; }
 
     private void Start()
     {
+
+        offsetParent = (transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z/2));
+        Debug.Log((Vector3.forward * nodePrefab.transform.localScale.z/2f));
+
         nodePrefab.transform.localScale = nodeScale;
         StartCoroutine(GenerateMaze(mazeSize));
     }
+
     IEnumerator GenerateMaze(Vector2Int size)
     {
-        List<MazeNode> nodes = new List<MazeNode>();
+        nodes = new List<MazeNode>();
+        yield return generateGrid(nodes, size);
+        yield return generateSimpleMaze(nodes, size);
+        generateStartAndEnd(nodes, size);
+        yield return makeComplexMaze(nodes, size);
+        Debug.Log("test");
+        yield return new WaitForSeconds(5f);
+        isFinished = true;
+
+    }
+
+    IEnumerator generateGrid(List<MazeNode> nodes, Vector2Int size)
+    {
         for (int x = 0; x < size.x; x++)
         {
             for (int z = 0; z < size.y; z++)
             {
-                Vector3 nodePos = new Vector3((x - (size.x / 2f)) * nodePrefab.transform.localScale.x, 0, (z - (size.y / 2)) * nodePrefab.transform.localScale.z);
-                MazeNode newNode = Instantiate(nodePrefab, nodePos, Quaternion.identity, transform);
+                Vector3 nodePos = new Vector3((x - (size.x / 2f)) * nodePrefab.transform.localScale.x, 0, (z - (size.y / 2f)) * nodePrefab.transform.localScale.z);
+                MazeNode newNode = Instantiate(nodePrefab, nodePos + offsetParent, transform.rotation, transform);
                 nodes.Add(newNode);
                 newNode.name = "Maze node " + (nodes.Count - 1);
-
                 yield return null;
+
             }
 
         }
+        Debug.Log(nodes.Count);
+
+    }
+    IEnumerator generateSimpleMaze(List<MazeNode> nodes, Vector2Int size)
+    {
+
         List<MazeNode> currentPath = new List<MazeNode>();
         List<MazeNode> completedNodes = new List<MazeNode>();
 
@@ -115,6 +149,7 @@ public class MazeGenerator : MonoBehaviour
 
                 currentPath.Add(chosenNode);
                 chosenNode.SetState(MazeNode.NodeState.Current);
+                yield return null;
             }
             else
             {
@@ -122,33 +157,56 @@ public class MazeGenerator : MonoBehaviour
 
                 currentPath[currentPath.Count - 1].SetState(MazeNode.NodeState.Completed);
                 currentPath.RemoveAt(currentPath.Count - 1);
+                yield return null;
             }
 
-            yield return null;
         }
-        nodes[Random.Range(0, size.y)].RemoveWall(1);
-        nodes[Random.Range(nodes.Count - size.y, nodes.Count)].RemoveWall(0);
+        yield return null;
 
-        for (int i = 0; i < Mathf.Max(size.x, size.y); i++)
+    }
+    void generateStartAndEnd(List<MazeNode> nodes, Vector2Int size)
+    {
+
+        startNode = nodes[Random.Range(0, size.y)];
+        finishNode = nodes[Random.Range(nodes.Count - size.y, nodes.Count)];
+        startNode.RemoveWall(1);
+        finishNode.RemoveWall(0);
+    }
+    IEnumerator makeComplexMaze(List<MazeNode> nodes, Vector2Int size)
+    {
+
+        int countXHole = 0;
+        int countZHole = 0;
+
+        //for (int i = 0; i < Mathf.Max(size.x, size.y); i++)
+        //{
+        while (countXHole+countZHole <= Mathf.Max(size.x, size.y)*2)
         {
             int index = Random.Range(0, nodes.Count);
             //Random.Range(0,nodes.Count);
-            if ((index < nodes.Count - mazeSize.y))
+            if ((index < nodes.Count - mazeSize.y) && countXHole <= Mathf.Max(size.x, size.y))
             {
-                //   Debug.Log(index + " " + (index + mazeSize.y));
+                //Debug.Log(index + " " + (index + mazeSize.y));
                 nodes[index].RemoveWall(0);
                 nodes[index + mazeSize.y].RemoveWall(1);
-                Debug.Log(index + " " + (index +mazeSize.y));
+                //Debug.Log(index + " " + (index + mazeSize.y));
+                countXHole++;
+                yield return new WaitForSeconds(0.5f);
             }
-            if (index % size.y != size.y - 1)
+            if ((index % size.y != size.y - 1) && countZHole <= Mathf.Max(size.x, size.y))
             {
                 nodes[index].RemoveWall(2);
                 nodes[index + 1].RemoveWall(3);
-                Debug.Log(index + " " + (index + 1));
+                // Debug.Log(index + " " + (index + 1));
                 //Debug.Log(size.y+" "+(size.y-1) );
+                countZHole++;
+                                yield return new WaitForSeconds(0.5f);
             }
-        }
+            Debug.Log(countXHole + " : " + countZHole);
+
+        }//}
     }
+
 
 
 }
