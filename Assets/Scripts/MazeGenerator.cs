@@ -23,8 +23,8 @@ public class MazeGenerator : MonoBehaviour
     private void Start()
     {
 
-        offsetParent = (transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z/2));
-        Debug.Log((Vector3.forward * nodePrefab.transform.localScale.z/2f));
+        offsetParent = (transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z / 2));
+        Debug.Log((Vector3.forward * nodePrefab.transform.localScale.z / 2f));
 
         nodePrefab.transform.localScale = nodeScale;
         StartCoroutine(GenerateMaze(mazeSize));
@@ -180,7 +180,7 @@ public class MazeGenerator : MonoBehaviour
 
         //for (int i = 0; i < Mathf.Max(size.x, size.y); i++)
         //{
-        while (countXHole+countZHole <= Mathf.Max(size.x, size.y)*2)
+        while (countXHole + countZHole <= Mathf.Max(size.x, size.y) * 2)
         {
             int index = Random.Range(0, nodes.Count);
             //Random.Range(0,nodes.Count);
@@ -191,7 +191,7 @@ public class MazeGenerator : MonoBehaviour
                 nodes[index + mazeSize.y].RemoveWall(1);
                 //Debug.Log(index + " " + (index + mazeSize.y));
                 countXHole++;
-                yield return new WaitForSeconds(0.5f);
+                yield return null;
             }
             if ((index % size.y != size.y - 1) && countZHole <= Mathf.Max(size.x, size.y))
             {
@@ -200,7 +200,7 @@ public class MazeGenerator : MonoBehaviour
                 // Debug.Log(index + " " + (index + 1));
                 //Debug.Log(size.y+" "+(size.y-1) );
                 countZHole++;
-                                yield return new WaitForSeconds(0.5f);
+                yield return null;
             }
             Debug.Log(countXHole + " : " + countZHole);
 
