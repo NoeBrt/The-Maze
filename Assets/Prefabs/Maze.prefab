@@ -46,8 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 622859131, guid: 655c7ffb83ab16e429eed06503b75924, type: 3}
   mazeSize: {x: 10, y: 10}
-  nodeScale: {x: 10, y: 10, z: 10}
+  nodeScale: {x: 15, y: 15, z: 15}
   startNode: {fileID: 0}
   finishNode: {fileID: 0}
-  isFinished: 0
-  Player: {fileID: 6787474433528163302, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}

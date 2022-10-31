@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FishNet.Connection;
+using FishNet.Object;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
 {
     #region var definitions
 
-    // private Rigidbody playerBody;
     [Header("Ui")]
     private UIManager uiManager;
 
@@ -19,48 +20,54 @@ public class PlayerController : MonoBehaviour
 
     [Header("Crouching")]
     private float normalPlayerHeight;
-    [SerializeField]
-    private float crouchPlayerHeight;
+    [SerializeField] private float crouchPlayerHeight;
 
     [Header("Movement and Physics")]
-    [SerializeField]
-    private float sprintSpeed = 20f;
+    [SerializeField] private float sprintSpeed = 20f;
     [SerializeField]
     private float walkSpeed = 10f;
     private float speed;
-    [SerializeField]
-    private float gravityForce = -(9.81f * 3); //gravity constant *3
-    // Start is called before the first frame update
+    [SerializeField] private float gravityForce = -(9.81f * 3); //gravity constant *3
     private Vector3 velocity;
 
     [Header("Jumping")]
     private bool isOnGround;
-    [SerializeField]
-    private Transform Feet;
-    [SerializeField]
-    private float groundDistance = 0.4f;
-    [SerializeField]
-    private LayerMask groundMask;
-    [SerializeField]
-    private float jumpHeight = 3;
+    [SerializeField] private Transform Feet;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float jumpHeight = 3;
 
     [Header("Bonus")]
-    [SerializeField]
-    private float bonusEffectDuration = 5f;
-    [SerializeField]
-    private float timeToRemove = 10f;
-    [SerializeField]
-    private float speedBonusGain = 10f;
+    [SerializeField] private float bonusEffectDuration = 5f;
+    [SerializeField] private float timeToRemove = 10f;
+    [SerializeField] private float speedBonusGain = 10f;
+   // [SerializeField] private Camera playerCamera;
 
 
     #endregion
+/*
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            Camera.current.gameObject.SetActive(false);
+            Camera.SetupCurrent(playerCamera);
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerController>().enabled = false;
+        }
+
+    }*/
 
     void Start()
     {
+        gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
         uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         speed = walkSpeed;
-        groundMask=LayerMask.GetMask("Ground");
+        groundMask = LayerMask.GetMask("Ground");
         //  playerBody=GetComponent<Rigidbody>();
     }
 
@@ -99,7 +106,7 @@ public class PlayerController : MonoBehaviour
     }
     void Movement()
     {
-       // Debug.Log(speed);
+        // Debug.Log(speed);
         HorizontalInput = Input.GetAxis("Horizontal");
         VerticalInput = Input.GetAxis("Vertical");
         //transform.right and transform.forward to move the object in the local space;

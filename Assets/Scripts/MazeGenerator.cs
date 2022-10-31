@@ -38,8 +38,10 @@ public class MazeGenerator : MonoBehaviour
         generateStartAndEnd(nodes, size);
         yield return makeComplexMaze(nodes, size);
         Debug.Log("test");
-        yield return new WaitForSeconds(5f);
+        yield return setAllWallPlayedState(nodes, size);
+        yield return new WaitForSeconds(3f);
         isFinished = true;
+
 
     }
 
@@ -203,11 +205,18 @@ public class MazeGenerator : MonoBehaviour
                 yield return null;
             }
             Debug.Log(countXHole + " : " + countZHole);
-
         }//}
     }
 
+    IEnumerator setAllWallPlayedState(List<MazeNode> nodes, Vector2Int size)
+    {
+        foreach (MazeNode m in nodes)
+        {
+            m.SetState(MazeNode.NodeState.Played);
+            yield return null;
 
+        }
+    }
 
 }
 

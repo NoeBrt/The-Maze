@@ -11,28 +11,35 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector2Int mazeSize;
     [SerializeField] private Vector3 nodeScale;
     [SerializeField] private Vector3 position;
-    bool playerInstanciated=false;
+    [SerializeField] private int bonusCount;
+    List<GameObject> bonusItem=new List<GameObject>();
+
+    bool playerInstanciated = false;
 
     void Start()
     {
         Maze.NodeScale = nodeScale;
         Maze.MazeSize = mazeSize;
-        Maze= Instantiate(Maze, new Vector3(0, 0, 0), Quaternion.identity);   
-       
+        Maze = Instantiate(Maze, new Vector3(0, 0, 0), Quaternion.identity);
+
         // Debug.Log(Maze.GetComponent<MazeGenerator>().startNode.gameObject.transform.position);
         //  Instantiate(Maze,new Vector3(Maze.transform.position.x*10,0,Maze.transform.position.z),Quaternion.identity);
     }
-    
+
     // Update is called once per frame
     void Update()
     {
         Debug.Log(Maze.IsFinished);
-          if (Maze.IsFinished&&!playerInstanciated){
-            Player=Instantiate(Player, Maze.startNode.transform.position, Quaternion.Euler(0,90,0));
-            playerInstanciated=true;
+        if (Maze.IsFinished && !playerInstanciated)
+        {
+            Player = Instantiate(Player, Maze.startNode.transform.position, Quaternion.Euler(0, 90, 0));
+            playerInstanciated = true;
+            Player.SetActive(true);
             BeginCamera.gameObject.SetActive(false);
-        }  
-         
-        
+        }
+    }
+
+    void spawnBonusItem(){
+
     }
 }

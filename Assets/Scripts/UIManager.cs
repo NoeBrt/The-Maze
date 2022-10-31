@@ -25,12 +25,12 @@ public class UIManager : MonoBehaviour
 
 
     public void setTimer()
-    {
+    { 
         timer += Time.fixedDeltaTime;
         int minutes = (int)(timer / 60f);
         int second = (int)(timer % 60f);
         int milliSecond = (int)((timer * 100f) % 100f);
-        timerText.text = minutes + ":" + second + ":" + milliSecond + " " + infoTime;
+        timerText.text = minutes.ToString("00") + ":" + second.ToString("00") + ":" + milliSecond.ToString("00") + " " + infoTime;
     }
     public void resetTimer()
     {
