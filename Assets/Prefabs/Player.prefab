@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 1706736280}
   - component: {fileID: 1706736279}
   - component: {fileID: 1706736278}
-  - component: {fileID: 1706736277}
+  - component: {fileID: 7417096826626387275}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1706736277
+--- !u!114 &7417096826626387275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1706736276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7efc1a674da2f14d95507e53a9e02d1, type: 3}
+  m_Script: {fileID: 11500000, guid: d4bd45ecebb12074180d10501efc9248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1255990117}
@@ -440,8 +440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightTorch: {fileID: 2412663647295747468}
-  WinScreen: {fileID: 4762138211493141966, guid: e2767ed7cebe06645a53f10462523814, type: 3}
-  LooseScreen: {fileID: 2094618323, guid: 4aef491ce1f8671499d96f6f299a7ba2, type: 3}
   crouchPlayerHeight: 2.4
   sprintSpeed: 20
   walkSpeed: 10
@@ -452,9 +450,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpHeight: 3
-  bonusEffectDuration: 5
-  timeToRemove: 10
-  speedBonusGain: 10
 --- !u!54 &6787474433528163306
 Rigidbody:
   m_ObjectHideFlags: 0
