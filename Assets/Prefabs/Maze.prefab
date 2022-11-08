@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7244943676616998087}
   - component: {fileID: 7244943676616998086}
+  - component: {fileID: 1269026984680668006}
+  - component: {fileID: -2338599877659183281}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -46,6 +48,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 622859131, guid: 655c7ffb83ab16e429eed06503b75924, type: 3}
   mazeSize: {x: 10, y: 10}
-  nodeScale: {x: 15, y: 15, z: 15}
+  nodeScale: {x: 20, y: 50, z: 20}
+  finishMaterial: {fileID: 2100000, guid: cfaee966dd1af1d4e9f94acf5acb4b12, type: 2}
+  startMaterial: {fileID: 2100000, guid: c8a694cc1321cdc48871aab2707558e2, type: 2}
+  plane: {fileID: 4900801365020712191, guid: 9117beabb95a5924e8e12cc0da8a75d0, type: 3}
   startNode: {fileID: 0}
   finishNode: {fileID: 0}
+--- !u!33 &1269026984680668006
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244943676616998085}
+  m_Mesh: {fileID: 0}
+--- !u!23 &-2338599877659183281
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244943676616998085}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 442a770feeb84434cbca8059eada5547, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

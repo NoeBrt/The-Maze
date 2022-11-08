@@ -7,6 +7,9 @@ TagManager:
   - Bonus
   - SpeedBonus
   - TimeBonus
+  - StartWall
+  - FinishWall
+  - monster
   layers:
   - Default
   - TransparentFX

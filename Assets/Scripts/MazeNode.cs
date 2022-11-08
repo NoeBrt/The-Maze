@@ -10,19 +10,23 @@ public class MazeNode : MonoBehaviour
     [SerializeField] MeshRenderer floor;
     [SerializeField] Material wallMaterial;
     [SerializeField] Material floorMaterial;
+    public GameObject[] Walls { get => walls; set => walls = value; }
     public enum NodeState
     {
         Available,
         Current,
         Completed,
-        Played
+        Played,
     }
 
-
-    public void RemoveWall(int wallToRemove)
+    public bool RemoveWall(int wallToRemove)
     {
         //walls[wallToRemove].gameObject.SetActive(false);
-        Destroy(walls[wallToRemove].gameObject);
+        if (walls[wallToRemove] != null)
+        {
+            Destroy(walls[wallToRemove].gameObject);
+            return true;}
+        else return false;
 
     }
     // Start is called before the first frame update
@@ -40,16 +44,16 @@ public class MazeNode : MonoBehaviour
                 floor.material.color = Color.green;
                 break;
             case NodeState.Played:
-                floor.material = floorMaterial;
+                floor.gameObject.SetActive(false);
                 for (int i = 0; i < 4; i++)
                 {
-                    if (walls[i] != null)
+                    if (walls[i] != null && walls[i].tag != "StartWall" && walls[i].tag != "FinishWall")
                     {
                         walls[i].GetComponent<MeshRenderer>().material = wallMaterial;
                     }
                 }
-
                 break;
+
         }
     }
 

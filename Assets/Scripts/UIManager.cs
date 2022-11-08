@@ -15,8 +15,11 @@ public class UIManager : MonoBehaviour
     [Header("Bonus")]
     [SerializeField]
     private Text bonusText;
+    private Coroutine previousBonusDisplay;
+    private Coroutine previousTimerInfoDisplay;
+
     #endregion
-    
+
     private void FixedUpdate()
     {
         setTimer();
@@ -25,7 +28,7 @@ public class UIManager : MonoBehaviour
 
 
     public void setTimer()
-    { 
+    {
         timer += Time.fixedDeltaTime;
         int minutes = (int)(timer / 60f);
         int second = (int)(timer % 60f);
@@ -44,7 +47,14 @@ public class UIManager : MonoBehaviour
 
     public void removeTime(float time)
     {
-        timer -= time;
+        if (timer < time)
+        {
+            timer = 0;
+        }
+        else
+        {
+            timer -= time;
+        };
         StartCoroutine(addTimerInfo(3, " -" + time));
         // timerText.text += " -" + time;
 

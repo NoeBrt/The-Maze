@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Connection;
-using FishNet.Object;
 
-public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
+
+public class PlayerController : MonoBehaviour
 {
     #region var definitions
 
@@ -13,6 +12,8 @@ public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
 
     [Header("Player Character")]
     private CharacterController playerController;
+    [SerializeField] private GameObject lightTorch;
+    private WinScreenController EndScreen;
 
     [Header("Input")]
     private float HorizontalInput;
@@ -41,34 +42,19 @@ public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
     [SerializeField] private float bonusEffectDuration = 5f;
     [SerializeField] private float timeToRemove = 10f;
     [SerializeField] private float speedBonusGain = 10f;
-   // [SerializeField] private Camera playerCamera;
+    // [SerializeField] private Camera playerCamera;
 
 
     #endregion
-/*
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            Camera.current.gameObject.SetActive(false);
-            Camera.SetupCurrent(playerCamera);
-        }
-        else
-        {
-            gameObject.GetComponent<PlayerController>().enabled = false;
-        }
-
-    }*/
-
     void Start()
     {
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
-        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        uiManager = GameObject.Find("PlayerCanvas").GetComponent<UIManager>();
         speed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");
-        //  playerBody=GetComponent<Rigidbody>();
+        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
+
     }
 
     // Update is called once per frame
@@ -78,11 +64,8 @@ public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
         crouch();
         Gravity();
         OnGroundVelocity();
-        if (Input.GetButtonDown("Jump") && isOnGround)
-        {
-            Jump();
-            // JumpRigibody();
-        }
+        toggleLight();
+        Jump();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -100,10 +83,9 @@ public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
         {
             playerController.height = normalPlayerHeight;
             Feet.localPosition -= new Vector3(0, (normalPlayerHeight - crouchPlayerHeight) / 2, 0);
-
-
         }
     }
+
     void Movement()
     {
         // Debug.Log(speed);
@@ -125,10 +107,6 @@ public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
             speed = walkSpeed;
         }
     }
-
-
-
-
     void Gravity()
     {
         velocity.y += gravityForce * Time.deltaTime;
@@ -146,42 +124,21 @@ public class PlayerController : MonoBehaviour/*NetworkBehaviour*/
 
     void Jump()
     {
-        //√[2×g×h] 
-        velocity.y = Mathf.Sqrt(-3f * gravityForce * jumpHeight);
-    }
-    /*
-    void JumpRigibody(){
-    Physics.gravity*=1.5f;
-    playerBody.AddForce(Vector3.up*20f,ForceMode.Impulse);
-    }*/
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("SpeedBonus"))
+        if (Input.GetButtonDown("Jump") && isOnGround)
         {
-            Destroy(other.gameObject);
-            StartCoroutine(speedBonusEffect(bonusEffectDuration));
-            uiManager.updateBonusText("Speed Bonus", bonusEffectDuration);
+            //√[2×g×h] 
+            velocity.y = Mathf.Sqrt(-3f * gravityForce * jumpHeight);
         }
-        else if (other.CompareTag("TimeBonus"))
-        {
-            Destroy(other.gameObject);
-            uiManager.removeTime(timeToRemove);
-            uiManager.updateBonusText("Time Bonus", bonusEffectDuration);
-        }
-
-
     }
-    IEnumerator speedBonusEffect(float time)
+
+
+    void toggleLight()
     {
-        uiManager.updateBonusText("Speed ++");
-        walkSpeed += speedBonusGain;
-        sprintSpeed += speedBonusGain;
+        if (Input.GetKeyDown(KeyCode.F))
+            lightTorch.SetActive(!lightTorch.activeSelf);
 
-        yield return new WaitForSeconds(time);
-        walkSpeed -= speedBonusGain;
-        sprintSpeed -= speedBonusGain;
-        uiManager.updateBonusText("");
     }
+
+
 
 }
