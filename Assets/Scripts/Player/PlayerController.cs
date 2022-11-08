@@ -11,9 +11,8 @@ public class PlayerController : MonoBehaviour
     #region var definitions
 
     [Header("Ui")]
-    public UIPlayerManager PlayerUi{get; set;}
     private WinScreenController EndScreen;
-
+    public UIPlayerManager PlayerUi {get; set;}
 
     [Header("Player Character")]
     private CharacterController playerController;
@@ -52,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
-        uiManager = GameObject.Find("PlayerCanvas").GetComponent<UIManager>();
+        PlayerUi = GameObject.Find("PlayerCanvas").GetComponent<UIPlayerManager>();
         currentSpeed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");
         EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();

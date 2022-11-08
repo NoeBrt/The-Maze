@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class TimeBonus : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
+        float timeToRemove = 10f;
+        float bonusEffectDuration = 10f;
+        if (other.CompareTag("Player"))
+        {
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            player.PlayerUi.removeTime(timeToRemove);
+            player.PlayerUi.updateBonusText("Time Bonus", bonusEffectDuration);
+            Destroy(gameObject);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
     }
 }
