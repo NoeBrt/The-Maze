@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+
 
 
 public class PlayerController : MonoBehaviour
@@ -8,12 +11,13 @@ public class PlayerController : MonoBehaviour
     #region var definitions
 
     [Header("Ui")]
-    private UIManager uiManager;
+    public UIPlayerManager PlayerUi{get; set;}
+    private WinScreenController EndScreen;
+
 
     [Header("Player Character")]
     private CharacterController playerController;
     [SerializeField] private GameObject lightTorch;
-    private WinScreenController EndScreen;
 
     [Header("Input")]
     private float HorizontalInput;
@@ -25,9 +29,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement and Physics")]
     [SerializeField] private float sprintSpeed = 20f;
-    [SerializeField]
-    private float walkSpeed = 10f;
-    private float speed;
+    [SerializeField] private float walkSpeed = 10f;
+    private float currentSpeed;
     [SerializeField] private float gravityForce = -(9.81f * 3); //gravity constant *3
     private Vector3 velocity;
 
@@ -38,10 +41,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float jumpHeight = 3;
 
-    [Header("Bonus")]
-    [SerializeField] private float bonusEffectDuration = 5f;
-    [SerializeField] private float timeToRemove = 10f;
-    [SerializeField] private float speedBonusGain = 10f;
+    public float SprintSpeed { get => sprintSpeed; set => sprintSpeed = value; }
+    public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
+
     // [SerializeField] private Camera playerCamera;
 
 
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
         uiManager = GameObject.Find("PlayerCanvas").GetComponent<UIManager>();
-        speed = walkSpeed;
+        currentSpeed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");
         EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
 
@@ -94,17 +96,17 @@ public class PlayerController : MonoBehaviour
         //transform.right and transform.forward to move the object in the local space;
         Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput);
         sprint();
-        playerController.Move(movement * Time.deltaTime * speed);
+        playerController.Move(movement * Time.deltaTime * currentSpeed);
     }
     private void sprint()
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = sprintSpeed;
+            currentSpeed = sprintSpeed;
         }
         else
         {
-            speed = walkSpeed;
+            currentSpeed = walkSpeed;
         }
     }
     void Gravity()
@@ -136,7 +138,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
             lightTorch.SetActive(!lightTorch.activeSelf);
-
     }
 
 
