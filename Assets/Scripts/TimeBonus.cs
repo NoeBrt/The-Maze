@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class TimeBonus : MonoBehaviour
 {
+    [SerializeField] float timeToRemove = 10f;
+    [SerializeField] float bonusEffectDuration = 3f;
+
     private void OnTriggerEnter(Collider other)
     {
-        float timeToRemove = 10f;
-        float bonusEffectDuration = 10f;
+
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();

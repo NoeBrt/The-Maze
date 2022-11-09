@@ -17,7 +17,7 @@ public class UIPlayerManager : MonoBehaviour
     private Text bonusText;
     private Coroutine previousBonusDisplay;
     private Coroutine previousTimerInfoDisplay;
-
+    [SerializeField] private Text messageText;
     #endregion
 
     private void FixedUpdate()
@@ -31,9 +31,9 @@ public class UIPlayerManager : MonoBehaviour
     {
         timer += Time.fixedDeltaTime;
         int minutes = (int)(timer / 60f);
-        int second = (int)(timer % 60f);
+        int seconds = (int)(timer % 60f);
         int milliSecond = (int)((timer * 100f) % 100f);
-        timerText.text = minutes.ToString("00") + ":" + second.ToString("00") + ":" + milliSecond.ToString("00") + " " + infoTime;
+        timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliSecond.ToString("00") + " " + infoTime;
     }
     public void resetTimer()
     {
@@ -73,16 +73,21 @@ public class UIPlayerManager : MonoBehaviour
         bonusText.text = s;
     }
 
-    public void updateBonusText(string s, float second)
+    public void updateBonusText(string s, float seconds)
     {
-        StartCoroutine(displayBonusText(second, s));
+        StartCoroutine(displayText(bonusText, seconds, s));
     }
 
-    private IEnumerator displayBonusText(float seconds, string s)
+   public void displayMessage(string s, float seconds)
     {
-        bonusText.text = s;
+        StartCoroutine(displayText(messageText, seconds, s));
+    }
+
+    private IEnumerator displayText(Text text, float seconds, string s)
+    {
+        text.text = s;
         yield return new WaitForSeconds(seconds);
-        bonusText.text = "";
+        text.text = "";
     }
 
 

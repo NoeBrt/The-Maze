@@ -166,6 +166,7 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   bonusCount: 10
   monster: {fileID: 2016928491730126177, guid: 6634eba3b2417644da200600c272df65, type: 3}
+  MazeKey: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
   bonusItem:
   - {fileID: 8828009978519330339, guid: 7007b332f788c2b4b93c200d2b4774e8, type: 3}
   - {fileID: 8828009978519330339, guid: 89cc8f25879719648b2a05932c4cdbd3, type: 3}
@@ -392,6 +393,10 @@ PrefabInstance:
     - target: {fileID: 6787474433528163302, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787474433528163302, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6787474433528163304, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}
       propertyPath: m_RootOrder

@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector3 position;
     [SerializeField] private int bonusCount;
     [SerializeField] private GameObject monster;
+    [SerializeField] private GameObject MazeKey;
 
     [SerializeField] List<GameObject> bonusItem = new List<GameObject>();
 
@@ -40,6 +41,7 @@ public class SpawnManager : MonoBehaviour
         playerInstanciated = false;
         Destroy(CurrentMaze.gameObject);
         CurrentMaze = Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
+        CurrentMaze.name="Maze";
     }
 
     // Update is called once per frame
@@ -49,6 +51,7 @@ public class SpawnManager : MonoBehaviour
         if (CurrentMaze.IsFinished && !playerInstanciated)
         {
             spawnBonusItem(bonusCount);
+            spawnKey();
             Player = Instantiate(Player, CurrentMaze.startNode.transform.position, Quaternion.Euler(0, 90, 0));
             monster = Instantiate(monster, CurrentMaze.Nodes[Random.Range(mazeSize.y, CurrentMaze.Nodes.Count)].transform.position - new Vector3(0, 20, 0), Quaternion.identity);
             playerInstanciated = true;
@@ -68,6 +71,11 @@ public class SpawnManager : MonoBehaviour
             Vector3 bonusItemPosition = new Vector3(nodePosition.x, CurrentMaze.NodeScale.y / 10f, nodePosition.z);
             Instantiate(bonusItem[Random.Range(0, bonusItem.Count)], bonusItemPosition, Quaternion.identity, CurrentMaze.transform);
         }
-
+    }
+    void spawnKey()
+    {
+        Vector3 nodePosition = CurrentMaze.Nodes[Random.Range(0, CurrentMaze.Nodes.Count)].transform.position;
+        Vector3 keyPos = new Vector3(nodePosition.x, CurrentMaze.NodeScale.y / 10f, nodePosition.z);
+        Instantiate(MazeKey, keyPos, Quaternion.identity);
     }
 }

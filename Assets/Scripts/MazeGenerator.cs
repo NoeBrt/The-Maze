@@ -25,6 +25,8 @@ public class MazeGenerator : MonoBehaviour
     public Vector3 NodeScale { get => nodeScale; set => nodeScale = value; }
     public MazeNode StartNode { get => startNode; set => startNode = value; }
     public MazeNode FinishNode { get => finishNode; set => finishNode = value; }
+    public Material FinishMaterial { get => finishMaterial; set => finishMaterial = value; }
+    public Material StartMaterial { get => startMaterial; set => startMaterial = value; }
 
     private void Start()
     {
@@ -181,7 +183,7 @@ public class MazeGenerator : MonoBehaviour
         startNode.Walls[1].tag = "StartWall";
         startNode.Walls[1].gameObject.GetComponent<MeshRenderer>().material = startMaterial;
         finishNode.Walls[0].tag = "FinishWall";
-        finishNode.Walls[0].gameObject.GetComponent<MeshRenderer>().material = finishMaterial;
+       // finishNode.Walls[0].gameObject.GetComponent<MeshRenderer>().material = finishMaterial;
         finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger=true;
         //  startNode.RemoveWall(1);
         //finishNode.RemoveWall(0);

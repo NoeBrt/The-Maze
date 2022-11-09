@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ui")]
     private WinScreenController EndScreen;
-    public UIPlayerManager PlayerUi {get; set;}
+    public UIPlayerManager PlayerUi { get; set; }
 
     [Header("Player Character")]
     private CharacterController playerController;
@@ -93,21 +93,57 @@ public class PlayerController : MonoBehaviour
         HorizontalInput = Input.GetAxis("Horizontal");
         VerticalInput = Input.GetAxis("Vertical");
         //transform.right and transform.forward to move the object in the local space;
-        Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput);
+        Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput) * currentSpeed;
+        velocity = movement + Vector3.up * velocity.y;
         sprint();
-        playerController.Move(movement * Time.deltaTime * currentSpeed);
+        playerController.Move(velocity * Time.deltaTime);
     }
+
+    float fieldOfView;
     private void sprint()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (isOnGround)
         {
-            currentSpeed = sprintSpeed;
+            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed < sprintSpeed && new Vector2(velocity.x, velocity.z).magnitude > 0)
+            {
+                currentSpeed += sprintSpeed * Time.smoothDeltaTime * 2;
+
+            }
+            else if (currentSpeed > walkSpeed)
+            {
+
+                currentSpeed -= walkSpeed * Time.smoothDeltaTime * 2;
+            }
+            else if (currentSpeed < walkSpeed)
+            {
+                currentSpeed += walkSpeed * Time.smoothDeltaTime * 2;
+            }
+
+            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, currentSpeed);
+            fieldOfView = Mathf.Lerp(60, 70, parameter);
         }
-        else
+        Camera.main.fieldOfView = fieldOfView;
+
+
+
+    }
+    IEnumerator addfieldOfView(float add, Camera camera)
+    {
+        for (float i = 0.1f; Mathf.Abs(i) <= Mathf.Abs(add); i += add / 10f)
         {
-            currentSpeed = walkSpeed;
+            camera.fieldOfView -= i;
+            yield return null;
         }
     }
+    private void setFieldOfView(float fielOfView)
+    {
+        if (fielOfView == Camera.main.fieldOfView)
+        {
+            return;
+        }
+        StartCoroutine(addfieldOfView(Camera.main.fieldOfView - fielOfView, Camera.main));
+    }
+
     void Gravity()
     {
         velocity.y += gravityForce * Time.deltaTime;
@@ -137,6 +173,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
             lightTorch.SetActive(!lightTorch.activeSelf);
+    }
+
+
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+       Debug.Log(hit.transform.tag);
     }
 
 
