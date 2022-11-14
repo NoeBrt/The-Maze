@@ -10,26 +10,39 @@ public class MazeGenerator : MonoBehaviour
     static Vector3 offsetParent;
     public static Maze mazePrefab;
     public static MazeNode nodePrefab;
+    static bool isProgressive;
 
-    public static Maze GenerateMaze(Vector2Int size, Vector3 nodeScale, Vector3 position, Quaternion rotation)
+
+    public static Maze GenerateMaze(Vector2Int size, Vector3 nodeScale, Vector3 position, Quaternion rotation, bool isProgressive)
     {
-        Debug.Log(Resources.Load<GameObject>("Maze"));
+        MazeGenerator.isProgressive = isProgressive;
 
         mazePrefab = Resources.Load<GameObject>("Maze").GetComponent<Maze>();
         nodePrefab = Resources.Load<GameObject>("MazeNode").GetComponent<MazeNode>();
+
         Maze maze = Instantiate(mazePrefab, position, rotation);
+        if (!isProgressive)
+        {
+            //  nodePrefab.SetState(MazeNode.NodeState.Played);
+            nodePrefab.GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            nodePrefab.GetComponent<MeshRenderer>().enabled = true;
+        }
         maze.name = "Maze";
         maze.NodeScale = nodeScale;
+        maze.Size = size;
         offsetParent = (maze.transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z / 2));
         nodePrefab.transform.localScale = nodeScale;
         maze.StartCoroutine(GenerateMazeEnumerator(maze));
-
         return maze;
     }
 
 
     static IEnumerator GenerateMazeEnumerator(Maze maze)
     {
+
         maze.Plane.SetActive(true);
         maze.Nodes = new List<MazeNode>();
         yield return generateGrid(maze.Nodes, maze.Size, maze.transform);
@@ -39,10 +52,15 @@ public class MazeGenerator : MonoBehaviour
         yield return makeComplexMaze(maze.Nodes, maze.Size);
         Debug.Log("test");
         yield return setAllWallsPlayedState(maze.Nodes, maze.Size);
-        yield return new WaitForSeconds(3f);
+        if (isProgressive)
+            yield return new WaitForSeconds(3f);
         setFloor(maze);
         supressOverlapWall(maze.Nodes, maze.Size);
-        //meshFusion();
+        //  meshFusion();
+        if (!isProgressive)
+        {
+            maze.setNodesVisibility(true);
+        }
         maze.IsFinished = true;
     }
 
@@ -57,10 +75,10 @@ public class MazeGenerator : MonoBehaviour
                 MazeNode newNode = Instantiate(nodePrefab, nodePos + offsetParent + new Vector3(0.1f, 0, 0), parent.rotation, parent);
                 Nodes.Add(newNode);
                 newNode.name = "Maze node " + (Nodes.Count - 1);
-                yield return null;
+                if (isProgressive)
+                    yield return null;
             }
         }
-        Debug.Log(Nodes.Count);
 
     }
 
@@ -152,7 +170,8 @@ public class MazeGenerator : MonoBehaviour
 
                 currentPath.Add(chosenNode);
                 chosenNode.SetState(MazeNode.NodeState.Current);
-                yield return null;
+                if (isProgressive)
+                    yield return null;
             }
             else
             {
@@ -160,11 +179,13 @@ public class MazeGenerator : MonoBehaviour
 
                 currentPath[currentPath.Count - 1].SetState(MazeNode.NodeState.Completed);
                 currentPath.RemoveAt(currentPath.Count - 1);
-                yield return null;
+                if (isProgressive)
+                    yield return null;
             }
 
         }
-        yield return null;
+        if (isProgressive)
+            yield return null;
 
     }
     static void generateStartAndEnd(List<MazeNode> Nodes, Vector2Int size, MazeNode startNode, MazeNode finishNode)
@@ -221,7 +242,8 @@ public class MazeGenerator : MonoBehaviour
                     countXHole++;
                 }
                 //Debug.Log(index + " " + (index + mazeSize.y));
-                yield return null;
+                if (isProgressive)
+                    yield return null;
             }
             if ((index % size.y != size.y - 1) && countZHole <= Mathf.Max(size.x, size.y))
             {
@@ -233,7 +255,8 @@ public class MazeGenerator : MonoBehaviour
                 }
                 // Debug.Log(index + " " + (index + 1));
                 //Debug.Log(size.y+" "+(size.y-1) );
-                yield return null;
+                if (isProgressive)
+                    yield return null;
             }
             Debug.Log(countXHole + " : " + countZHole);
         }//}
@@ -269,7 +292,8 @@ public class MazeGenerator : MonoBehaviour
             m.RemoveWall(2);
             m.RemoveWall(1);
 */
-            yield return null;
+            if (isProgressive)
+                yield return null;
         }
     }
     //  List<MeshFilter> meshFilters = new List<MeshFilter>();

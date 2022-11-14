@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
+        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity,true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
 
     public void spawnMaze(Vector3 nodeScale, Vector2Int mazeSize)
@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         monster.SetActive(false);
         playerInstanciated = false;
         Destroy(currentMaze.gameObject);
-        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity);
+        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity,true);
         currentMaze.name = "Maze";
     }
 

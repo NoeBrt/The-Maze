@@ -25,7 +25,8 @@ public class MazeNode : MonoBehaviour
         if (walls[wallToRemove] != null)
         {
             Destroy(walls[wallToRemove].gameObject);
-            return true;}
+            return true;
+        }
         else return false;
 
     }
@@ -34,13 +35,17 @@ public class MazeNode : MonoBehaviour
     {
         switch (state)
         {
+
             case NodeState.Available:
+                floor.gameObject.SetActive(true);
                 floor.material.color = Color.white;
                 break;
             case NodeState.Current:
+                floor.gameObject.SetActive(true);
                 floor.material.color = Color.yellow;
                 break;
             case NodeState.Completed:
+                floor.gameObject.SetActive(true);
                 floor.material.color = Color.green;
                 break;
             case NodeState.Played:

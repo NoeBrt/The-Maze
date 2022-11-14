@@ -24,6 +24,15 @@ public class Maze : MonoBehaviour
     public GameObject Plane { get => plane; set => plane = value; }
     public Material FinishMaterial { get => finishMaterial; set => finishMaterial = value; }
 
+
+    public void setNodesVisibility(bool isNodesVisible)
+    {
+        foreach (MazeNode m in Nodes)
+        {
+            m.gameObject.SetActive(true);
+        }
+
+    }
 }
 
 
