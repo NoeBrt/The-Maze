@@ -6,64 +6,47 @@ using System.Linq;
 
 public class MazeGenerator : MonoBehaviour
 {
-    [SerializeField] private MazeNode nodePrefab;
-    [SerializeField] private Vector2Int mazeSize;
-    [SerializeField] public Vector3 nodeScale;
-    [SerializeField] Material finishMaterial;
-    [SerializeField] Material startMaterial;
-    [SerializeField] GameObject plane;
 
-    private Vector3 offsetParent;
-    public MazeNode startNode;
-    public MazeNode finishNode;
+    static Vector3 offsetParent;
+    static Maze mazePrefab;
+    static MazeNode nodePrefab;
 
-    public bool IsFinished { get; set; }
-    public List<MazeNode> Nodes { get; set; }
-
-
-    public Vector2Int MazeSize { get => mazeSize; set => mazeSize = value; }
-    public Vector3 NodeScale { get => nodeScale; set => nodeScale = value; }
-    public MazeNode StartNode { get => startNode; set => startNode = value; }
-    public MazeNode FinishNode { get => finishNode; set => finishNode = value; }
-    public Material FinishMaterial { get => finishMaterial; set => finishMaterial = value; }
-    public Material StartMaterial { get => startMaterial; set => startMaterial = value; }
-
-    private void Start()
+    public static Maze GenerateMaze(Vector2Int size, Vector3 nodeScale, Vector3 position, Quaternion rotation)
     {
-
-        offsetParent = (transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z / 2));
-        Debug.Log((Vector3.forward * nodePrefab.transform.localScale.z / 2f));
+        Maze maze = Instantiate(mazePrefab, position, rotation, mazePrefab.transform);
+        offsetParent = (maze.transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z / 2));
         nodePrefab.transform.localScale = nodeScale;
-        StartCoroutine(GenerateMaze(mazeSize));
+        maze.StartCoroutine(GenerateMazeEnumerator(maze));
+        return maze;
     }
 
-    IEnumerator GenerateMaze(Vector2Int size)
+
+    static IEnumerator GenerateMazeEnumerator(Maze maze)
     {
-        plane.SetActive(true);
-        Nodes = new List<MazeNode>();
-        yield return generateGrid(Nodes, size);
-        yield return generateSimpleMaze(Nodes, size);
-        generateStartAndEnd(Nodes, size);
-        yield return makeComplexMaze(Nodes, size);
+        maze.Plane.SetActive(true);
+        maze.Nodes = new List<MazeNode>();
+        yield return generateGrid(maze.Nodes, maze.Size, maze.transform);
+        yield return generateSimpleMaze(maze.Nodes, maze.Size);
+        generateStartAndEnd(maze.Nodes, maze.Size, maze.startNode, maze.finishNode);
+        yield return makeComplexMaze(maze.Nodes, maze.Size);
         Debug.Log("test");
-        yield return setAllWallsPlayedState(Nodes, size);
+        yield return setAllWallsPlayedState(maze.Nodes, maze.Size);
         yield return new WaitForSeconds(3f);
-        setFloor();
-        supressOverlapWall();
+        setFloor(maze);
+        supressOverlapWall(maze.Nodes, maze.Size);
         //meshFusion();
-        IsFinished = true;
-
-
+        maze.IsFinished = true;
     }
 
-    IEnumerator generateGrid(List<MazeNode> Nodes, Vector2Int size)
+
+    static IEnumerator generateGrid(List<MazeNode> Nodes, Vector2Int size, Transform parent)
     {
         for (int x = 0; x < size.x; x++)
         {
             for (int z = 0; z < size.y; z++)
             {
                 Vector3 nodePos = new Vector3((x - (size.x / 2f)) * nodePrefab.transform.localScale.x, 0, (z - (size.y / 2f)) * nodePrefab.transform.localScale.z);
-                MazeNode newNode = Instantiate(nodePrefab, nodePos + offsetParent + new Vector3(0.1f, 0, 0), transform.rotation, transform);
+                MazeNode newNode = Instantiate(nodePrefab, nodePos + offsetParent + new Vector3(0.1f, 0, 0), parent.rotation, parent);
                 Nodes.Add(newNode);
                 newNode.name = "Maze node " + (Nodes.Count - 1);
                 yield return null;
@@ -72,7 +55,8 @@ public class MazeGenerator : MonoBehaviour
         Debug.Log(Nodes.Count);
 
     }
-    IEnumerator generateSimpleMaze(List<MazeNode> Nodes, Vector2Int size)
+
+    static IEnumerator generateSimpleMaze(List<MazeNode> Nodes, Vector2Int size)
     {
 
         List<MazeNode> currentPath = new List<MazeNode>();
@@ -175,20 +159,24 @@ public class MazeGenerator : MonoBehaviour
         yield return null;
 
     }
-    void generateStartAndEnd(List<MazeNode> Nodes, Vector2Int size)
+    static void generateStartAndEnd(List<MazeNode> Nodes, Vector2Int size, MazeNode startNode, MazeNode finishNode)
     {
-
         startNode = Nodes[Random.Range(0, size.y)];
         finishNode = Nodes[Random.Range(Nodes.Count - size.y, Nodes.Count)];
         startNode.Walls[1].tag = "StartWall";
-        startNode.Walls[1].gameObject.GetComponent<MeshRenderer>().material = startMaterial;
+        //startNode.Walls[1].gameObject.GetComponent<MeshRenderer>().material = maze.StartMaterial;
         finishNode.Walls[0].tag = "FinishWall";
-       // finishNode.Walls[0].gameObject.GetComponent<MeshRenderer>().material = finishMaterial;
-        finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger=true;
+        //sfinishNode.Walls[0].gameObject.GetComponent<MeshRenderer>().material = finishMaterial;
+        finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = true;
         //  startNode.RemoveWall(1);
         //finishNode.RemoveWall(0);
     }
-    IEnumerator makeComplexMaze(List<MazeNode> Nodes, Vector2Int size)
+
+
+
+
+
+    static IEnumerator makeComplexMaze(List<MazeNode> Nodes, Vector2Int size)
     {
 
         int countXHole = 0;
@@ -200,12 +188,12 @@ public class MazeGenerator : MonoBehaviour
         {
             int index = Random.Range(0, Nodes.Count);
             //Random.Range(0,Nodes.Count);
-            if ((index < Nodes.Count - mazeSize.y) && countXHole <= Mathf.Max(size.x, size.y))
+            if ((index < Nodes.Count - size.y) && countXHole <= Mathf.Max(size.x, size.y))
             {
                 //Debug.Log(index + " " + (index + mazeSize.y));
-                if (Nodes[index].RemoveWall(0) || Nodes[index + mazeSize.y].RemoveWall(1))
+                if (Nodes[index].RemoveWall(0) || Nodes[index + size.y].RemoveWall(1))
                 {
-                    Nodes[index + mazeSize.y].RemoveWall(1);
+                    Nodes[index + size.y].RemoveWall(1);
                     Nodes[index].RemoveWall(0);
                     countXHole++;
                 }
@@ -227,17 +215,18 @@ public class MazeGenerator : MonoBehaviour
             Debug.Log(countXHole + " : " + countZHole);
         }//}
     }
-    void supressOverlapWall()
+
+    static void supressOverlapWall(List<MazeNode> Nodes, Vector2Int size)
     {
         for (int i = 0; i < Nodes.Count - 1; i++)
         {
-            if ((i < Nodes.Count - mazeSize.y))
+            if ((i < Nodes.Count - size.y))
             {
                 Nodes[i].RemoveWall(0);
             }
-            if (i % mazeSize.y != mazeSize.y - 1)
+            if (i % size.y != size.y - 1)
             {
-                Debug.Log(mazeSize);
+                Debug.Log(size);
                 Nodes[i].RemoveWall(2);
 
             }
@@ -248,7 +237,7 @@ public class MazeGenerator : MonoBehaviour
 
 
 
-    IEnumerator setAllWallsPlayedState(List<MazeNode> Nodes, Vector2Int size)
+    static IEnumerator setAllWallsPlayedState(List<MazeNode> Nodes, Vector2Int size)
     {
         foreach (MazeNode m in Nodes)
         {
@@ -277,10 +266,10 @@ public class MazeGenerator : MonoBehaviour
             transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
             transform.gameObject.SetActive(true);
         }*/
-    void setFloor()
+    static void setFloor(Maze maze)
     {
-        plane = Instantiate(plane, new Vector3(0, transform.position.y / 8.3f, 0), Quaternion.identity, transform);
-        plane.transform.localScale = new Vector3(MazeSize.x * nodeScale.x / 10f, 1, mazeSize.y * nodeScale.z / 10f);
+        maze.Plane = Instantiate(maze.Plane, new Vector3(0, maze.transform.position.y / 8.3f, 0), Quaternion.identity, maze.transform);
+        maze.Plane.transform.localScale = new Vector3(maze.Size.x * maze.NodeScale.x / 10f, 1, maze.Size.y * maze.NodeScale.z / 10f);
     }
 
 }

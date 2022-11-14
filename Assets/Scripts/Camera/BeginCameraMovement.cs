@@ -5,7 +5,7 @@ using UnityEngine;
 public class BeginCameraMovement : MonoBehaviour
 {
     public Camera cam;
-    public MazeGenerator maze;
+    public Maze maze;
 
     // Start is called before the first frame update
 
@@ -13,6 +13,6 @@ public class BeginCameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cam.orthographicSize = ((maze.MazeSize.y + maze.MazeSize.x) / 2f) * 5.5f * ((maze.NodeScale.x + maze.NodeScale.z) / 2f) / 10f;
+        cam.orthographicSize = ((maze.Size.y + maze.Size.x) / 2f) * 5.5f * ((maze.NodeScale.x + maze.NodeScale.z) / 2f) / 10f;
     }
 }
