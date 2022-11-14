@@ -176,10 +176,4 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnControllerColliderHit(ControllerColliderHit hit) {
-       Debug.Log(hit.transform.tag);
-    }
-
-
-
 }

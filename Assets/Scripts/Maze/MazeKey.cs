@@ -7,20 +7,25 @@ public class MazeKey : MonoBehaviour
     // Start is called before the first frame update
     GameObject finalWall;
     Maze maze;
+    [SerializeField] float rotateSpeed = 90f;
     void Start()
     {
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         finalWall = maze.FinishNode.Walls[0];
     }
-    // Update is called once per frame
-    private void  OnTriggerEnter(Collider other)
+    private void Update()
     {
-        Debug.Log("collision");
+        transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime, Space.World);
+    }
+
+    // Update is called once per frame
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.gameObject.CompareTag("Player"))
         {
             finalWall.GetComponent<MeshRenderer>().material = maze.FinishMaterial;
             other.gameObject.GetComponent<PlayerController>().PlayerUi.displayMessage("Key Founded", 5f);
-              Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -157,8 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1623d8283aae9440ad50183ff76eb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Maze: {fileID: 7244943676616998086, guid: 24c8c5555122c054db9e06b2784f8216, type: 3}
-  CurrentMaze: {fileID: 0}
+  currentMaze: {fileID: 0}
   Player: {fileID: 6787474433528163302, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}
   BeginCamera: {fileID: 705759035}
   mazeSize: {x: 10, y: 10}
@@ -382,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 705759035}
-  maze: {fileID: 7244943676616998086, guid: 24c8c5555122c054db9e06b2784f8216, type: 3}
+  maze: {fileID: -8449352943264421227, guid: 24c8c5555122c054db9e06b2784f8216, type: 3}
 --- !u!1001 &755103723
 PrefabInstance:
   m_ObjectHideFlags: 0

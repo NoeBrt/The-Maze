@@ -8,15 +8,22 @@ public class MazeGenerator : MonoBehaviour
 {
 
     static Vector3 offsetParent;
-    static Maze mazePrefab;
-    static MazeNode nodePrefab;
+    public static Maze mazePrefab;
+    public static MazeNode nodePrefab;
 
     public static Maze GenerateMaze(Vector2Int size, Vector3 nodeScale, Vector3 position, Quaternion rotation)
     {
-        Maze maze = Instantiate(mazePrefab, position, rotation, mazePrefab.transform);
+        Debug.Log(Resources.Load<GameObject>("Maze"));
+
+        mazePrefab = Resources.Load<GameObject>("Maze").GetComponent<Maze>();
+        nodePrefab = Resources.Load<GameObject>("MazeNode").GetComponent<MazeNode>();
+        Maze maze = Instantiate(mazePrefab, position, rotation);
+        maze.name = "Maze";
+        maze.NodeScale = nodeScale;
         offsetParent = (maze.transform.position + (Vector3.right * nodePrefab.transform.localScale.x / 2) + (Vector3.forward * nodePrefab.transform.localScale.z / 2));
         nodePrefab.transform.localScale = nodeScale;
         maze.StartCoroutine(GenerateMazeEnumerator(maze));
+
         return maze;
     }
 
@@ -27,7 +34,8 @@ public class MazeGenerator : MonoBehaviour
         maze.Nodes = new List<MazeNode>();
         yield return generateGrid(maze.Nodes, maze.Size, maze.transform);
         yield return generateSimpleMaze(maze.Nodes, maze.Size);
-        generateStartAndEnd(maze.Nodes, maze.Size, maze.startNode, maze.finishNode);
+        maze.StartNode = getStart(maze.Nodes, maze.Size);
+        maze.FinishNode = getEnd(maze.Nodes, maze.Size);
         yield return makeComplexMaze(maze.Nodes, maze.Size);
         Debug.Log("test");
         yield return setAllWallsPlayedState(maze.Nodes, maze.Size);
@@ -172,6 +180,21 @@ public class MazeGenerator : MonoBehaviour
         //finishNode.RemoveWall(0);
     }
 
+    static MazeNode getStart(List<MazeNode> Nodes, Vector2Int size)
+    {
+        MazeNode startNode;
+        startNode = Nodes[Random.Range(0, size.y)];
+        startNode.Walls[1].tag = "StartWall";
+        return startNode;
+    }
+    static MazeNode getEnd(List<MazeNode> Nodes, Vector2Int size)
+    {
+        MazeNode finishNode;
+        finishNode = Nodes[Random.Range(Nodes.Count - size.y, Nodes.Count)];
+        finishNode.Walls[0].tag = "FinishWall";
+        finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        return finishNode;
+    }
 
 
 

@@ -5,10 +5,13 @@ using UnityEngine;
 public class BeginCameraMovement : MonoBehaviour
 {
     public Camera cam;
-    public Maze maze;
+    private Maze maze;
 
     // Start is called before the first frame update
-
+    private void Start()
+    {
+        maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
+    }
 
     // Update is called once per frame
     void Update()
