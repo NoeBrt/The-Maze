@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         PlayerUi = GameObject.Find("PlayerCanvas").GetComponent<UIPlayerManager>();
         currentSpeed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");
-        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
+//        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
 
     }
 

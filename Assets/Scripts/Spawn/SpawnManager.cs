@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity,true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
+        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
 
     public void spawnMaze(Vector3 nodeScale, Vector2Int mazeSize)
@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         monster.SetActive(false);
         playerInstanciated = false;
         Destroy(currentMaze.gameObject);
-        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity,true);
+        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true);
         currentMaze.name = "Maze";
     }
 
@@ -44,12 +44,20 @@ public class SpawnManager : MonoBehaviour
             spawnBonusItem(bonusCount);
             spawnKey();
             Player = Instantiate(Player, currentMaze.StartNode.transform.position, Quaternion.Euler(0, 90, 0));
-            monster = Instantiate(monster, currentMaze.Nodes[Random.Range(mazeSize.y, currentMaze.Nodes.Count)].transform.position - new Vector3(0, 20, 0), Quaternion.identity);
+            spawnMonster();
             playerInstanciated = true;
             Player.SetActive(true);
             monster.SetActive(true);
             BeginCamera.gameObject.SetActive(false);
         }
+    }
+
+    void spawnMonster()
+    {
+        MazeNode MonsterSpawnNode = currentMaze.Nodes[Random.Range(mazeSize.y, currentMaze.Nodes.Count)];
+        Vector3 monsterPos = new Vector3(MonsterSpawnNode.transform.position.x, 9.9f, MonsterSpawnNode.transform.position.z);
+        monster = Instantiate(monster, monsterPos, Quaternion.identity);
+
     }
 
     void spawnBonusItem(int bonusCount)
@@ -66,6 +74,6 @@ public class SpawnManager : MonoBehaviour
     {
         Vector3 nodePosition = currentMaze.Nodes[Random.Range(0, currentMaze.Nodes.Count)].transform.position;
         Vector3 keyPos = new Vector3(nodePosition.x, currentMaze.NodeScale.y / 10f, nodePosition.z);
-        Instantiate(MazeKey, keyPos, Quaternion.AngleAxis(90f,Vector3.right));
+        Instantiate(MazeKey, keyPos, Quaternion.AngleAxis(90f, Vector3.right));
     }
 }
