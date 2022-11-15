@@ -19,12 +19,14 @@ public class MonsterBehaviour : MonoBehaviour
     //states;
     public float sightRange, attackRange;
     public bool playerInSightRange, PlayerInAttackRange;
+    Maze maze;
 
 
     // Start is called before the first frame update
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         agent = GetComponent<NavMeshAgent>();
     }
     private void Update()
@@ -33,7 +35,7 @@ public class MonsterBehaviour : MonoBehaviour
         PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerMask);
         if (!playerInSightRange && !PlayerInAttackRange) Patroling();
         if (playerInSightRange) ChasePlayer();
-       // if (playerInSightRange && PlayerInAttackRange) AttackPlayer();
+        // if (playerInSightRange && PlayerInAttackRange) AttackPlayer();
 
     }
 
@@ -42,8 +44,8 @@ public class MonsterBehaviour : MonoBehaviour
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundMask)) ;
-        walkPointset = true;
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundMask))
+            walkPointset = true;
     }
 
     private void Patroling()
@@ -59,17 +61,17 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
-                agent.speed += 30;
-
+        agent.speed = 30;
         agent.SetDestination(player.position);
-        transform.LookAt(player);
+        // transform.LookAt(player);
     }
     private void AttackPlayer()
     {
         agent.SetDestination(player.position);
 
-        transform.LookAt(player);
-        if (Vector3.Distance(transform.position,player.transform.position)<=50f){
+        //   transform.LookAt(player);
+        if (Vector3.Distance(transform.position, player.transform.position) <= 50f)
+        {
             Patroling();
         }
     }
@@ -84,5 +86,19 @@ public class MonsterBehaviour : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+    void OnDrawGizmos()
+    {
+        if (player == null) return;
 
+        var path = new NavMeshPath();
+        NavMesh.CalculatePath(transform.position, player.position, NavMesh.AllAreas, path);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.up);
+        Gizmos.DrawRay(player.transform.position, Vector3.up);
+        Gizmos.color = Color.green;
+        var offset = 0.2f * Vector3.up;
+        for (int i = 1; i < path.corners.Length; ++i)
+            Gizmos.DrawLine(path.corners[i - 1] + offset, path.corners[i] + offset);
+    }
 }

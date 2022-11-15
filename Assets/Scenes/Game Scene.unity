@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 7fec77e1c61a6b44f86b0d31195c0037, type: 2}
 --- !u!1 &320360388
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +838,22 @@ PrefabInstance:
     - target: {fileID: 947014896172795962, guid: 8b99882762826184797e99b57b56915b, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 947014896172795962, guid: 8b99882762826184797e99b57b56915b, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 947014896172795962, guid: 8b99882762826184797e99b57b56915b, type: 3}
+      propertyPath: m_Acceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 947014896172795962, guid: 8b99882762826184797e99b57b56915b, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 947014896172795962, guid: 8b99882762826184797e99b57b56915b, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2431262773160780455, guid: 8b99882762826184797e99b57b56915b, type: 3}
       propertyPath: m_Name

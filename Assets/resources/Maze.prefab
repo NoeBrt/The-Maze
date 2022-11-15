@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1269026984680668006}
   - component: {fileID: -2338599877659183281}
   - component: {fileID: -8449352943264421227}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Maze
   m_TagString: Maze
   m_Icon: {fileID: 0}
@@ -96,11 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d444e93ec8e14f943ab1c4549e08a94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePrefab: {fileID: 622859131, guid: 655c7ffb83ab16e429eed06503b75924, type: 3}
   size: {x: 10, y: 10}
   nodeScale: {x: 0, y: 0, z: 0}
   finishMaterial: {fileID: 2100000, guid: cfaee966dd1af1d4e9f94acf5acb4b12, type: 2}
   startMaterial: {fileID: 2100000, guid: c8a694cc1321cdc48871aab2707558e2, type: 2}
   plane: {fileID: 4900801365020712191, guid: 9117beabb95a5924e8e12cc0da8a75d0, type: 3}
-  startNode: {fileID: 0}
-  finishNode: {fileID: 0}
