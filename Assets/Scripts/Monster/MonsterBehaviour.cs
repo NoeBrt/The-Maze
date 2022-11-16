@@ -47,17 +47,28 @@ public class MonsterBehaviour : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundMask))
             walkPointset = true;
     }
+    bool isDestinationReached = true;
+    Vector3 d;
 
     private void Patroling()
     {
-        if (!walkPointset) SearchWalkPoint();
-        if (walkPointset)
-            agent.SetDestination(walkPoint);
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        //WalkpointSet
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointset = false;
+        if (isDestinationReached)
+        {
+            d = maze.transform.TransformPoint(maze.Nodes[Random.Range(0, maze.Nodes.Count)].transform.position);
+            agent.SetDestination(d);
+        }
+        isDestinationReached = new Vector3(transform.position.x, 0, transform.position.z) == new Vector3(agent.destination.x, 0, agent.destination.z);
+      //  Debug.Log(new Vector3(transform.position.x, 0, transform.position.z) + "  " + new Vector3(transform.position.x, 0, transform.position.z));
     }
+    /*
+    if (!walkPointset) SearchWalkPoint();
+    if (walkPointset)
+        agent.SetDestination(walkPoint);
+    Vector3 distanceToWalkPoint = transform.position - walkPoint;
+    //WalkpointSet
+    if (distanceToWalkPoint.magnitude < 1f)
+        walkPointset = false;*/
+
 
     private void ChasePlayer()
     {

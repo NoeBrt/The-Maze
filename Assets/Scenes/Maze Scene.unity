@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 51.2
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -138,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 307332775}
   - component: {fileID: 307332774}
+  - component: {fileID: 307332776}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -184,6 +185,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &307332776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307332773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 94.40211, y: 28.066154, z: 206.87103}
+  m_Center: {x: -42.201054, y: 11.033077, z: 98.43552}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 31
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 2.1666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
 --- !u!1 &336006558
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336006560}
   - component: {fileID: 336006559}
+  - component: {fileID: 336006561}
   m_Layer: 0
   m_Name: NavMeshSurface
   m_TagString: Untagged
@@ -208,7 +239,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336006558}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -229,7 +260,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: f4051f3b4049f3f42a453541a08ed4d7, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!4 &336006560
 Transform:
   m_ObjectHideFlags: 0
@@ -245,6 +276,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &336006561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336006558}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de965d9500a5a84e9a223cb9438e60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surfaces: []
+  objectsToRotate: []
 --- !u!1 &520255335
 GameObject:
   m_ObjectHideFlags: 0

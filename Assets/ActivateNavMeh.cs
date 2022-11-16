@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ActivateNavMeh : MonoBehaviour
-{
-    NavMeshSurface surface;
-    // Start is called before the first frame update
-    void Start()
-    {
-        surface = GetComponent<NavMeshSurface>();
-        surface.BuildNavMesh();
-    }
+public class ActivateNavMeh : MonoBehaviour {
 
-    // Update is called once per frame
-    void Update()
+    public NavMeshSurface[] surfaces;
+    public Transform[] objectsToRotate;
+
+    // Use this for initialization
+    void Update () 
     {
 
+        for (int j = 0; j < objectsToRotate.Length; j++) 
+        {
+            objectsToRotate [j].localRotation = Quaternion.Euler (new Vector3 (0, 50*Time.deltaTime, 0) + objectsToRotate [j].localRotation.eulerAngles);
+        }
+
+        for (int i = 0; i < surfaces.Length; i++) 
+        {
+            surfaces [i].BuildNavMesh ();    
+        }    
     }
+
 }

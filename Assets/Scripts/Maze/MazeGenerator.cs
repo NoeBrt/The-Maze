@@ -56,7 +56,7 @@ public class MazeGenerator : MonoBehaviour
             yield return new WaitForSeconds(3f);
         setFloor(maze);
         supressOverlapWall(maze.Nodes, maze.Size);
-        //  meshFusion();
+       // meshFusion(maze);
         if (!isProgressive)
         {
             maze.setNodesVisibility(true);
@@ -292,27 +292,28 @@ public class MazeGenerator : MonoBehaviour
             m.RemoveWall(2);
             m.RemoveWall(1);
 */
+            meshFilters.AddRange(m.GetComponentsInChildren<MeshFilter>());
             if (isProgressive)
                 yield return null;
         }
     }
-    //  List<MeshFilter> meshFilters = new List<MeshFilter>();
-    /*
-        void meshFusion()
+    static List<MeshFilter> meshFilters = new List<MeshFilter>();
+
+    static void meshFusion(Maze maze)
+    {
+        CombineInstance[] combine = new CombineInstance[meshFilters.Count];
+        int i = 0;
+        while (i < meshFilters.Count)
         {
-            CombineInstance[] combine = new CombineInstance[meshFilters.Count];
-            int i = 0;
-            while (i < meshFilters.Count)
-            {
-                combine[i].mesh = meshFilters[i].sharedMesh;
-                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-                meshFilters[i].gameObject.SetActive(false);
-                i++;
-            }
-            transform.GetComponent<MeshFilter>().mesh = new Mesh();
-            transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
-            transform.gameObject.SetActive(true);
-        }*/
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            meshFilters[i].gameObject.GetComponent<MeshRenderer>().enabled = false;
+            i++;
+        }
+        maze.GetComponent<MeshFilter>().mesh = new Mesh();
+        maze.GetComponent<MeshFilter>().mesh.CombineMeshes(combine, true, true, true);
+        maze.gameObject.SetActive(true);
+    }
     static void setFloor(Maze maze)
     {
         maze.Plane = Instantiate(maze.Plane, new Vector3(0, maze.transform.position.y / 8.3f, 0), Quaternion.identity, maze.transform);

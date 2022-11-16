@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private Maze currentMaze;
+    NavMeshSurface surface;
 
     [SerializeField] private GameObject Player;
     [SerializeField] private Camera BeginCamera;
@@ -22,6 +25,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
+        surface = GetComponent<NavMeshSurface>();
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
 
@@ -49,7 +53,9 @@ public class SpawnManager : MonoBehaviour
             Player.SetActive(true);
             monster.SetActive(true);
             BeginCamera.gameObject.SetActive(false);
+            surface.BuildNavMesh();
         }
+
     }
 
     void spawnMonster()

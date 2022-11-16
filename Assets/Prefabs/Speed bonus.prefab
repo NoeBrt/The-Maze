@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4366998918753510831}
   - component: {fileID: 6343469277410824891}
   - component: {fileID: 3746838081354843375}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Speed bonus
   m_TagString: SpeedBonus
   m_Icon: {fileID: 0}
