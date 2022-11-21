@@ -19,8 +19,11 @@ public class MonsterBehaviour : MonoBehaviour
     //states;
     public float sightRange, attackRange;
     public bool playerInSightRange, PlayerInAttackRange;
+    public GameObject hand;
+    public Transform elements;
     Maze maze;
-
+    bool isDestinationReached = true;
+    Vector3 destination;
 
     // Start is called before the first frame update
     private void Awake()
@@ -28,12 +31,14 @@ public class MonsterBehaviour : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         agent = GetComponent<NavMeshAgent>();
+        elements = transform.Find("Elements");
+        hand = elements.Find("MonsterHand").gameObject;
     }
     private void Update()
     {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, PlayerMask);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerMask);
-        if (!playerInSightRange && !PlayerInAttackRange) Patroling();
+        if (!playerInSightRange) Patroling();
         if (playerInSightRange) ChasePlayer();
         // if (playerInSightRange && PlayerInAttackRange) AttackPlayer();
 
@@ -47,31 +52,27 @@ public class MonsterBehaviour : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundMask))
             walkPointset = true;
     }
-    bool isDestinationReached = true;
-    Vector3 d;
+
 
     private void Patroling()
     {
+        isDestinationReached = new Vector3(transform.position.x, 0, transform.position.z) == new Vector3(agent.destination.x, 0, agent.destination.z);
+        hand.SetActive(false);
+        elements.localRotation = Quaternion.Euler(0, 0, 0);
         if (isDestinationReached)
         {
-            d = maze.transform.TransformPoint(maze.Nodes[Random.Range(0, maze.Nodes.Count)].transform.position);
-            agent.SetDestination(d);
+            destination = maze.transform.TransformPoint(maze.Nodes[Random.Range(0, maze.Nodes.Count)].transform.position);
+            agent.SetDestination(destination);
         }
-        isDestinationReached = new Vector3(transform.position.x, 0, transform.position.z) == new Vector3(agent.destination.x, 0, agent.destination.z);
-      //  Debug.Log(new Vector3(transform.position.x, 0, transform.position.z) + "  " + new Vector3(transform.position.x, 0, transform.position.z));
+        //  Debug.Log(new Vector3(transform.position.x, 0, transform.position.z) + "  " + new Vector3(transform.position.x, 0, transform.position.z));
+
     }
-    /*
-    if (!walkPointset) SearchWalkPoint();
-    if (walkPointset)
-        agent.SetDestination(walkPoint);
-    Vector3 distanceToWalkPoint = transform.position - walkPoint;
-    //WalkpointSet
-    if (distanceToWalkPoint.magnitude < 1f)
-        walkPointset = false;*/
 
 
     private void ChasePlayer()
     {
+        hand.SetActive(true);
+        elements.transform.LookAt(player);
         agent.speed = 30;
         agent.SetDestination(player.position);
         // transform.LookAt(player);

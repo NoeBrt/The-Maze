@@ -18,13 +18,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int bonusCount;
     [SerializeField] private GameObject monster;
     [SerializeField] private GameObject MazeKey;
-
     [SerializeField] List<GameObject> bonusItem = new List<GameObject>();
-
+    private List<int> itemPositionList;
     bool playerInstanciated = false;
 
     void Start()
     {
+        itemPositionList = new List<int>();
         surface = GetComponent<NavMeshSurface>();
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
@@ -60,9 +60,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnMonster()
     {
-        MazeNode MonsterSpawnNode = currentMaze.Nodes[Random.Range(mazeSize.y, currentMaze.Nodes.Count)];
-        Vector3 monsterPos = new Vector3(MonsterSpawnNode.transform.position.x, 9.9f, MonsterSpawnNode.transform.position.z);
-        monster = Instantiate(monster, monsterPos, Quaternion.identity);
+        monster = InstantiateAtNode(monster, Random.Range(mazeSize.y, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right));
 
     }
 
@@ -70,16 +68,40 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < bonusCount; i++)
         {
-            Vector3 nodePosition = currentMaze.Nodes[Random.Range(0, currentMaze.Nodes.Count)].transform.position;
-            Debug.Log("bonus Position" + nodePosition);
-            Vector3 bonusItemPosition = new Vector3(nodePosition.x, currentMaze.NodeScale.y / 10f, nodePosition.z);
-            Instantiate(bonusItem[Random.Range(0, bonusItem.Count)], bonusItemPosition, Quaternion.identity, currentMaze.transform);
+            int itemsPosition = randomIntExcept(0, currentMaze.Nodes.Count, itemPositionList);
+            itemPositionList.Add(itemsPosition);
+            // int indexItem= Random.Range(0f,1f)>=0.7f ? 1:0; 
+            InstantiateAtNode(bonusItem[Random.Range(0, bonusCount)], itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.identity, currentMaze.transform);
         }
     }
+
     void spawnKey()
     {
-        Vector3 nodePosition = currentMaze.Nodes[Random.Range(0, currentMaze.Nodes.Count)].transform.position;
-        Vector3 keyPos = new Vector3(nodePosition.x, currentMaze.NodeScale.y / 10f, nodePosition.z);
-        Instantiate(MazeKey, keyPos, Quaternion.AngleAxis(90f, Vector3.right));
+        int itemsPosition = randomIntExcept(0, currentMaze.Nodes.Count, itemPositionList);
+        itemPositionList.Add(itemsPosition);
+        InstantiateAtNode(MazeKey, itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.AngleAxis(90f, Vector3.right));
+    }
+
+
+    private GameObject InstantiateAtNode(GameObject obj, int nodeIndex, float height, Quaternion rotation)
+    {
+        Vector3 nodePosition = currentMaze.Nodes[nodeIndex].transform.position;
+        return Instantiate(MazeKey, new Vector3(nodePosition.x, height, nodePosition.z), rotation);
+    }
+    private GameObject InstantiateAtNode(GameObject obj, int nodeIndex, float height, Quaternion rotation, Transform transform)
+    {
+        Vector3 nodePosition = currentMaze.Nodes[nodeIndex].transform.position;
+        return Instantiate(MazeKey, new Vector3(nodePosition.x, height, nodePosition.z), rotation, transform);
+    }
+
+
+    private int randomIntExcept(int min, int max, List<int> except)
+    {
+        int result = Random.Range(min, max);
+        while (!except.Contains(result))
+        {
+            result = Random.Range(min, max);
+        }
+        return result;
     }
 }

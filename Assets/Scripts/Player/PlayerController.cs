@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float jumpHeight = 3;
+    float fieldOfView;
 
     public float SprintSpeed { get => sprintSpeed; set => sprintSpeed = value; }
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
@@ -54,7 +55,8 @@ public class PlayerController : MonoBehaviour
         PlayerUi = GameObject.Find("PlayerCanvas").GetComponent<UIPlayerManager>();
         currentSpeed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");
-//        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
+        fieldOfView = 60f;
+        //        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
 
     }
 
@@ -99,34 +101,33 @@ public class PlayerController : MonoBehaviour
         playerController.Move(velocity * Time.deltaTime);
     }
 
-    float fieldOfView;
     private void sprint()
     {
+        Vector2 movingVelocity = new Vector2(velocity.x, velocity.z);
         if (isOnGround)
         {
-            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed < sprintSpeed && new Vector2(velocity.x, velocity.z).magnitude > 0)
+            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed < sprintSpeed && movingVelocity.magnitude > 0)
             {
-                currentSpeed += sprintSpeed * Time.smoothDeltaTime * 2;
+                currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
             }
-            else if (currentSpeed > walkSpeed)
+            else if (currentSpeed > walkSpeed && movingVelocity.magnitude > 0)
             {
 
-                currentSpeed -= walkSpeed * Time.smoothDeltaTime * 2;
+                currentSpeed -= walkSpeed * Time.deltaTime * 2;
             }
-            else if (currentSpeed < walkSpeed)
+            else if (currentSpeed < walkSpeed && movingVelocity.magnitude < sprintSpeed)
             {
-                currentSpeed += walkSpeed * Time.smoothDeltaTime * 2;
+                currentSpeed += walkSpeed * Time.deltaTime * 2;
             }
 
-            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, currentSpeed);
+            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, new Vector2(velocity.x, velocity.z).magnitude);
             fieldOfView = Mathf.Lerp(60, 70, parameter);
         }
         Camera.main.fieldOfView = fieldOfView;
-
-
-
     }
+
+
     IEnumerator addfieldOfView(float add, Camera camera)
     {
         for (float i = 0.1f; Mathf.Abs(i) <= Mathf.Abs(add); i += add / 10f)
