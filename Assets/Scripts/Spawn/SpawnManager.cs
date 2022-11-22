@@ -68,10 +68,10 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < bonusCount; i++)
         {
-            int itemsPosition = randomIntExcept(0, currentMaze.Nodes.Count, itemPositionList);
+            int itemsPosition = randomIntExcept(0, currentMaze.Nodes.Count - 1, itemPositionList);
             itemPositionList.Add(itemsPosition);
             // int indexItem= Random.Range(0f,1f)>=0.7f ? 1:0; 
-            InstantiateAtNode(bonusItem[Random.Range(0, bonusCount)], itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.identity, currentMaze.transform);
+            InstantiateAtNode(bonusItem[Random.Range(0, bonusItem.Count)], itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.identity, currentMaze.transform);
         }
     }
 
@@ -86,21 +86,21 @@ public class SpawnManager : MonoBehaviour
     private GameObject InstantiateAtNode(GameObject obj, int nodeIndex, float height, Quaternion rotation)
     {
         Vector3 nodePosition = currentMaze.Nodes[nodeIndex].transform.position;
-        return Instantiate(MazeKey, new Vector3(nodePosition.x, height, nodePosition.z), rotation);
+        return Instantiate(obj, new Vector3(nodePosition.x, height, nodePosition.z), rotation);
     }
     private GameObject InstantiateAtNode(GameObject obj, int nodeIndex, float height, Quaternion rotation, Transform transform)
     {
         Vector3 nodePosition = currentMaze.Nodes[nodeIndex].transform.position;
-        return Instantiate(MazeKey, new Vector3(nodePosition.x, height, nodePosition.z), rotation, transform);
+        return Instantiate(obj, new Vector3(nodePosition.x, height, nodePosition.z), rotation, transform);
     }
 
 
     private int randomIntExcept(int min, int max, List<int> except)
     {
-        int result = Random.Range(min, max);
-        while (!except.Contains(result))
+        int result = Random.Range(min, max - 1);
+        while (except.Contains(result))
         {
-            result = Random.Range(min, max);
+            result = Random.Range(min, max - 1);
         }
         return result;
     }
