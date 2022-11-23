@@ -11,8 +11,10 @@ public class SpeedBonus : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            StopCoroutine("speeBonusEffect");
+            player.StopCoroutine("speedBonusEffect");
+         //   StopCoroutine("speeBonusEffect");
             player.StartCoroutine(speedBonusEffect(effectDuration, player));
             Destroy(gameObject);
         }

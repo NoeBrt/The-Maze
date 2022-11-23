@@ -584,6 +584,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c4ce38443ffac714c82a4b78c56ea38a, type: 2}
+    - target: {fileID: 6440808103069805390, guid: 9b4d1d58adab88b449c9abb6cea89a86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f010e6831584e64ea3784ea3c3c3e41, type: 2}
     - target: {fileID: 6856897706063459102, guid: 9b4d1d58adab88b449c9abb6cea89a86, type: 3}
       propertyPath: m_Name
       value: StartMaze
@@ -5689,7 +5693,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ab04e1bd0aa602b4188e14bedf263138, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

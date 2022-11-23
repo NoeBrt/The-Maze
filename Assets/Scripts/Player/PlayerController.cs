@@ -18,10 +18,6 @@ public class PlayerController : MonoBehaviour
     private CharacterController playerController;
     [SerializeField] private GameObject lightTorch;
 
-    [Header("Input")]
-    private float HorizontalInput;
-    private float VerticalInput;
-
     [Header("Crouching")]
     private float normalPlayerHeight;
     [SerializeField] private float crouchPlayerHeight;
@@ -92,8 +88,8 @@ public class PlayerController : MonoBehaviour
     void Movement()
     {
         // Debug.Log(speed);
-        HorizontalInput = Input.GetAxis("Horizontal");
-        VerticalInput = Input.GetAxis("Vertical");
+        float HorizontalInput = Input.GetAxis("Horizontal");
+        float VerticalInput = Input.GetAxis("Vertical");
         //transform.right and transform.forward to move the object in the local space;
         Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput) * currentSpeed;
         velocity = movement + Vector3.up * velocity.y;
