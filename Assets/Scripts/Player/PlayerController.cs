@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private WinScreenController EndScreen;
     public UIPlayerManager PlayerUi { get; set; }
 
+
     [Header("Player Character")]
     private CharacterController playerController;
     [Header("Crouching")]
@@ -25,7 +26,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 10f;
     private float currentSpeed;
     [SerializeField] private float gravityForce = -(9.81f * 3); //gravity constant *3
+    [Header("FootStep")]
     private Vector3 velocity;
+    [SerializeField] private AudioSource FootAudioSource;
+    [SerializeField] private AudioClip[] FootstepSounds;
+    private float distanceWalked;
+    [SerializeField] private float FootstepLength;
 
     [Header("Jumping")]
     private bool isOnGround;
@@ -47,9 +53,11 @@ public class PlayerController : MonoBehaviour
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
         PlayerUi = GameObject.Find("PlayerCanvas").GetComponent<UIPlayerManager>();
+        FootAudioSource = transform.Find("Feet").GetComponent<AudioSource>();
         currentSpeed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");
         fieldOfView = 60f;
+        distanceWalked = 0f;
         //        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
 
     }
@@ -88,11 +96,33 @@ public class PlayerController : MonoBehaviour
         float HorizontalInput = Input.GetAxis("Horizontal");
         float VerticalInput = Input.GetAxis("Vertical");
         //transform.right and transform.forward to move the object in the local space;
-        Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput) * currentSpeed;
+        Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput).normalized * currentSpeed;
         velocity = movement + Vector3.up * velocity.y;
         sprint();
         playerController.Move(velocity * Time.deltaTime);
+
+        distanceWalked += new Vector3(velocity.x, velocity.z).magnitude * Time.deltaTime;
+        if (distanceWalked > FootstepLength && isOnGround)
+        {
+            distanceWalked = distanceWalked % FootstepLength;
+            PlayFootstep();
+        }
     }
+
+    void PlayFootstep()
+    {
+        int n = Random.Range(1, FootstepSounds.Length);
+        //FootAudioSource.clip = FootstepSounds[n];
+        FootAudioSource.pitch = Random.Range(0.7f, 1f);
+        FootAudioSource.PlayOneShot(FootstepSounds[n], Random.Range(0.5f, 0.8f));
+        // FootstepSounds[n] = FootstepSounds[0];
+        //FootstepSounds[0] = FootAudioSource.clip;
+    }
+
+
+
+
+
 
     private void sprint()
     {

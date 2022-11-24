@@ -21,11 +21,14 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] List<GameObject> bonusItem = new List<GameObject>();
     private List<int> itemPositionList;
     bool playerInstanciated = false;
+    [SerializeField] AudioReverbZone audioReverb;
 
     void Start()
     {
         itemPositionList = new List<int>();
         surface = GetComponent<NavMeshSurface>();
+        audioReverb.minDistance = Mathf.Max(mazeSize.x, mazeSize.y) * 15;
+        audioReverb.maxDistance = Mathf.Max(mazeSize.x, mazeSize.y) * 15;
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
 
