@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private WinScreenController EndScreen;
     public UIPlayerManager PlayerUi { get; set; }
 
-
     [Header("Player Character")]
     private CharacterController playerController;
     [Header("Crouching")]
@@ -134,17 +133,13 @@ public class PlayerController : MonoBehaviour
                 currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
             }
-            else if (currentSpeed > walkSpeed && movingVelocity.magnitude > 0)
+            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0)
             {
 
                 currentSpeed -= walkSpeed * Time.deltaTime * 2;
             }
-            else if (currentSpeed < walkSpeed && movingVelocity.magnitude < sprintSpeed)
-            {
-                currentSpeed += walkSpeed * Time.deltaTime * 2;
-            }
-
-            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, new Vector2(velocity.x, velocity.z).magnitude);
+    
+            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, currentSpeed);
             fieldOfView = Mathf.Lerp(60, 70, parameter);
         }
         Camera.main.fieldOfView = fieldOfView;
