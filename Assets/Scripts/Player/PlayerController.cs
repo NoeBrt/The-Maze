@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Character")]
     private CharacterController playerController;
-    [SerializeField] private GameObject lightTorch;
-
     [Header("Crouching")]
     private float normalPlayerHeight;
     [SerializeField] private float crouchPlayerHeight;
@@ -63,7 +61,6 @@ public class PlayerController : MonoBehaviour
         crouch();
         Gravity();
         OnGroundVelocity();
-        toggleLight();
         Jump();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -166,11 +163,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void toggleLight()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-            lightTorch.SetActive(!lightTorch.activeSelf);
-    }
+
 
 
 }

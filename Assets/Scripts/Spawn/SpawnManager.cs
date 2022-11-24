@@ -60,7 +60,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnMonster()
     {
-        monster = InstantiateAtNode(monster, Random.Range(mazeSize.y, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right));
+        monster = InstantiateAtNode(monster, Random.Range(mazeSize.y + mazeSize.y / 2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right));
 
     }
 
@@ -77,7 +77,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnKey()
     {
-        int itemsPosition = randomIntExcept(0, currentMaze.Nodes.Count, itemPositionList);
+        int itemsPosition = randomIntExcept(mazeSize.y + mazeSize.y / 2, currentMaze.Nodes.Count, itemPositionList);
         itemPositionList.Add(itemsPosition);
         InstantiateAtNode(MazeKey, itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.AngleAxis(90f, Vector3.right));
     }
