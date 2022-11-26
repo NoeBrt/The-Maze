@@ -161,8 +161,8 @@ MonoBehaviour:
   currentMaze: {fileID: 0}
   Player: {fileID: 6787474433528163302, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}
   BeginCamera: {fileID: 705759035}
-  mazeSize: {x: 10, y: 10}
-  nodeScale: {x: 20, y: 50, z: 20}
+  mazeSize: {x: 12, y: 12}
+  nodeScale: {x: 25, y: 50, z: 25}
   position: {x: 0, y: 0, z: 0}
   bonusCount: 10
   monster: {fileID: 2431262773160780455, guid: 8b99882762826184797e99b57b56915b, type: 3}

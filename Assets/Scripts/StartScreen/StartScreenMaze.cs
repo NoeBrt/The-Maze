@@ -27,9 +27,9 @@ public class StartScreenMaze : MonoBehaviour
         if (transform.position.x >= 35 && !outofBound)
         {
             outofBound = true;
-            Instantiate(startMaze, startMaze.transform.position + Vector3.right * -startMaze.Size.x * startMaze.NodeScale.x, startMaze.transform.rotation);
+            Instantiate(startMaze, startMaze.transform.position + Vector3.right * -startMaze.Size.x * startMaze.NodeScale.x, startMaze.transform.rotation).name = "startMaze2";
         }
-        if (transform.position.x >=  startMaze.Size.x * startMaze.NodeScale.x)
+        if (transform.position.x >= startMaze.Size.x * startMaze.NodeScale.x)
         {
             Destroy(gameObject);
         }

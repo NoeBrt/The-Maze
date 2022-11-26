@@ -57,6 +57,7 @@ public class SpawnManager : MonoBehaviour
             monster.SetActive(true);
             BeginCamera.gameObject.SetActive(false);
             surface.BuildNavMesh();
+            
         }
 
     }
