@@ -297,6 +297,7 @@ MonoBehaviour:
   PlayerInAttackRange: 0
   hand: {fileID: 0}
   elements: {fileID: 0}
+  ScreamSoundFX: {fileID: 8300000, guid: 2726bcab8beccf34e8cb2a1d33f9f6d7, type: 3}
 --- !u!82 &8346731521186348963
 AudioSource:
   m_ObjectHideFlags: 0
@@ -313,8 +314,8 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
+  Spatialize: 1
+  SpatializePostEffects: 1
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
