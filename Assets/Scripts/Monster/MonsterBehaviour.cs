@@ -24,10 +24,13 @@ public class MonsterBehaviour : MonoBehaviour
     Maze maze;
     bool isDestinationReached = true;
     Vector3 destination;
+    AudioSource monsterSound;
+    [SerializeField] AudioClip ScreamSoundFX;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        monsterSound = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         agent = GetComponent<NavMeshAgent>();
@@ -71,6 +74,7 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        monsterSound.PlayOneShot(ScreamSoundFX);
         hand.SetActive(true);
         elements.transform.LookAt(player);
         agent.speed = 30;
