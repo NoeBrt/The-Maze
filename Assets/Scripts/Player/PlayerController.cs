@@ -9,9 +9,6 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     #region var definitions
-
-    [Header("Ui")]
-    private WinScreenController EndScreen;
     public UIPlayerManager PlayerUi { get; set; }
 
     [Header("Player Character")]
@@ -168,6 +165,7 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravityForce * Time.deltaTime;
         playerController.Move(velocity * Time.deltaTime);
     }
+    
     void OnGroundVelocity()
     {
         isOnGround = Physics.CheckSphere(Feet.position, groundDistance, groundMask);
