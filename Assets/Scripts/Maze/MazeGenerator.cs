@@ -196,7 +196,7 @@ public class MazeGenerator : MonoBehaviour
         //startNode.Walls[1].gameObject.GetComponent<MeshRenderer>().material = maze.StartMaterial;
         finishNode.Walls[0].tag = "FinishWall";
         //sfinishNode.Walls[0].gameObject.GetComponent<MeshRenderer>().material = finishMaterial;
-        finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = true;
+       // finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = true;
         //  startNode.RemoveWall(1);
         //finishNode.RemoveWall(0);
     }

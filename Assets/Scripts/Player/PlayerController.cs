@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 {
     #region var definitions
     public UIPlayerManager PlayerUi { get; set; }
-
     [Header("Player Character")]
     private CharacterController playerController;
     [Header("Crouching")]
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float jumpHeight = 3;
     float fieldOfView;
-
+    Animator animator;
     public float SprintSpeed { get => sprintSpeed; set => sprintSpeed = value; }
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
 
@@ -46,6 +45,7 @@ public class PlayerController : MonoBehaviour
     #endregion
     void Start()
     {
+        animator = GetComponent<Animator>();
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
         PlayerUi = GameObject.Find("PlayerCanvas").GetComponent<UIPlayerManager>();
@@ -54,8 +54,6 @@ public class PlayerController : MonoBehaviour
         groundMask = LayerMask.GetMask("Ground");
         fieldOfView = 60f;
         distanceWalked = 0f;
-        //        EndScreen = GameObject.Find("Canvas").GetComponent<WinScreenController>();
-
     }
 
     // Update is called once per frame
@@ -130,12 +128,12 @@ public class PlayerController : MonoBehaviour
                 currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
             }
-            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0)
+            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed||!Input.GetKey(KeyCode.LeftShift)))
             {
 
                 currentSpeed -= walkSpeed * Time.deltaTime * 2;
             }
-    
+
             float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, currentSpeed);
             fieldOfView = Mathf.Lerp(60, 70, parameter);
         }
@@ -165,7 +163,7 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravityForce * Time.deltaTime;
         playerController.Move(velocity * Time.deltaTime);
     }
-    
+
     void OnGroundVelocity()
     {
         isOnGround = Physics.CheckSphere(Feet.position, groundDistance, groundMask);

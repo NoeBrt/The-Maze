@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     {
         itemPositionList = new List<int>();
         surface = GetComponent<NavMeshSurface>();
-        audioReverb.minDistance = new Vector2(mazeSize.x, mazeSize.y).magnitude * 15;
+        audioReverb.minDistance = new Vector2(mazeSize.x*nodeScale.x, mazeSize.y*nodeScale.x).magnitude/2f;
         audioReverb.maxDistance = audioReverb.minDistance;
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
