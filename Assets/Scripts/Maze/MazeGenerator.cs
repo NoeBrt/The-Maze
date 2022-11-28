@@ -76,7 +76,7 @@ public class MazeGenerator : MonoBehaviour
                 Nodes.Add(newNode);
                 newNode.name = "Maze node " + (Nodes.Count - 1);
                 if (isProgressive)
-                    yield return null;
+                    yield return new WaitForSeconds(1f/(size.x*size.y*2));;
             }
         }
 
@@ -171,7 +171,7 @@ public class MazeGenerator : MonoBehaviour
                 currentPath.Add(chosenNode);
                 chosenNode.SetState(MazeNode.NodeState.Current);
                 if (isProgressive)
-                    yield return null;
+                    yield return new WaitForSeconds(1f/(Nodes.Count*2));;
             }
             else
             {
@@ -180,12 +180,12 @@ public class MazeGenerator : MonoBehaviour
                 currentPath[currentPath.Count - 1].SetState(MazeNode.NodeState.Completed);
                 currentPath.RemoveAt(currentPath.Count - 1);
                 if (isProgressive)
-                    yield return null;
+                    yield return new WaitForSeconds(1f/(Nodes.Count*2));;
             }
 
         }
         if (isProgressive)
-            yield return null;
+            yield return new WaitForSeconds(1f/(Nodes.Count*2));;
 
     }
     static void generateStartAndEnd(List<MazeNode> Nodes, Vector2Int size, MazeNode startNode, MazeNode finishNode)

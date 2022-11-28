@@ -161,7 +161,7 @@ MonoBehaviour:
   currentMaze: {fileID: 0}
   Player: {fileID: 6787474433528163302, guid: d06fb4169b5eb4445be3566e85a3b776, type: 3}
   BeginCamera: {fileID: 705759035}
-  mazeSize: {x: 10, y: 10}
+  mazeSize: {x: 12, y: 12}
   nodeScale: {x: 25, y: 50, z: 25}
   position: {x: 0, y: 0, z: 0}
   bonusCount: 10
@@ -524,6 +524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107033245}
     m_Modifications:
+    - target: {fileID: 1307420888, guid: 5a8ff424e2dcce948b5321e0e35cd05d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4762138211493141964, guid: 5a8ff424e2dcce948b5321e0e35cd05d, type: 3}
       propertyPath: m_Name
       value: LooseScreen
@@ -808,7 +812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5536906526727752637, guid: f34e414253276cd4589f0ff7cf65d653, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f34e414253276cd4589f0ff7cf65d653, type: 3}
@@ -952,7 +956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!167 &2115104452
 AudioReverbZone:
   m_ObjectHideFlags: 0
@@ -963,18 +967,18 @@ AudioReverbZone:
   m_Enabled: 1
   m_MinDistance: 150
   m_MaxDistance: 150
-  m_ReverbPreset: 21
+  m_ReverbPreset: 4
   m_Room: -1000
-  m_RoomHF: 0
-  m_DecayTime: 1.65
-  m_DecayHFRatio: 1.5
-  m_Reflections: -1363
-  m_ReflectionsDelay: 0.008
-  m_Reverb: -1153
-  m_ReverbDelay: 0.012
+  m_RoomHF: -1200
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.54
+  m_Reflections: -370
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 1030
+  m_ReverbDelay: 0.011
   m_HFReference: 5000
   m_Diffusion: 100
-  m_Density: 100
+  m_Density: 60
   m_LFReference: 250
   m_RoomLF: 0
 --- !u!4 &2115104453
