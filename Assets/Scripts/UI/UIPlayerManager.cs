@@ -20,6 +20,11 @@ public class UIPlayerManager : MonoBehaviour
     [SerializeField] private Text messageText;
     #endregion
 
+   public void setVisible(bool a)
+    {
+        gameObject.SetActive(a);
+    }
+
     private void FixedUpdate()
     {
         setTimer();
@@ -78,7 +83,7 @@ public class UIPlayerManager : MonoBehaviour
         StartCoroutine(displayText(bonusText, seconds, s));
     }
 
-   public void displayMessage(string s, float seconds)
+    public void displayMessage(string s, float seconds)
     {
         StartCoroutine(displayText(messageText, seconds, s));
     }

@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WinScreenController : MonoBehaviour
+public class EndScreenController : MonoBehaviour
 {
     [SerializeField] SpawnManager spawn;
     [SerializeField] GameObject WinScreen;
     [SerializeField] GameObject LooseScreen;
+    [SerializeField] GameObject monsterImage;
+
 
     // Start is called before the first frame update
 
@@ -14,6 +16,10 @@ public class WinScreenController : MonoBehaviour
     {
         gameObject.SetActive(v);
 
+    }
+    public void displayMonsterImage(bool a)
+    {
+        monsterImage.SetActive(a);
     }
 
 
