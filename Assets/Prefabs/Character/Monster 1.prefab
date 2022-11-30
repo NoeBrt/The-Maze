@@ -209,9 +209,10 @@ GameObject:
   - component: {fileID: 8941124003573667320}
   - component: {fileID: 312048618528926366}
   - component: {fileID: 8346731521186348963}
+  - component: {fileID: 3711468977407202554}
   m_Layer: 0
   m_Name: Monster 1
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,6 +395,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &3711468977407202554
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431262773160780455}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4977308016802301996
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +422,7 @@ GameObject:
   - component: {fileID: 8203006087920783655}
   m_Layer: 0
   m_Name: Elements
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -473,7 +490,7 @@ GameObject:
   - component: {fileID: 2890230897834521994}
   m_Layer: 0
   m_Name: MonsterHand
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

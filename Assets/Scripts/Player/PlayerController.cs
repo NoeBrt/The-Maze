@@ -9,7 +9,6 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     #region var definitions
-    public UIPlayerManager PlayerUi { get; set; }
     [Header("Player Character")]
     private CharacterController playerController;
     [Header("Crouching")]
@@ -48,7 +47,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
-        PlayerUi = GameObject.Find("PlayerCanvas").GetComponent<UIPlayerManager>();
         FootAudioSource = transform.Find("Feet").GetComponent<AudioSource>();
         currentSpeed = walkSpeed;
         groundMask = LayerMask.GetMask("Ground");

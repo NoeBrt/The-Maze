@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private GameObject Player;
     [SerializeField] private Camera BeginCamera;
-    [SerializeField] public Vector2Int mazeSize;
+    public Vector2Int mazeSize;
     [SerializeField] public Vector3 nodeScale;
     [SerializeField] private Vector3 position;
     [SerializeField] private int bonusCount;
@@ -25,23 +25,25 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
+        mazeSize = GameManager.Instance.currentMazeSize;
         itemPositionList = new List<int>();
         surface = GetComponent<NavMeshSurface>();
-        audioReverb.minDistance = new Vector2(mazeSize.x*nodeScale.x, mazeSize.y*nodeScale.x).magnitude/2f;
+        audioReverb.minDistance = new Vector2(mazeSize.x * nodeScale.x, mazeSize.y * nodeScale.x).magnitude / 2f;
         audioReverb.maxDistance = audioReverb.minDistance;
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
     }
-
-    public void spawnMaze(Vector3 nodeScale, Vector2Int mazeSize)
-    {
-        BeginCamera.gameObject.SetActive(true);
-        Player.SetActive(false);
-        monster.SetActive(false);
-        playerInstanciated = false;
-        Destroy(currentMaze.gameObject);
-        currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true);
-        currentMaze.name = "Maze";
-    }
+    /*
+        public void spawnMaze(Vector3 nodeScale, Vector2Int mazeSize)
+        {
+            BeginCamera.gameObject.SetActive(true);
+            Player.SetActive(false);
+            monster.SetActive(false);
+            MazeKey.SetActive(false);
+            playerInstanciated = false;
+            Destroy(currentMaze.gameObject);
+            currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true);
+            currentMaze.name = "Maze";
+        }*/
 
     // Update is called once per frame
     void Update()
@@ -57,7 +59,7 @@ public class SpawnManager : MonoBehaviour
             monster.SetActive(true);
             BeginCamera.gameObject.SetActive(false);
             surface.BuildNavMesh();
-            
+
         }
 
     }

@@ -8,22 +8,36 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] AudioClip gameOverSound;
     [SerializeField] AudioClip preLooseSound;
     [SerializeField] EndScreenController endScreen;
-    private void Start() {
-        endScreen=GameObject.Find("Canvas").GetComponent<EndScreenController>();
-    }
     public bool IsCaughtByMonster { get; set; }
+    bool firstCollision = true;
 
-    private void OnCollisionEnter(Collision other)
+    private void Start()
     {
-        if (other.transform.CompareTag("Monster"))
+        endScreen = GameObject.Find("Canvas").GetComponent<EndScreenController>();
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.gameObject.CompareTag("Monster") && firstCollision)
         {
-            GetComponent<UIPlayerManager>().setVisible(false);
-            endScreen.displayMonsterImage(true);
-            source.PlayOneShot(preLooseSound);
-            endScreen.setLooseScreenVisible(true);
+            firstCollision = false;
+            hit.collider.gameObject.transform.root.gameObject.SetActive(false);
+            Time.timeScale = 0;
+            GameManager.Instance.looseCount++;
+            StartCoroutine(looseBehavior(hit.collider.gameObject));
         }
     }
+    IEnumerator looseBehavior(GameObject monster)
+    {
+        transform.Find("PlayerCanvas").GetComponent<UIPlayerManager>().setVisible(false);
+        endScreen.displayMonsterEye(true);
+        yield return new WaitForSecondsRealtime(1f);
+        endScreen.displayMonsterEye(false);
+        yield return new WaitForSecondsRealtime(1f);
+        source.PlayOneShot(preLooseSound);
+        endScreen.setLooseScreenVisible(true);
 
+    }
 
 
 

@@ -9,8 +9,8 @@ TagManager:
   - TimeBonus
   - StartWall
   - FinishWall
-  - monster
   - Maze
+  - Monster
   layers:
   - Default
   - TransparentFX

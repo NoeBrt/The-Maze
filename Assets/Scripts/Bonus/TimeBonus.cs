@@ -12,9 +12,9 @@ public class TimeBonus : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            player.PlayerUi.removeTime(timeToRemove);
-            player.PlayerUi.updateBonusText("Time Bonus", bonusEffectDuration);
+            UIPlayerManager playerUi = other.gameObject.GetComponentInChildren<UIPlayerManager>();
+            playerUi.removeTime(timeToRemove);
+            playerUi.updateBonusText("Time Bonus", bonusEffectDuration);
             Destroy(gameObject);
 
         }

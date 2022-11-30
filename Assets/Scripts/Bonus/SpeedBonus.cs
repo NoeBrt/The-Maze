@@ -13,22 +13,23 @@ public class SpeedBonus : MonoBehaviour
         {
 
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            UIPlayerManager playerUi = other.gameObject.GetComponentInChildren<UIPlayerManager>();
+
             player.StopCoroutine("speedBonusEffect");
-         //   StopCoroutine("speeBonusEffect");
-            player.StartCoroutine(speedBonusEffect(effectDuration, player));
+            player.StartCoroutine(speedBonusEffect(effectDuration, player, playerUi));
             Destroy(gameObject);
         }
     }
 
-    IEnumerator speedBonusEffect(float time, PlayerController player)
+    IEnumerator speedBonusEffect(float time, PlayerController player, UIPlayerManager playerUi)
     {
-        player.PlayerUi.updateBonusText("Speed ++");
+        playerUi.updateBonusText("Speed ++");
         player.WalkSpeed += speedBonusGain;
         player.SprintSpeed += speedBonusGain;
         yield return new WaitForSeconds(time);
         player.WalkSpeed -= speedBonusGain;
         player.SprintSpeed -= speedBonusGain;
-        player.PlayerUi.updateBonusText("");
+        playerUi.updateBonusText("");
     }
 
 }

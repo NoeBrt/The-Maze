@@ -15,7 +15,8 @@ public class LevelLoader : MonoBehaviour
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("End");
-        yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene("Maze Scene");
+        yield return new WaitForSecondsRealtime(transitionTime);
+        SceneManager.LoadScene(levelIndex);
     }
+    
 }

@@ -17,11 +17,18 @@ public class EndScreenController : MonoBehaviour
         gameObject.SetActive(v);
 
     }
-    public void displayMonsterImage(bool a)
+    public void displayMonsterEye(bool a)
     {
-        monsterImage.SetActive(a);
-    }
+        if (!a)
+        {
+            monsterImage.GetComponentInChildren<Animator>().SetTrigger("FadeOut");
+        }
+        else
+        {
+            monsterImage.SetActive(a);
+        }
 
+    }
 
     public void setWinScreenVisible(bool v)
     {
@@ -29,6 +36,8 @@ public class EndScreenController : MonoBehaviour
         if (v)
         {
             Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
             Time.timeScale = 0;
         }
 
@@ -39,6 +48,7 @@ public class EndScreenController : MonoBehaviour
         if (v)
         {
             Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
 
@@ -46,17 +56,25 @@ public class EndScreenController : MonoBehaviour
 
     public void nexLevelButton()
     {
+        /*
+        monsterImage.SetActive(false);
         Time.timeScale = 1;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         spawn.spawnMaze(spawn.nodeScale, new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x + 5), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y + 5)));
-        WinScreen.SetActive(false);
+        WinScreen.SetActive(false);*/
     }
     public void restartButton()
     {
         Time.timeScale = 1;
+        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x + 5), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y + 5));
+        /*
+        monsterImage.SetActive(false);
+        Time.timeScale = 1;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         spawn.spawnMaze(spawn.nodeScale, spawn.mazeSize);
-        LooseScreen.SetActive(false);
+        LooseScreen.SetActive(false);*/
 
     }
 }

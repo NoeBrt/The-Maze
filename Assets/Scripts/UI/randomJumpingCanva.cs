@@ -32,9 +32,9 @@ public class randomJumpingCanva : MonoBehaviour
             {
                 audioSource.PlayOneShot(soundFadeStart);
             }
-            yield return new WaitForSeconds(Random.Range(timeBetweenFadeRange.x, timeBetweenFadeRange.y));
+            yield return new WaitForSecondsRealtime(Random.Range(timeBetweenFadeRange.x, timeBetweenFadeRange.y));
             yield return fadeCanvasEnd(fadeEndTime);
-            yield return new WaitForSeconds(Random.Range(1f, 10f));
+            yield return new WaitForSecondsRealtime(Random.Range(1f, 10f));
         }
 
     }
@@ -43,7 +43,7 @@ public class randomJumpingCanva : MonoBehaviour
         while (canvasGroup.alpha < 1)
         {
             canvasGroup.alpha += 1 * deltaTime;
-            yield return new WaitForSeconds(deltaTime);
+            yield return new WaitForSecondsRealtime(deltaTime);
         }
     }
     IEnumerator fadeCanvasEnd(float deltaTime)
@@ -51,7 +51,7 @@ public class randomJumpingCanva : MonoBehaviour
         while (canvasGroup.alpha > 0)
         {
             canvasGroup.alpha -= 1 * deltaTime;
-            yield return new WaitForSeconds(deltaTime);
+            yield return new WaitForSecondsRealtime(deltaTime);
         }
     }
 }

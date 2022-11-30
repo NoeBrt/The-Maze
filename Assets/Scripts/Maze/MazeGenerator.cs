@@ -213,7 +213,7 @@ public class MazeGenerator : MonoBehaviour
         MazeNode finishNode;
         finishNode = Nodes[Random.Range(Nodes.Count - size.y, Nodes.Count)];
         finishNode.Walls[0].tag = "FinishWall";
-        finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = true;
+       // finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = false;
         return finishNode;
     }
 
