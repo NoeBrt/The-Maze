@@ -10,12 +10,16 @@ public class PlayerCollision : MonoBehaviour
 
     [SerializeField] AudioClip preLooseSound;
     [SerializeField] EndScreenController endScreen;
+    [SerializeField] UIPlayerManager playerUi;
+
     public bool IsCaughtByMonster { get; set; }
     bool firstCollision = true;
 
     private void Start()
     {
         endScreen = GameObject.Find("Canvas").GetComponent<EndScreenController>();
+        playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
+        playerUi.setVisible(true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,8 +31,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("FinishWall") && firstCollision)
         {
-            endScreen.setEndTimer(transform.Find("PlayerCanvas").GetComponent<UIPlayerManager>().TimerText.text);
-            transform.Find("PlayerCanvas").GetComponent<UIPlayerManager>().setVisible(false);
+            endScreen.setEndTimer(playerUi.TimerText.text);
+            playerUi.setVisible(false);
             firstCollision = false;
             other.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;
@@ -58,7 +62,7 @@ public class PlayerCollision : MonoBehaviour
 
     IEnumerator looseBehavior(GameObject monster)
     {
-        transform.Find("PlayerCanvas").GetComponent<UIPlayerManager>().setVisible(false);
+        playerUi.setVisible(false);
         source.PlayOneShot(preLooseSound);
         endScreen.displayMonsterEye(true);
         yield return new WaitForSecondsRealtime(1f);

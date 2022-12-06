@@ -8,7 +8,7 @@ public class UIPlayerManager : MonoBehaviour
     #region var definitions
 
     [Header("Timer")]
-   [SerializeField] private Text timerText;
+    [SerializeField] private Text timerText;
     private float timer;
     private string infoTime = "";
     [Header("Bonus")]
@@ -17,21 +17,29 @@ public class UIPlayerManager : MonoBehaviour
     private Coroutine previousBonusDisplay;
     private Coroutine previousTimerInfoDisplay;
     [SerializeField] private Text messageText;
+    [SerializeField] GameObject pauseUi;
 
     public Text TimerText { get => timerText; set => timerText = value; }
+    public GameObject PauseUi { get => pauseUi; set => pauseUi = value; }
     #endregion
-
     public void setVisible(bool a)
     {
         gameObject.SetActive(a);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        setTimer();
+        if (!pauseUi.activeSelf)
+            setTimer();
         Debug.Log(infoTime);
     }
 
+
+    public void setTimeScale(float a)
+    {
+        Time.timeScale = a;
+        Cursor.lockState = a == 0 ? CursorLockMode.None : CursorLockMode.Locked;
+    }
 
     public void setTimer()
     {

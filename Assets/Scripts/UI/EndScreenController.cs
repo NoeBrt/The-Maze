@@ -63,25 +63,12 @@ public class EndScreenController : MonoBehaviour
 
     public void nexLevelButton()
     {
-        /*
-        monsterImage.SetActive(false);
         Time.timeScale = 1;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        spawn.spawnMaze(spawn.nodeScale, new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x + 5), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y + 5)));
-        WinScreen.SetActive(false);*/
+        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.y), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y));
     }
     public void restartButton()
     {
         Time.timeScale = 1;
-        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x + 5), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y + 5));
-        /*
-        monsterImage.SetActive(false);
-        Time.timeScale = 1;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        spawn.spawnMaze(spawn.nodeScale, spawn.mazeSize);
-        LooseScreen.SetActive(false);*/
-
+        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x + 3), Random.Range(spawn.mazeSize.y, spawn.mazeSize.y + 3));
     }
 }

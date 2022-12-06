@@ -13,7 +13,8 @@ public class SpeedBonus : MonoBehaviour
         {
 
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            UIPlayerManager playerUi = other.gameObject.GetComponentInChildren<UIPlayerManager>();
+            UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
+
 
             player.StopCoroutine("speedBonusEffect");
             player.StartCoroutine(speedBonusEffect(effectDuration, player, playerUi));

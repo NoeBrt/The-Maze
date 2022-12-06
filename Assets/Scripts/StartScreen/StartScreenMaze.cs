@@ -11,6 +11,7 @@ public class StartScreenMaze : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        Cursor.lockState=CursorLockMode.None;
         startMaze = GetComponent<Maze>();
         startMaze.Nodes = new List<MazeNode>();
         startMaze.Nodes.AddRange(GetComponentsInChildren<MazeNode>());

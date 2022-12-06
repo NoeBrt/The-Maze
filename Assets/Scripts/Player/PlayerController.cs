@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 
 
@@ -37,6 +36,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public float SprintSpeed { get => sprintSpeed; set => sprintSpeed = value; }
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
+    private UIPlayerManager playerUi;
+
 
     // [SerializeField] private Camera playerCamera;
 
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     #endregion
     void Start()
     {
+        playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
         animator = GetComponent<Animator>();
         gameObject.SetActive(true);
         playerController = GetComponent<CharacterController>();
@@ -62,11 +64,19 @@ public class PlayerController : MonoBehaviour
         Gravity();
         OnGroundVelocity();
         Jump();
+        DisplayPauseUi();
+    }
+    void DisplayPauseUi()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            playerUi.PauseUi.SetActive(!playerUi.PauseUi.activeSelf);
+            playerUi.setVisible(!playerUi.PauseUi.activeSelf);
+            Cursor.lockState = playerUi.PauseUi.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
+            Time.timeScale = playerUi.PauseUi.activeSelf ? 0 : 1;
         }
     }
+
     void crouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -126,7 +136,7 @@ public class PlayerController : MonoBehaviour
                 currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
             }
-            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed||!Input.GetKey(KeyCode.LeftShift)))
+            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed || !Input.GetKey(KeyCode.LeftShift)))
             {
 
                 currentSpeed -= walkSpeed * Time.deltaTime * 2;
