@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class EndScreenController : MonoBehaviour
 {
     [SerializeField] SpawnManager spawn;
     [SerializeField] GameObject WinScreen;
     [SerializeField] GameObject LooseScreen;
+    [SerializeField] Text TimerText;
     [SerializeField] GameObject monsterImage;
 
 
@@ -28,6 +31,10 @@ public class EndScreenController : MonoBehaviour
             monsterImage.SetActive(a);
         }
 
+    }
+    public void setEndTimer(string timer)
+    {
+        TimerText.text = "Time : " + timer;
     }
 
     public void setWinScreenVisible(bool v)

@@ -4111,9 +4111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 2419413532298501282}
   gameOverSound: {fileID: 8300000, guid: 23599650cb3e0c94698d45a462c1bf3c, type: 3}
+  winSound: {fileID: 0}
   preLooseSound: {fileID: 8300000, guid: 2726bcab8beccf34e8cb2a1d33f9f6d7, type: 3}
   endScreen: {fileID: 0}
-  monsterImage: {fileID: 0}
 --- !u!1 &6787474434128833004
 GameObject:
   m_ObjectHideFlags: 0

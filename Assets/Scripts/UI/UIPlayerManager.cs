@@ -8,8 +8,7 @@ public class UIPlayerManager : MonoBehaviour
     #region var definitions
 
     [Header("Timer")]
-    [SerializeField]
-    private Text timerText;
+   [SerializeField] private Text timerText;
     private float timer;
     private string infoTime = "";
     [Header("Bonus")]
@@ -18,9 +17,11 @@ public class UIPlayerManager : MonoBehaviour
     private Coroutine previousBonusDisplay;
     private Coroutine previousTimerInfoDisplay;
     [SerializeField] private Text messageText;
+
+    public Text TimerText { get => timerText; set => timerText = value; }
     #endregion
 
-   public void setVisible(bool a)
+    public void setVisible(bool a)
     {
         gameObject.SetActive(a);
     }

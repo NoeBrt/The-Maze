@@ -188,19 +188,6 @@ public class MazeGenerator : MonoBehaviour
             yield return new WaitForSeconds(1f/(Nodes.Count*2));;
 
     }
-    static void generateStartAndEnd(List<MazeNode> Nodes, Vector2Int size, MazeNode startNode, MazeNode finishNode)
-    {
-        startNode = Nodes[Random.Range(0, size.y)];
-        finishNode = Nodes[Random.Range(Nodes.Count - size.y, Nodes.Count)];
-        startNode.Walls[1].tag = "StartWall";
-        //startNode.Walls[1].gameObject.GetComponent<MeshRenderer>().material = maze.StartMaterial;
-        finishNode.Walls[0].tag = "FinishWall";
-        //sfinishNode.Walls[0].gameObject.GetComponent<MeshRenderer>().material = finishMaterial;
-       // finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = true;
-        //  startNode.RemoveWall(1);
-        //finishNode.RemoveWall(0);
-    }
-
     static MazeNode getStart(List<MazeNode> Nodes, Vector2Int size)
     {
         MazeNode startNode;
