@@ -11,6 +11,7 @@ public class BeginCameraMovement : MonoBehaviour
     private void Start()
     {
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
+        Cursor.lockState=CursorLockMode.Locked;
     }
 
     // Update is called once per frame

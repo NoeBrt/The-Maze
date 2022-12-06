@@ -9,9 +9,13 @@ public class StartScreenMaze : MonoBehaviour
     [SerializeField] float speed;
     bool outofBound = false;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+
+    }
     private void Start()
     {
-        Cursor.lockState=CursorLockMode.None;
         startMaze = GetComponent<Maze>();
         startMaze.Nodes = new List<MazeNode>();
         startMaze.Nodes.AddRange(GetComponentsInChildren<MazeNode>());
