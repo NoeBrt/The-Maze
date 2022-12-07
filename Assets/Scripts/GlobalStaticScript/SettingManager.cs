@@ -64,7 +64,10 @@ public class SettingManager : MonoBehaviour
     public void setMusicVolumeValue(float newMusicVolume)
     {
         musicVolume = newMusicVolume;
-        musicSource.volume = musicVolume;
+        if (MusicSource != null)
+        {
+            musicSource.volume = musicVolume;
+        }
     }
     public void setSfxVolumeValue(float newSfxVolume)
     {
