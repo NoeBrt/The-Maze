@@ -14,11 +14,10 @@ public class SaveJsonModel
         this.sfxVolume = sfxVolume;
         this.graphicQuality = GraphicQuality;
     }
-
     public SaveJsonModel()
     {
-        this.musicVolume = 0;
-        this.sfxVolume = 0;
+        this.musicVolume = 0.7f;
+        this.sfxVolume = 0.7f;
         this.graphicQuality = 5;
     }
 

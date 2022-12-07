@@ -5,13 +5,13 @@ using System.IO;
 
 public class JsonSaveDAO
 {
-    public static string saveName = "GameInfo.json";
+    public static string saveName = "TheMazeGameInfo.json";
     string path;
     private SaveJsonModel model { get; }
     public JsonSaveDAO(string path)
     {
         model = new SaveJsonModel();
-        path += "/GameInfo.json";
+        path += "/TheMazeGameInfo.json";
         this.path = path;
         if (!File.Exists(path) || getModelFromJson() == null)
         {
@@ -54,6 +54,7 @@ public class JsonSaveDAO
 
     SaveJsonModel getModelFromJson()
     {
+        Debug.Log(path);
         return JsonUtility.FromJson<SaveJsonModel>(File.ReadAllText(path));
     }
     public int getGraphicQualityFromJson()

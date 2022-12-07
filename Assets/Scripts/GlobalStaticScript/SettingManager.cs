@@ -6,18 +6,17 @@ public class SettingManager : MonoBehaviour
 {
     [SerializeField] AudioSource musicSource;
     [SerializeField] List<AudioSource> sfxSounds;
-
-    public int GraphicQualityIndex { get; set; }
-    public float sfxVolume { get; set; }
-    public float musicVolume { get; set; }
+    private float sfxVolume;
+    private float musicVolume;
     public List<AudioSource> SfxSounds { get => sfxSounds; set => sfxSounds = value; }
     public AudioSource MusicSource { get => musicSource; set => musicSource = value; }
+    public float SfxVolume { get => sfxVolume; }
+    public float MusicVolume { get => musicVolume; }
     public static SettingManager Instance
     {
         get;
         private set;
     }
-
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -28,40 +27,55 @@ public class SettingManager : MonoBehaviour
         }
         else
         {
-            initSettingValue();
             Instance = this;
-        }
-        DontDestroyOnLoad(this.gameObject);
+            FadeSoundValue();
 
+        }
     }
 
     public void SaveInFile()
     {
         JsonSaveDAO jsonSaveDao = new JsonSaveDAO(Application.persistentDataPath);
-        jsonSaveDao.updateGraphicQuality(GraphicQualityIndex);
-        jsonSaveDao.updateMusicVolume(musicVolume);
-        jsonSaveDao.updateSfxVolume(sfxVolume);
+        jsonSaveDao.updateGraphicQuality(QualitySettings.GetQualityLevel());
+        jsonSaveDao.updateMusicVolume(MusicVolume);
+        jsonSaveDao.updateSfxVolume(SfxVolume);
     }
-    void initSettingValue()
+    public void initSettingValue()
     {
         JsonSaveDAO jsonSaveDao = new JsonSaveDAO(Application.persistentDataPath);
         setMusicVolumeValue(jsonSaveDao.getMusicVolumeFromJson());
         setSfxVolumeValue(jsonSaveDao.getSfxVolumeFromJson());
-        GraphicQualityIndex = jsonSaveDao.getGraphicQualityFromJson();
+        setGraphicsQuality(jsonSaveDao.getGraphicQualityFromJson());
     }
-    void setMusicVolumeValue(float musicVolume1)
+    public void FadeSoundValue() //weird code to do a fade
     {
-        musicVolume = musicVolume1;
+        musicSource.volume = 0f;
+        SfxSounds.ForEach(source => source.volume = 0f);
+        JsonSaveDAO jsonSaveDao = new JsonSaveDAO(Application.persistentDataPath);
+        setGraphicsQuality(jsonSaveDao.getGraphicQualityFromJson());
+        musicVolume = jsonSaveDao.getMusicVolumeFromJson();
+        sfxVolume = jsonSaveDao.getSfxVolumeFromJson();
+        SoundFade.FadeOut(musicVolume, musicSource, Instance);
+        foreach (AudioSource source in SfxSounds)
+        {
+            SoundFade.FadeOut(sfxVolume, source, Instance);
+        }
+    }
+    public void setMusicVolumeValue(float newMusicVolume)
+    {
+        musicVolume = newMusicVolume;
         musicSource.volume = musicVolume;
     }
-    void setSfxVolumeValue(float sfxVolume1)
+    public void setSfxVolumeValue(float newSfxVolume)
     {
-        sfxVolume = sfxVolume1;
+        sfxVolume = newSfxVolume;
         if (sfxSounds.Count > 0)
         {
             sfxSounds.ForEach(sfx => sfx.volume = sfxVolume);
         }
     }
-
-
+    public void setGraphicsQuality(int index)
+    {
+        QualitySettings.SetQualityLevel(index);
+    }
 }

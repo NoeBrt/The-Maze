@@ -13,13 +13,14 @@ public class ToggleAnimation : MonoBehaviour
 
     private void Start()
     {
-
+        init();
     }
     private void OnEnable()
     {
-
-        Debug.Log("AAAAAAAAAAAAAAAa");
-
+        init();
+    }
+    void init()
+    {
         toggleGroup = GetComponent<ToggleGroup>();
         foreach (Toggle toggle in Toggles)
         {
@@ -30,13 +31,11 @@ public class ToggleAnimation : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
-    // Update is called once per frame
+
     public void SetAnimation()
     {
         if (EventSystem.current.currentSelectedGameObject != null && EventSystem.current.GetComponent<Animator>())
         {
-
             Toggle currentToogle = EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>();
             bool currentState = currentToogle.GetComponent<Animator>().GetBool("On");
             currentToogle.GetComponent<Animator>().SetBool("On", currentToogle.isOn);
@@ -49,8 +48,5 @@ public class ToggleAnimation : MonoBehaviour
         {
             toggle.GetComponent<Animator>().SetBool("On", toggle.isOn);
         }
-
-        // toggleGroup.GetFirstActiveToggle().GetComponent<Animator>().SetTrigger("On");
-
     }
 }
