@@ -71,9 +71,9 @@ public class UIPlayerManager : MonoBehaviour
         };
         StartCoroutine(addTimerInfo(3, " -" + time));
         // timerText.text += " -" + time;
-
-
     }
+
+    
     private IEnumerator addTimerInfo(float delay, string s)
     {
         infoTime = s;

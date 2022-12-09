@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class EndScreenController : MonoBehaviour
@@ -11,9 +12,14 @@ public class EndScreenController : MonoBehaviour
     [SerializeField] GameObject LooseScreen;
     [SerializeField] Text TimerText;
     [SerializeField] GameObject monsterImage;
+    [SerializeField] Text scoreMonster;
+    [SerializeField] Text scorePlayer;
+    [SerializeField] GameObject scoreScreen;
+
 
 
     // Start is called before the first frame update
+
 
     void setVisible(bool v)
     {
@@ -64,11 +70,24 @@ public class EndScreenController : MonoBehaviour
     public void nexLevelButton()
     {
         Time.timeScale = 1;
-        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.y), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y));
+        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.y + 3), Random.Range(spawn.mazeSize.x, spawn.mazeSize.y + 3));
+        StartCoroutine(DisplayScoreAndLoadScene(SceneManager.GetActiveScene().buildIndex, 2f));
     }
+
     public void restartButton()
     {
         Time.timeScale = 1;
-        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x + 3), Random.Range(spawn.mazeSize.y, spawn.mazeSize.y + 3));
+        GameManager.Instance.currentMazeSize = new Vector2Int(Random.Range(spawn.mazeSize.x, spawn.mazeSize.x), Random.Range(spawn.mazeSize.y, spawn.mazeSize.y));
+        StartCoroutine(DisplayScoreAndLoadScene(SceneManager.GetActiveScene().buildIndex, 2f));
+    }
+
+    IEnumerator DisplayScoreAndLoadScene(int index, float delay)
+    {
+        scoreMonster.text = GameManager.Instance.looseCount + "";
+        scorePlayer.text = GameManager.Instance.winCount + "";
+        scorePlayer.transform.parent.gameObject.SetActive(true);
+        scoreScreen.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        GetComponent<LevelLoader>().LoadLevelTransition(index);
     }
 }

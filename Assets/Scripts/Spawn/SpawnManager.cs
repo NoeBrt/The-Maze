@@ -53,12 +53,12 @@ public class SpawnManager : MonoBehaviour
             spawnBonusItem(bonusCount);
             spawnKey();
             Player = Instantiate(Player, currentMaze.StartNode.transform.position, Quaternion.Euler(0, 90, 0));
+            surface.BuildNavMesh();
             spawnMonster();
             playerInstanciated = true;
             Player.SetActive(true);
             monster.SetActive(true);
             BeginCamera.gameObject.SetActive(false);
-            surface.BuildNavMesh();
 
         }
 

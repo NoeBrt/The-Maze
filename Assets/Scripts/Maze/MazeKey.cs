@@ -24,8 +24,9 @@ public class MazeKey : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             finalWall.GetComponent<MeshRenderer>().material = maze.FinishMaterial;
-            finalWall.GetComponent<BoxCollider>().isTrigger=true;
-            other.gameObject.GetComponentInChildren<UIPlayerManager>().displayMessage("Key Founded", 5f);
+            finalWall.GetComponent<BoxCollider>().isTrigger = true;
+            UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
+            playerUi.displayMessage("Key Founded", 5f);
             Destroy(gameObject);
         }
     }

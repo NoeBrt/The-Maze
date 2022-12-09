@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: da8ad3ee011c62446ab2b41e1049ef40
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - b Benmono Liane
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3308b992243ccff478a42e89b567d366, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -27,6 +27,8 @@ public class SettingManager : MonoBehaviour
         }
         else
         {
+            if (sfxSounds == null)
+                sfxSounds = new List<AudioSource>();
             Instance = this;
             FadeSoundValue();
 
@@ -42,6 +44,7 @@ public class SettingManager : MonoBehaviour
     }
     public void initSettingValue()
     {
+
         JsonSaveDAO jsonSaveDao = new JsonSaveDAO(Application.persistentDataPath);
         setMusicVolumeValue(jsonSaveDao.getMusicVolumeFromJson());
         setSfxVolumeValue(jsonSaveDao.getSfxVolumeFromJson());
@@ -49,6 +52,8 @@ public class SettingManager : MonoBehaviour
     }
     public void FadeSoundValue() //weird code to do a fade
     {
+        if (musicSource == null || SfxSounds.Count <= 0)
+            return;
         musicSource.volume = 0f;
         SfxSounds.ForEach(source => source.volume = 0f);
         JsonSaveDAO jsonSaveDao = new JsonSaveDAO(Application.persistentDataPath);

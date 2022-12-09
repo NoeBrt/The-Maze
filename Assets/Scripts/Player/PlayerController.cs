@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         fieldOfView = 60f;
         distanceWalked = 0f;
         SettingManager.Instance.MusicSource = Camera.main.GetComponent<AudioSource>();
-        SettingManager.Instance.SfxSounds.Add(transform.Find("Torch").GetComponent<AudioSource>());
+        SettingManager.Instance.SfxSounds.Add(transform.Find("Main Camera").Find("Torch").GetComponent<AudioSource>());
         SettingManager.Instance.SfxSounds.Add(transform.Find("Feet").GetComponent<AudioSource>());
         SettingManager.Instance.initSettingValue();
     }
