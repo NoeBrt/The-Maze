@@ -36,7 +36,7 @@ public class PlayerCollision : MonoBehaviour
             firstCollision = false;
             other.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;
-            GameManager.Instance.looseCount++;
+            GameManager.Instance.winCount++;
             source.PlayOneShot(gameOverSound);
             endScreen.setWinScreenVisible(true);
         }

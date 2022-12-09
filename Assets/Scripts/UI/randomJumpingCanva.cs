@@ -34,7 +34,7 @@ public class randomJumpingCanva : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(Random.Range(timeBetweenFadeRange.x, timeBetweenFadeRange.y));
             yield return fadeCanvasEnd(fadeEndTime);
-            yield return new WaitForSecondsRealtime(Random.Range(1f, 10f));
+            yield return new WaitForSecondsRealtime(Random.Range(0.5f, 4f));
         }
 
     }
