@@ -176,11 +176,11 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 162.9
   m_Range: 200
-  m_SpotAngle: 98.80069
+  m_SpotAngle: 84.674065
   m_InnerSpotAngle: 54.04289
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -261,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1183797086745975145
 Transform:
   m_ObjectHideFlags: 0
@@ -3482,7 +3482,6 @@ GameObject:
   - component: {fileID: 7269008074940441335}
   - component: {fileID: 748259823775658115}
   - component: {fileID: 5127356395495955523}
-  - component: {fileID: 6906972998910922261}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Untagged
@@ -3618,86 +3617,6 @@ MonoBehaviour:
   lightToggleOnFX: {fileID: 8300000, guid: b84f1e276511f94428bd0858763f9cca, type: 3}
   lightToggleOffFX: {fileID: 8300000, guid: 1a995d2206bbb3b4ba693b1a94f6b70f, type: 3}
   lightTorch: {fileID: 2412663647295747468}
---- !u!114 &6906972998910922261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5480534367531030466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c3684b22f00604a97bb68037fcf4cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directBinaural: 1
-  interpolation: 1
-  distanceAttenuation: 1
-  distanceAttenuationInput: 0
-  distanceAttenuationValue: 1
-  airAbsorption: 1
-  airAbsorptionInput: 0
-  airAbsorptionLow: 1
-  airAbsorptionMid: 1
-  airAbsorptionHigh: 1
-  directivity: 1
-  directivityInput: 0
-  dipoleWeight: 0
-  dipolePower: 0
-  directivityValue: 1
-  occlusion: 0
-  occlusionInput: 0
-  occlusionType: 0
-  occlusionRadius: 1
-  occlusionSamples: 16
-  occlusionValue: 1
-  transmission: 0
-  transmissionType: 0
-  transmissionInput: 0
-  transmissionLow: 1
-  transmissionMid: 1
-  transmissionHigh: 1
-  directMixLevel: 1
-  reflections: 1
-  reflectionsType: 0
-  useDistanceCurveForReflections: 1
-  currentBakedSource: {fileID: 0}
-  reverbTimeLow: 0
-  reverbTimeMid: 0
-  reverbTimeHigh: 0
-  hybridReverbEQLow: 1
-  hybridReverbEQMid: 1
-  hybridReverbEQHigh: 1
-  hybridReverbDelay: 0
-  applyHRTFToReflections: 1
-  reflectionsMixLevel: 3.16
-  pathing: 0
-  pathingProbeBatch: {fileID: 0}
-  pathValidation: 1
-  findAlternatePaths: 1
-  pathingEQ:
-  - 1
-  - 1
-  - 1
-  pathingSH:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  applyHRTFToPathing: 0
-  pathingMixLevel: 1
 --- !u!1 &5710669077413822629
 GameObject:
   m_ObjectHideFlags: 0
@@ -3893,7 +3812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6787474434128833005}
   - component: {fileID: 6417007748359473408}
-  - component: {fileID: 6292767974215708004}
+  - component: {fileID: 6608608314595818770}
   m_Layer: 0
   m_Name: Feet
   m_TagString: Player
@@ -3932,8 +3851,8 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 1
-  SpatializePostEffects: 1
+  Spatialize: 0
+  SpatializePostEffects: 0
   Priority: 31
   DopplerLevel: 1
   MinDistance: 1
@@ -4002,7 +3921,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.075
+      value: 0.876
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4012,7 +3931,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6292767974215708004
+--- !u!114 &6608608314595818770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4025,16 +3944,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directBinaural: 1
-  interpolation: 1
-  distanceAttenuation: 1
+  interpolation: 0
+  distanceAttenuation: 0
   distanceAttenuationInput: 0
   distanceAttenuationValue: 1
-  airAbsorption: 1
+  airAbsorption: 0
   airAbsorptionInput: 0
   airAbsorptionLow: 1
   airAbsorptionMid: 1
   airAbsorptionHigh: 1
-  directivity: 1
+  directivity: 0
   directivityInput: 0
   dipoleWeight: 0
   dipolePower: 0
@@ -4052,9 +3971,9 @@ MonoBehaviour:
   transmissionMid: 1
   transmissionHigh: 1
   directMixLevel: 1
-  reflections: 1
+  reflections: 0
   reflectionsType: 0
-  useDistanceCurveForReflections: 1
+  useDistanceCurveForReflections: 0
   currentBakedSource: {fileID: 0}
   reverbTimeLow: 0
   reverbTimeMid: 0
@@ -4063,8 +3982,8 @@ MonoBehaviour:
   hybridReverbEQMid: 1
   hybridReverbEQHigh: 1
   hybridReverbDelay: 0
-  applyHRTFToReflections: 1
-  reflectionsMixLevel: 3.16
+  applyHRTFToReflections: 0
+  reflectionsMixLevel: 1
   pathing: 0
   pathingProbeBatch: {fileID: 0}
   pathValidation: 1
@@ -4106,6 +4025,7 @@ GameObject:
   - component: {fileID: 6787474434772497797}
   - component: {fileID: 8318681515728524751}
   - component: {fileID: 2419413532298501282}
+  - component: {fileID: 2952095778433638957}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4325,6 +4245,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2952095778433638957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787474434772497793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd9ebf1401392e4bbd47fea32f47642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBakedListener: {fileID: 0}
+  applyReverb: 1
+  reverbType: 0
+  useAllProbeBatches: 0
+  probeBatches: []
+  mTotalDataSize: 0
+  mProbeDataSizes: 
+  mIdentifier:
+    type: 0
+    variation: 0
+    endpointInfluence:
+      center:
+        x: 0
+        y: 0
+        z: 0
+      radius: 0
+  mProbeBatchesUsed: []
 --- !u!1 &8661054404599348813
 GameObject:
   m_ObjectHideFlags: 0
@@ -4342,7 +4291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5134945491999019873
 Transform:
   m_ObjectHideFlags: 0
