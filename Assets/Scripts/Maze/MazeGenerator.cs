@@ -53,7 +53,7 @@ public class MazeGenerator : MonoBehaviour
         Debug.Log("test");
         yield return setAllWallsPlayedState(maze.Nodes, maze.Size);
         if (isProgressive)
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
         setFloor(maze);
         supressOverlapWall(maze.Nodes, maze.Size);
         // meshFusion(maze);
@@ -61,8 +61,8 @@ public class MazeGenerator : MonoBehaviour
         {
             maze.setNodesVisibility(true);
         }
-        meshFusion(maze);
         maze.IsFinished = true;
+        meshFusion(maze);
     }
 
 
@@ -310,6 +310,7 @@ public class MazeGenerator : MonoBehaviour
             combine[i].transform = mat;
             meshFilters[i].gameObject.GetComponent<MeshRenderer>().enabled = false;
             meshFilters[i].transform.parent.gameObject.SetActive(false);
+            meshFilters[i].transform.gameObject.SetActive(false);
             i++;
         }
         maze.GetComponent<MeshFilter>().mesh = new Mesh();
@@ -317,6 +318,7 @@ public class MazeGenerator : MonoBehaviour
         maze.GetComponent<MeshFilter>().mesh.Optimize();
         maze.GetComponent<MeshCollider>().sharedMesh = maze.GetComponent<MeshFilter>().mesh;
         maze.FinishNode.Walls.ToList().Find(wall => wall.CompareTag("FinishWall")).GetComponent<MeshRenderer>().material = maze.GetComponent<MeshRenderer>().material;
+        maze.FinishNode.gameObject.SetActive(true);
         maze.gameObject.SetActive(true);
     }
     static void setFloor(Maze maze)

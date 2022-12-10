@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         sprint();
         playerController.Move(velocity * Time.deltaTime);
 
-        distanceWalked += new Vector3(velocity.x, velocity.z).magnitude * Time.deltaTime;
+        distanceWalked += Mathf.Clamp(new Vector3(velocity.x, velocity.z).magnitude, 0, 23f) * Time.deltaTime;
         if (distanceWalked > FootstepLength && isOnGround)
         {
             distanceWalked = distanceWalked % FootstepLength;
