@@ -24,11 +24,11 @@ public class MazeGenerator : MonoBehaviour
         if (!isProgressive)
         {
             //  nodePrefab.SetState(MazeNode.NodeState.Played);
-        //    nodePrefab.GetComponent<MeshRenderer>().enabled = false;
+            //    nodePrefab.GetComponent<MeshRenderer>().enabled = false;
         }
         else
         {
-          //  nodePrefab.GetComponent<MeshRenderer>().enabled = true;
+            //  nodePrefab.GetComponent<MeshRenderer>().enabled = true;
         }
         maze.name = "Maze";
         maze.NodeScale = nodeScale;
@@ -56,11 +56,12 @@ public class MazeGenerator : MonoBehaviour
             yield return new WaitForSeconds(3f);
         setFloor(maze);
         supressOverlapWall(maze.Nodes, maze.Size);
-       // meshFusion(maze);
+        // meshFusion(maze);
         if (!isProgressive)
         {
             maze.setNodesVisibility(true);
         }
+        meshFusion(maze);
         maze.IsFinished = true;
     }
 
@@ -76,7 +77,7 @@ public class MazeGenerator : MonoBehaviour
                 Nodes.Add(newNode);
                 newNode.name = "Maze node " + (Nodes.Count - 1);
                 if (isProgressive)
-                    yield return new WaitForSeconds(1f/(size.x*size.y*2));;
+                    yield return new WaitForSeconds(1f / (size.x * size.y * 2)); ;
             }
         }
 
@@ -171,7 +172,7 @@ public class MazeGenerator : MonoBehaviour
                 currentPath.Add(chosenNode);
                 chosenNode.SetState(MazeNode.NodeState.Current);
                 if (isProgressive)
-                    yield return new WaitForSeconds(1f/(Nodes.Count*2));;
+                    yield return new WaitForSeconds(1f / (Nodes.Count * 2)); ;
             }
             else
             {
@@ -180,12 +181,12 @@ public class MazeGenerator : MonoBehaviour
                 currentPath[currentPath.Count - 1].SetState(MazeNode.NodeState.Completed);
                 currentPath.RemoveAt(currentPath.Count - 1);
                 if (isProgressive)
-                    yield return new WaitForSeconds(1f/(Nodes.Count*2));;
+                    yield return new WaitForSeconds(1f / (Nodes.Count * 2)); ;
             }
 
         }
         if (isProgressive)
-            yield return new WaitForSeconds(1f/(Nodes.Count*2));;
+            yield return new WaitForSeconds(1f / (Nodes.Count * 2)); ;
 
     }
     static MazeNode getStart(List<MazeNode> Nodes, Vector2Int size)
@@ -199,8 +200,9 @@ public class MazeGenerator : MonoBehaviour
     {
         MazeNode finishNode;
         finishNode = Nodes[Random.Range(Nodes.Count - size.y, Nodes.Count)];
+        finishNode.tag = "FinishNode";
         finishNode.Walls[0].tag = "FinishWall";
-       // finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = false;
+        // finishNode.Walls[0].gameObject.GetComponent<BoxCollider>().isTrigger = false;
         return finishNode;
     }
 
@@ -272,14 +274,23 @@ public class MazeGenerator : MonoBehaviour
 
     static IEnumerator setAllWallsPlayedState(List<MazeNode> Nodes, Vector2Int size)
     {
+        meshFilters = new List<MeshFilter>();
         foreach (MazeNode m in Nodes)
         {
             m.SetState(MazeNode.NodeState.Played);
             /*
             m.RemoveWall(2);
             m.RemoveWall(1);
-*/
-            meshFilters.AddRange(m.GetComponentsInChildren<MeshFilter>());
+*/          if (m.CompareTag("FinishNode"))
+            {
+                foreach (GameObject wall in m.Walls)
+                {
+                    if (wall != null && !wall.CompareTag("FinishWall"))
+                        meshFilters.Add(wall.GetComponent<MeshFilter>());
+                }
+            }
+            else
+                meshFilters.AddRange(m.GetComponentsInChildren<MeshFilter>());
             if (isProgressive)
                 yield return null;
         }
@@ -288,17 +299,24 @@ public class MazeGenerator : MonoBehaviour
 
     static void meshFusion(Maze maze)
     {
+        //  meshFilters.Add(maze.Plane.GetComponent<MeshFilter>());
         CombineInstance[] combine = new CombineInstance[meshFilters.Count];
         int i = 0;
         while (i < meshFilters.Count)
         {
             combine[i].mesh = meshFilters[i].sharedMesh;
-            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            Matrix4x4 mat = meshFilters[i].transform.localToWorldMatrix;
+            mat[1, 3] -= 25;
+            combine[i].transform = mat;
             meshFilters[i].gameObject.GetComponent<MeshRenderer>().enabled = false;
+            meshFilters[i].transform.parent.gameObject.SetActive(false);
             i++;
         }
         maze.GetComponent<MeshFilter>().mesh = new Mesh();
         maze.GetComponent<MeshFilter>().mesh.CombineMeshes(combine, true, true, true);
+        maze.GetComponent<MeshFilter>().mesh.Optimize();
+        maze.GetComponent<MeshCollider>().sharedMesh = maze.GetComponent<MeshFilter>().mesh;
+        maze.FinishNode.Walls.ToList().Find(wall => wall.CompareTag("FinishWall")).GetComponent<MeshRenderer>().material = maze.GetComponent<MeshRenderer>().material;
         maze.gameObject.SetActive(true);
     }
     static void setFloor(Maze maze)

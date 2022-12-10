@@ -33,7 +33,24 @@ public class Maze : MonoBehaviour
         }
 
     }
+    public void setWallsMaterial(Material m)
+    {
+        GetComponent<MeshRenderer>().material = m;
+        if (FinishNode == null)
+            return;
+        foreach (GameObject wall in FinishNode.Walls)
+        {
+            if (wall != null && wall.CompareTag("FinishWall"))
+            {
+                wall.GetComponent<MeshRenderer>().material = m;
+            }
+
+        }
+    }
+
+
 }
+
 
 
 

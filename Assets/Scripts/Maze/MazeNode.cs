@@ -54,10 +54,11 @@ public class MazeNode : MonoBehaviour
                 floor.gameObject.SetActive(false);
                 for (int i = 0; i < 4; i++)
                 {
+                    /*
                     if (walls[i] != null)
                     {
                         walls[i].GetComponent<MeshRenderer>().material = wallMaterial;
-                    }
+                    }*/
                 }
                 break;
         }

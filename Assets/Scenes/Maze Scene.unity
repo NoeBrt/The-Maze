@@ -465,6 +465,7 @@ MonoBehaviour:
   floorMaterials:
   - {fileID: 2100000, guid: be456d9b7842b5446bdc4efaa9636e24, type: 2}
   - {fileID: 2100000, guid: dfef2c4cad9bdb0419a741abcd7234d2, type: 2}
+  basicMat: {fileID: 2100000, guid: 989340bd1cdc4cf4793c39defa856eba, type: 2}
   audioReverb: {fileID: 2115104452}
 --- !u!4 &307332775
 Transform:

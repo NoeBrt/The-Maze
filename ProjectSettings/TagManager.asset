@@ -11,6 +11,7 @@ TagManager:
   - FinishWall
   - Maze
   - Monster
+  - FinishNode
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - UI
   - Player
   - Bonus
-  - 
+  - Key
   - 
   - 
   - 
