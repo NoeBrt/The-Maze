@@ -2849,7 +2849,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2115104453}
   - component: {fileID: 2115104452}
-  - component: {fileID: 2115104454}
   m_Layer: 0
   m_Name: Audio Reverb Zone
   m_TagString: Untagged
@@ -2896,44 +2895,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2115104454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115104451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97139fbde32144241958106d7df4b4e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rt60s:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  reverbGainDb: 0
-  reverbBrightness: 0
-  reverbTime: 1
-  regionShape: 1
-  boxRegionSize: {x: 250, y: 150, z: 250}
-  sphereRegionRadius: 1
-  onlyApplyWhenVisible: 1
-  proxyRoomPosition: {x: 0, y: 0, z: 0}
-  proxyRoomRotation: {x: 0, y: 0, z: 0, w: 1}
-  proxyRoomSize: {x: 1, y: 1, z: 1}
-  proxyRoomLeftWall: 0
-  proxyRoomRightWall: 0
-  proxyRoomFloor: 0
-  proxyRoomCeiling: 0
-  proxyRoomBackWall: 0
-  proxyRoomFrontWall: 0
 --- !u!1001 &2603697537111062809
 PrefabInstance:
   m_ObjectHideFlags: 0
