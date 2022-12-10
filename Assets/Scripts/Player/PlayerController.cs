@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
         {
             playerUi.PauseUi.SetActive(!playerUi.PauseUi.activeSelf);
             playerUi.setVisible(!playerUi.PauseUi.activeSelf);
+            GameObject.Find("Canvas").transform.Find("OptionUi").gameObject.SetActive(false);
             Cursor.lockState = playerUi.PauseUi.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
             Time.timeScale = playerUi.PauseUi.activeSelf ? 0 : 1;
         }

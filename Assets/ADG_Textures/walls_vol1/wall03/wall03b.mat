@@ -10,10 +10,11 @@ Material:
   m_Name: wall03b
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
+  - _EMISSION
   - _NORMALMAP
   - _PARALLAXMAP
   m_InvalidKeywords: []
-  m_LightmapFlags: 5
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -76,7 +77,9 @@ Material:
     - _DstBlend: 0
     - _EmissionScaleUI: 0
     - _ExtrudeHeight: 0.05
+    - _GlossMapScale: 1
     - _Glossiness: 0.22
+    - _GlossyReflections: 1
     - _LightmapShading: 0.7
     - _Metallic: 0
     - _Mode: 0
@@ -91,6 +94,8 @@ Material:
     - _ShadingStrength: 0
     - _ShadowSmoothing: 2.881923
     - _Shininess: 0.9055365
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _UseAlpha: 1

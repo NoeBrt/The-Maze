@@ -9,7 +9,6 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Maze currentMaze;
     NavMeshSurface surface;
-
     [SerializeField] private GameObject Player;
     [SerializeField] private Camera BeginCamera;
     public Vector2Int mazeSize;
@@ -21,29 +20,22 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] List<GameObject> bonusItem = new List<GameObject>();
     private List<int> itemPositionList;
     bool playerInstanciated = false;
+    [SerializeField] List<Material> wallMaterials;
+    [SerializeField] List<Material> floorMaterials;
     [SerializeField] AudioReverbZone audioReverb;
 
     void Start()
     {
+
         mazeSize = GameManager.Instance.currentMazeSize;
         itemPositionList = new List<int>();
         surface = GetComponent<NavMeshSurface>();
         audioReverb.minDistance = new Vector2(mazeSize.x * nodeScale.x, mazeSize.y * nodeScale.x).magnitude / 2f;
         audioReverb.maxDistance = audioReverb.minDistance;
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
+        currentMaze.Plane.GetComponent<Renderer>().material = floorMaterials[Random.Range(0, floorMaterials.Count)];
+        Resources.Load<GameObject>("MazeNode").GetComponent<MazeNode>().WallMaterial = wallMaterials[Random.Range(0, wallMaterials.Count)];
     }
-    /*
-        public void spawnMaze(Vector3 nodeScale, Vector2Int mazeSize)
-        {
-            BeginCamera.gameObject.SetActive(true);
-            Player.SetActive(false);
-            monster.SetActive(false);
-            MazeKey.SetActive(false);
-            playerInstanciated = false;
-            Destroy(currentMaze.gameObject);
-            currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true);
-            currentMaze.name = "Maze";
-        }*/
 
     // Update is called once per frame
     void Update()

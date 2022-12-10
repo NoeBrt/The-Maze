@@ -234,8 +234,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6826087473938274006}
   - component: {fileID: 622859131}
-  - component: {fileID: 5778743439225196893}
-  - component: {fileID: 6075939843539282506}
   m_Layer: 3
   m_Name: MazeNode
   m_TagString: Untagged
@@ -283,56 +281,6 @@ MonoBehaviour:
   floor: {fileID: 6826087473143260907}
   wallMaterial: {fileID: 2100000, guid: ca21afdde49d342408e91ab722a0415c, type: 2}
   floorMaterial: {fileID: 2100000, guid: 442a770feeb84434cbca8059eada5547, type: 2}
---- !u!33 &5778743439225196893
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6826087473938274005}
-  m_Mesh: {fileID: 0}
---- !u!23 &6075939843539282506
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6826087473938274005}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 1
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6826087474108502365
 GameObject:
   m_ObjectHideFlags: 0

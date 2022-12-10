@@ -31,6 +31,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("FinishWall") && firstCollision)
         {
+            GetComponent<PlayerController>().enabled = false;
             endScreen.setEndTimer(playerUi.TimerText.text);
             playerUi.setVisible(false);
             firstCollision = false;
@@ -52,6 +53,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (hit.collider.gameObject.CompareTag("Monster") && firstCollision)
         {
+            GetComponent<PlayerController>().enabled = false;
             firstCollision = false;
             hit.collider.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;

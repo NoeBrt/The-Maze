@@ -31,6 +31,7 @@ public class MonsterBehaviour : MonoBehaviour
     private void Awake()
     {
         monsterSound = GetComponent<AudioSource>();
+        SettingManager.Instance.SfxSounds.Add(monsterSound);
         player = GameObject.FindGameObjectWithTag("Player").transform;
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         agent = GetComponent<NavMeshAgent>();

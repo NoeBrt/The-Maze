@@ -24,11 +24,11 @@ public class MazeGenerator : MonoBehaviour
         if (!isProgressive)
         {
             //  nodePrefab.SetState(MazeNode.NodeState.Played);
-            nodePrefab.GetComponent<MeshRenderer>().enabled = false;
+        //    nodePrefab.GetComponent<MeshRenderer>().enabled = false;
         }
         else
         {
-            nodePrefab.GetComponent<MeshRenderer>().enabled = true;
+          //  nodePrefab.GetComponent<MeshRenderer>().enabled = true;
         }
         maze.name = "Maze";
         maze.NodeScale = nodeScale;

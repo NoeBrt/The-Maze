@@ -11,6 +11,8 @@ public class MazeNode : MonoBehaviour
     [SerializeField] Material wallMaterial;
     [SerializeField] Material floorMaterial;
     public GameObject[] Walls { get => walls; set => walls = value; }
+    public Material WallMaterial { get => wallMaterial; set => wallMaterial = value; }
+
     public enum NodeState
     {
         Available,
