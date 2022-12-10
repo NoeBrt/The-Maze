@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 312048618528926366}
   - component: {fileID: 8346731521186348963}
   - component: {fileID: 3711468977407202554}
+  - component: {fileID: 890543549223165455}
   m_Layer: 0
   m_Name: Monster 1
   m_TagString: Monster
@@ -308,7 +309,7 @@ AudioSource:
   m_GameObject: {fileID: 2431262773160780455}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 248799cb4acba48f7b3ee842a80f788c, type: 2}
   m_audioClip: {fileID: 8300000, guid: 4e8b3fe184ad16e499db5775fd6f6a68, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -411,6 +412,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &890543549223165455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431262773160780455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5e1719799ca4f9b9f5db81449517ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bypassRoomEffects: 0
+  directivityAlpha: 0
+  directivitySharpness: 1
+  listenerDirectivityAlpha: 0
+  listenerDirectivitySharpness: 1
+  gainDb: 0
+  nearFieldEffectEnabled: 1
+  nearFieldEffectGain: 1
+  occlusionEnabled: 0
+  occlusionIntensity: 1
+  quality: 2
 --- !u!1 &4977308016802301996
 GameObject:
   m_ObjectHideFlags: 0
