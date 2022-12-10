@@ -32,9 +32,9 @@ public class SpawnManager : MonoBehaviour
         surface = GetComponent<NavMeshSurface>();
         audioReverb.minDistance = new Vector2(mazeSize.x * nodeScale.x, mazeSize.y * nodeScale.x).magnitude / 2f;
         audioReverb.maxDistance = audioReverb.minDistance;
+        Resources.Load<GameObject>("MazeNode").GetComponent<MazeNode>().WallMaterial = wallMaterials[Random.Range(0, wallMaterials.Count)];
         currentMaze = MazeGenerator.GenerateMaze(mazeSize, nodeScale, new Vector3(0, nodeScale.y / 2, 0), Quaternion.identity, true); //Instantiate(Maze, new Vector3(0, Maze.NodeScale.y / 2, 0), Quaternion.identity);
         currentMaze.Plane.GetComponent<Renderer>().material = floorMaterials[Random.Range(0, floorMaterials.Count)];
-        Resources.Load<GameObject>("MazeNode").GetComponent<MazeNode>().WallMaterial = wallMaterials[Random.Range(0, wallMaterials.Count)];
     }
 
     // Update is called once per frame
