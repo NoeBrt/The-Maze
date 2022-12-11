@@ -18,6 +18,7 @@ public class SpeedBonus : MonoBehaviour
             player.StopCoroutine("speedBonusEffect");
             player.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound, 0.5f);
             player.StartCoroutine(speedBonusEffect(effectDuration, player, playerUi));
+            SettingManager.Instance.SfxSounds.Remove(GetComponent<AudioSource>());
             Destroy(gameObject);
         }
     }

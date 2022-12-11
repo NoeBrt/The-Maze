@@ -16,10 +16,14 @@ public class LevelLoader : MonoBehaviour
     {
         transition.SetTrigger("End");
         //   SoundFade.FadeIn(0, SettingManager.Instance.MusicSource, this);
-        SoundFade.FadeIn(1.12f, SettingManager.Instance.MusicSource,this);
-        foreach (AudioSource source in SettingManager.Instance.SfxSounds)
+        SoundFade.FadeIn(1.12f, SettingManager.Instance.MusicSource, this);
+        if (SettingManager.Instance.SfxSounds.Count > 0)
         {
-          SoundFade.FadeIn(1.12f, source,this);
+            foreach (AudioSource source in SettingManager.Instance.SfxSounds)
+            {
+                if (source != null)
+                    SoundFade.FadeIn(1.12f, source, this);
+            }
         }
         yield return new WaitForSecondsRealtime(1.12f);
         SceneManager.LoadScene(levelIndex);

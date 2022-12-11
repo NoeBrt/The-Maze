@@ -17,6 +17,7 @@ public class TimeBonus : MonoBehaviour
             playerUi.removeTime(timeToRemove);
             other.gameObject.transform.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound, 1f);
             playerUi.updateBonusText("Time Bonus", bonusEffectDuration);
+            SettingManager.Instance.SfxSounds.Remove(GetComponent<AudioSource>());
             Destroy(gameObject);
         }
     }
