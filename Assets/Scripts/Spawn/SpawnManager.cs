@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 
 public class SpawnManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector3 position;
     [SerializeField] private int bonusCount;
     [SerializeField] private GameObject monster;
+    [SerializeField] private List<GameObject> monstersInScene;
+
     [SerializeField] private GameObject MazeKey;
     [SerializeField] List<GameObject> bonusItem = new List<GameObject>();
     private List<int> itemPositionList;
@@ -23,7 +26,6 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] List<Material> wallMaterials;
     [SerializeField] List<Material> floorMaterials;
     [SerializeField] Material basicMat;
-
     [SerializeField] AudioReverbZone audioReverb;
 
     void Start()
@@ -61,10 +63,19 @@ public class SpawnManager : MonoBehaviour
             spawnKey();
             Player = Instantiate(Player, currentMaze.StartNode.transform.position, Quaternion.Euler(0, 90, 0));
             surface.BuildNavMesh();
-            spawnMonster();
+            int monsterCount = 1;
+            monstersInScene = new List<GameObject>();
+            if (GameManager.Instance.winCount > 0 && mazeSize.x >= 11 && mazeSize.y >=11)
+            {
+                monsterCount = Random.Range(Random.Range(1, mazeSize.x % 10), GameManager.Instance.winCount);
+            }
+            for (int i = 0; i < monsterCount; i++)
+            {
+                spawnMonster();
+            }
             playerInstanciated = true;
             Player.SetActive(true);
-            monster.SetActive(true);
+            monstersInScene.ForEach(monster => monster.SetActive(true));
             BeginCamera.gameObject.SetActive(false);
 
         }
@@ -73,7 +84,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnMonster()
     {
-        monster = InstantiateAtNode(monster, Random.Range(mazeSize.y + mazeSize.y / 2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right));
+        monstersInScene.Add(InstantiateAtNode(monster, Random.Range(mazeSize.y + mazeSize.y / 2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right)));
 
     }
 

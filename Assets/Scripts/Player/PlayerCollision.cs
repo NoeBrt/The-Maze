@@ -39,6 +39,7 @@ public class PlayerCollision : MonoBehaviour
             // other.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;
             GameManager.Instance.winCount++;
+            GameManager.Instance.gameCount++;
             source.PlayOneShot(winSound);
             endScreen.setWinScreenVisible(true);
         }
@@ -48,7 +49,7 @@ public class PlayerCollision : MonoBehaviour
     {
         MonsterCollisionHitBehavior(hit.gameObject);
     }
-    
+
     void MonsterCollisionHitBehavior(GameObject monster)
     {
         if (monster.CompareTag("Monster") && firstCollision)
@@ -58,6 +59,7 @@ public class PlayerCollision : MonoBehaviour
             monster.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;
             GameManager.Instance.looseCount++;
+            GameManager.Instance.gameCount++;
             StartCoroutine(looseBehavior(monster.gameObject));
         }
     }
