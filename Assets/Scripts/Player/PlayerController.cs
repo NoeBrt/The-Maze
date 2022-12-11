@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement and Physics")]
     [SerializeField] private float sprintSpeed = 20f;
     [SerializeField] private float walkSpeed = 10f;
+    public float speedGain { get; set; }=0f;
+
     private float currentSpeed;
     [SerializeField] private float gravityForce = -(9.81f * 3); //gravity constant *3
     [Header("FootStep")]
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour
         float HorizontalInput = Input.GetAxis("Horizontal");
         float VerticalInput = Input.GetAxis("Vertical");
         //transform.right and transform.forward to move the object in the local space;
-        Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput).normalized * currentSpeed;
+        Vector3 movement = (HorizontalInput * transform.right + transform.forward * VerticalInput).normalized * (currentSpeed + speedGain);
         velocity = movement + Vector3.up * velocity.y;
         sprint();
         playerController.Move(velocity * Time.deltaTime);
@@ -141,13 +143,13 @@ public class PlayerController : MonoBehaviour
                 currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
             }
-            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed || !Input.GetKey(KeyCode.LeftShift)))
+            else if (currentSpeed + speedGain >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed || !Input.GetKey(KeyCode.LeftShift)))
             {
 
                 currentSpeed -= walkSpeed * Time.deltaTime * 2;
             }
 
-            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, currentSpeed);
+            float parameter = Mathf.InverseLerp(walkSpeed, sprintSpeed, currentSpeed + speedGain);
             fieldOfView = Mathf.Lerp(60, 70, parameter);
         }
         Camera.main.fieldOfView = fieldOfView;

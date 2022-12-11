@@ -22,6 +22,11 @@ public class UIPlayerManager : MonoBehaviour
     public Text TimerText { get => timerText; set => timerText = value; }
     public GameObject PauseUi { get => pauseUi; set => pauseUi = value; }
     #endregion
+
+    private void Start()
+    {
+        displayMessage("Find the key and get out !", 3f);
+    }
     public void setVisible(bool a)
     {
         gameObject.SetActive(a);
@@ -86,7 +91,6 @@ public class UIPlayerManager : MonoBehaviour
     {
         bonusText.text = s;
     }
-
     public void updateBonusText(string s, float seconds)
     {
         StartCoroutine(displayText(bonusText, seconds, s));
@@ -100,8 +104,36 @@ public class UIPlayerManager : MonoBehaviour
     private IEnumerator displayText(Text text, float seconds, string s)
     {
         text.text = s;
+        StartCoroutine(FadeTextIn(text, 1f, 0.3f));
         yield return new WaitForSeconds(seconds);
-        text.text = "";
+        StartCoroutine(FadeTextOut(text, 1f));
+
+        // text.text = "";
+    }
+
+    private IEnumerator FadeTextIn(Text text, float fadeDuration, float opacity)
+    {
+        Color col = text.color;
+        col.a = 0;
+        text.color = col;
+        while (col.a < opacity)
+        {
+            col.a += fadeDuration * Time.smoothDeltaTime;
+            text.color = col;
+            yield return new WaitForSeconds(fadeDuration * Time.smoothDeltaTime);
+        }
+
+    }
+    private IEnumerator FadeTextOut(Text text, float fadeDuration)
+    {
+        Color col = text.color;
+        float beginOpacity = col.a;
+        while (col.a >= 0)
+        {
+            col.a -= fadeDuration * Time.smoothDeltaTime;
+            text.color = col;
+            yield return new WaitForSeconds(fadeDuration * Time.smoothDeltaTime);
+        }
     }
 
 

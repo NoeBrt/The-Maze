@@ -16,7 +16,7 @@ public class SpeedBonus : MonoBehaviour
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
             player.StopCoroutine("speedBonusEffect");
-            player.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound,0.5f);
+            player.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound, 0.5f);
             player.StartCoroutine(speedBonusEffect(effectDuration, player, playerUi));
             Destroy(gameObject);
         }
@@ -24,13 +24,11 @@ public class SpeedBonus : MonoBehaviour
 
     IEnumerator speedBonusEffect(float time, PlayerController player, UIPlayerManager playerUi)
     {
-        playerUi.updateBonusText("Speed ++");
-        player.WalkSpeed += speedBonusGain;
-        player.SprintSpeed += speedBonusGain;
+        playerUi.updateBonusText("Speed ++", time);
+        player.speedGain = speedBonusGain;
         yield return new WaitForSeconds(time);
-        player.WalkSpeed -= speedBonusGain;
-        player.SprintSpeed -= speedBonusGain;
-        playerUi.updateBonusText("");
+        player.speedGain = 0;
+        //   playerUi.updateBonusText("");
     }
 
 }

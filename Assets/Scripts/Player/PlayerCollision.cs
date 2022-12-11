@@ -24,6 +24,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        MonsterCollisionHitBehavior(other.gameObject);
         EndTriggerBehavior(other);
     }
 
@@ -43,22 +44,21 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
-
-
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-         MonsterCollisionHitBehavior(hit);
+        MonsterCollisionHitBehavior(hit.gameObject);
     }
-    void MonsterCollisionHitBehavior(ControllerColliderHit hit)
+    
+    void MonsterCollisionHitBehavior(GameObject monster)
     {
-        if (hit.collider.gameObject.CompareTag("Monster") && firstCollision)
+        if (monster.CompareTag("Monster") && firstCollision)
         {
             GetComponent<PlayerController>().enabled = false;
             firstCollision = false;
-            hit.collider.gameObject.transform.root.gameObject.SetActive(false);
+            monster.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;
             GameManager.Instance.looseCount++;
-            StartCoroutine(looseBehavior(hit.collider.gameObject));
+            StartCoroutine(looseBehavior(monster.gameObject));
         }
     }
 

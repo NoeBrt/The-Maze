@@ -113,8 +113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262fd3de316c20b4ba02c72868c66841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 10
-  speedBonusGain: 10
+  effectDuration: 5
+  speedBonusGain: 7
+  maxSpeed: 25
   BonusSound: {fileID: 8300000, guid: 5aa6a83753fb836429fd47abe8ee537f, type: 3}
 --- !u!108 &1066696436240752217
 Light:
