@@ -22,26 +22,26 @@ public class MonsterBehaviour : MonoBehaviour
     [SerializeField] AudioClip ScreamSoundFX;
     [SerializeField] AudioClip ChaseSound;
     [SerializeField] AudioClip PatrollingSound;
-    bool isChasing=false;
+    bool isChasing = false;
     [SerializeField] float maxChaseDistance = 25f;
 
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
-        monsterSound = GetComponent<AudioSource>();
-        SettingManager.Instance.addSfxSound(monsterSound);
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         agent = GetComponent<NavMeshAgent>();
         elements = transform.Find("Elements");
         hand = elements.Find("MonsterHand").gameObject;
+        monsterSound = GetComponent<AudioSource>();
+        SettingManager.Instance.addSfxSound(monsterSound);
     }
     private void Update()
     {
         playerInSightRange = player.GetComponentInChildren<Torch>().LightTorch.activeSelf && Physics.SphereCast(transform.position, transform.localScale.x, elements.transform.forward, out RaycastHit hitInfo, 50, PlayerMask);
-        Debug.DrawRay(transform.position, elements.transform.forward * 50f, Color.magenta);
-
+        // Debug.DrawRay(transform.position, elements.transform.forward * 50f, Color.magenta);
         playerInHeardRange = Physics.CheckSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.y, PlayerMask);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerMask);
         if ((!playerInHeardRange || !playerInSightRange) && !isChasing) Patroling();
@@ -86,17 +86,7 @@ public class MonsterBehaviour : MonoBehaviour
             isChasing = false;
         }
     }
-    private void AttackPlayer()
-    {
-        agent.SetDestination(player.position);
-
-        //   transform.LookAt(player);
-        if (Vector3.Distance(transform.position, player.transform.position) <= maxChaseDistance)
-        {
-            Patroling();
-        }
-    }
-
+/*
     private void OnDrawGizmosSelected()
     {
         if (player == null) return;
