@@ -102,6 +102,7 @@ MonoBehaviour:
   finishMaterial: {fileID: 2100000, guid: cfaee966dd1af1d4e9f94acf5acb4b12, type: 2}
   startMaterial: {fileID: 2100000, guid: c8a694cc1321cdc48871aab2707558e2, type: 2}
   plane: {fileID: 4900801365020712191, guid: 9117beabb95a5924e8e12cc0da8a75d0, type: 3}
+  endWallSound: {fileID: 8300000, guid: f9f9dae7947207f43a17a011ca8f686f, type: 3}
 --- !u!64 &8952007138388435493
 MeshCollider:
   m_ObjectHideFlags: 0

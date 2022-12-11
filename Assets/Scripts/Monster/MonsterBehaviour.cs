@@ -26,6 +26,10 @@ public class MonsterBehaviour : MonoBehaviour
     Vector3 destination;
     AudioSource monsterSound;
     [SerializeField] AudioClip ScreamSoundFX;
+    [SerializeField] AudioClip ChaseSound;
+    [SerializeField] AudioClip PatrollingSound;
+
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -60,6 +64,13 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void Patroling()
     {
+        if (monsterSound.clip != PatrollingSound)
+        {
+            monsterSound.clip = PatrollingSound;
+            monsterSound.Play();
+        }
+        monsterSound.clip = PatrollingSound;
+        //   monsterSound.Play();
         isDestinationReached = new Vector3(transform.position.x, 0, transform.position.z) == new Vector3(agent.destination.x, 0, agent.destination.z);
         hand.SetActive(false);
         elements.localRotation = Quaternion.Euler(0, 0, 0);
@@ -75,6 +86,11 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (monsterSound.clip != ChaseSound)
+        {
+            monsterSound.clip = ChaseSound;
+            monsterSound.Play();
+        }
         monsterSound.PlayOneShot(ScreamSoundFX);
         hand.SetActive(true);
         elements.transform.LookAt(player);

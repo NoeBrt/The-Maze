@@ -34,6 +34,12 @@ public class SettingManager : MonoBehaviour
 
         }
     }
+    public void addSfxSound(AudioSource source)
+    {
+        source.volume = sfxVolume;
+        SfxSounds.Add(source);
+
+    }
 
     public void SaveInFile()
     {

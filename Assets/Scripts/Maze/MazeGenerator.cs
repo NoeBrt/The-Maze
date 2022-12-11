@@ -206,6 +206,7 @@ public class MazeGenerator : MonoBehaviour
         return finishNode;
     }
 
+  
 
 
 

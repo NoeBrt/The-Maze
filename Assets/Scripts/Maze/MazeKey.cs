@@ -8,6 +8,7 @@ public class MazeKey : MonoBehaviour
     GameObject finalWall;
     Maze maze;
     [SerializeField] float rotateSpeed = 90f;
+    [SerializeField] AudioClip keySound;
     void Start()
     {
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
@@ -23,8 +24,10 @@ public class MazeKey : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            maze.setFinishWallsSound();
             finalWall.GetComponent<MeshRenderer>().material = maze.FinishMaterial;
             finalWall.GetComponent<BoxCollider>().isTrigger = true;
+            other.transform.GetComponentInChildren<AudioSource>().PlayOneShot(keySound);
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
             playerUi.displayMessage("Key Founded", 5f);
             Destroy(gameObject);

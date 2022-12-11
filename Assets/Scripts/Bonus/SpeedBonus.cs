@@ -6,7 +6,8 @@ public class SpeedBonus : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] float effectDuration = 10f;
-    [SerializeField] float speedBonusGain = 10f;
+    [SerializeField] float speedBonusGain = 7f;
+    [SerializeField] AudioClip BonusSound;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -14,9 +15,8 @@ public class SpeedBonus : MonoBehaviour
 
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
-
-
             player.StopCoroutine("speedBonusEffect");
+            player.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound,0.5f);
             player.StartCoroutine(speedBonusEffect(effectDuration, player, playerUi));
             Destroy(gameObject);
         }

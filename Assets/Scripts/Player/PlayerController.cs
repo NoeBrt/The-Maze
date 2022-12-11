@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
         int n = Random.Range(1, FootstepSounds.Length);
         //FootAudioSource.clip = FootstepSounds[n];
         FootAudioSource.pitch = Random.Range(0.7f, 1f);
-        FootAudioSource.PlayOneShot(FootstepSounds[n], Random.Range(0.5f, 0.8f));
+        FootAudioSource.PlayOneShot(FootstepSounds[n], Random.Range(0.45f, 0.65f));
         // FootstepSounds[n] = FootstepSounds[0];
         //FootstepSounds[0] = FootAudioSource.clip;
     }

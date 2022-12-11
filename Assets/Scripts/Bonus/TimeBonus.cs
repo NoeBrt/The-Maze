@@ -6,6 +6,7 @@ public class TimeBonus : MonoBehaviour
 {
     [SerializeField] float timeToRemove = 10f;
     [SerializeField] float bonusEffectDuration = 3f;
+    [SerializeField] AudioClip BonusSound;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +15,7 @@ public class TimeBonus : MonoBehaviour
         {
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
             playerUi.removeTime(timeToRemove);
+            other.gameObject.transform.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound, 0.5f);
             playerUi.updateBonusText("Time Bonus", bonusEffectDuration);
             Destroy(gameObject);
         }

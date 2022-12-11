@@ -300,6 +300,8 @@ MonoBehaviour:
   hand: {fileID: 0}
   elements: {fileID: 0}
   ScreamSoundFX: {fileID: 8300000, guid: 2726bcab8beccf34e8cb2a1d33f9f6d7, type: 3}
+  ChaseSound: {fileID: 8300000, guid: 2792cbd63cf5b084c8a608295aa9d66f, type: 3}
+  PatrollingSound: {fileID: 8300000, guid: 49efb945de731e54d906fbfe87db0ff9, type: 3}
 --- !u!82 &8346731521186348963
 AudioSource:
   m_ObjectHideFlags: 0
@@ -314,7 +316,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 1
@@ -323,7 +325,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -332,22 +334,22 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.9832077
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -1.002004
+      outSlope: -1.002004
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -427,10 +429,10 @@ MonoBehaviour:
   directBinaural: 1
   interpolation: 0
   distanceAttenuation: 1
-  distanceAttenuationInput: 0
+  distanceAttenuationInput: 1
   distanceAttenuationValue: 1
   airAbsorption: 0
-  airAbsorptionInput: 0
+  airAbsorptionInput: 1
   airAbsorptionLow: 1
   airAbsorptionMid: 1
   airAbsorptionHigh: 1

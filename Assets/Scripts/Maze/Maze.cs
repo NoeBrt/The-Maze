@@ -11,7 +11,7 @@ public class Maze : MonoBehaviour
     [SerializeField] Material finishMaterial;
     [SerializeField] Material startMaterial;
     [SerializeField] GameObject plane;
-
+    [SerializeField] public AudioClip endWallSound;
     public bool IsFinished { get; set; } = false;
     public List<MazeNode> Nodes { get; set; }
 
@@ -48,7 +48,27 @@ public class Maze : MonoBehaviour
         }
     }
 
-
+    public void setFinishWallsSound()
+    {
+        if (FinishNode != null)
+        {
+            AudioSource WallSource = FinishNode.Walls[0].AddComponent<AudioSource>();
+            WallSource.clip = endWallSound;
+            WallSource.spatialize = true;
+            WallSource.spatializePostEffects = true;
+            WallSource.dopplerLevel = 0;
+            WallSource.spatialBlend = 1;
+            SteamAudio.SteamAudioSource WallSteamAudioSource = FinishNode.Walls[0].AddComponent<SteamAudio.SteamAudioSource>();
+            WallSteamAudioSource.directBinaural = true;
+            WallSteamAudioSource.directivity = true;
+            WallSteamAudioSource.occlusion = true;
+            WallSteamAudioSource.distanceAttenuation = true;
+            WallSteamAudioSource.useDistanceCurveForReflections = false;
+            WallSource.volume = SettingManager.Instance.SfxVolume;
+            SettingManager.Instance.SfxSounds.Add(WallSource);
+            WallSource.Play();
+        }
+    }
 }
 
 

@@ -3749,7 +3749,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 5
-  m_Radius: 1.4
+  m_Radius: 2.22
   m_SlopeLimit: 45
   m_StepOffset: 0.5
   m_SkinWidth: 0.08
@@ -3798,7 +3798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 2419413532298501282}
   gameOverSound: {fileID: 8300000, guid: 23599650cb3e0c94698d45a462c1bf3c, type: 3}
-  winSound: {fileID: 0}
+  winSound: {fileID: 8300000, guid: 5880b787a7dab7240aecea6565c2b39f, type: 3}
   preLooseSound: {fileID: 8300000, guid: 2726bcab8beccf34e8cb2a1d33f9f6d7, type: 3}
   endScreen: {fileID: 0}
   playerUi: {fileID: 0}
@@ -3921,7 +3921,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.063
+      value: 1.009
       inSlope: 0
       outSlope: 0
       tangentMode: 0

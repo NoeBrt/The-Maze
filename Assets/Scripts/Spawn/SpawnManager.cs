@@ -84,7 +84,8 @@ public class SpawnManager : MonoBehaviour
             int itemsPosition = randomIntExcept(0, currentMaze.Nodes.Count - 1, itemPositionList);
             itemPositionList.Add(itemsPosition);
             // int indexItem= Random.Range(0f,1f)>=0.7f ? 1:0; 
-            InstantiateAtNode(bonusItem[Random.Range(0, bonusItem.Count)], itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.identity, currentMaze.transform);
+            GameObject bonusItemTemp = InstantiateAtNode(bonusItem[Random.Range(0, bonusItem.Count)], itemsPosition, currentMaze.NodeScale.y / 10f, Quaternion.identity, currentMaze.transform);
+            SettingManager.Instance.addSfxSound(bonusItemTemp.GetComponent<AudioSource>());
         }
     }
 

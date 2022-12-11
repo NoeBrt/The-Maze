@@ -35,10 +35,10 @@ public class PlayerCollision : MonoBehaviour
             endScreen.setEndTimer(playerUi.TimerText.text);
             playerUi.setVisible(false);
             firstCollision = false;
-            other.gameObject.transform.root.gameObject.SetActive(false);
+            // other.gameObject.transform.root.gameObject.SetActive(false);
             Time.timeScale = 0;
             GameManager.Instance.winCount++;
-            source.PlayOneShot(gameOverSound);
+            source.PlayOneShot(winSound);
             endScreen.setWinScreenVisible(true);
         }
     }
@@ -47,7 +47,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        MonsterCollisionHitBehavior(hit);
+         MonsterCollisionHitBehavior(hit);
     }
     void MonsterCollisionHitBehavior(ControllerColliderHit hit)
     {

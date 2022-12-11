@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 90
+  keySound: {fileID: 0}
 --- !u!65 &7800798957342442404
 BoxCollider:
   m_ObjectHideFlags: 0
