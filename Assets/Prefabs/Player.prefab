@@ -386,7 +386,7 @@ Transform:
   m_GameObject: {fileID: 2902987084985531379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2.5, z: 2}
+  m_LocalScale: {x: 2, y: 3, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6787474433528163304}
@@ -3748,7 +3748,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 5
+  m_Height: 6
   m_Radius: 2.22
   m_SlopeLimit: 45
   m_StepOffset: 0.5
@@ -3767,7 +3767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd17851a74e0094e86d8df0194c8ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crouchPlayerHeight: 1
+  crouchPlayerHeight: 3
   sprintSpeed: 20
   walkSpeed: 10
   gravityForce: -29.43
@@ -3828,7 +3828,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6787474434128833004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.46, z: 0}
+  m_LocalPosition: {x: 0, y: -2.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

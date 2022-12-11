@@ -9,16 +9,10 @@ public class MonsterBehaviour : MonoBehaviour
     NavMeshAgent agent;
     public Transform player;
     public LayerMask GroundMask, PlayerMask;
-    //patrolling
-    public Vector3 walkPoint;
-    bool walkPointset;
-    public float walkPointRange;
     //attacking
-    public float timeBetweenAtack;
-    bool alreadyAttacked;
     //states;
     public float sightRange, attackRange;
-    public bool playerInSightRange, PlayerInAttackRange;
+    public bool playerInHeardRange, playerInSightRange, PlayerInAttackRange;
     public GameObject hand;
     public Transform elements;
     Maze maze;
@@ -28,14 +22,15 @@ public class MonsterBehaviour : MonoBehaviour
     [SerializeField] AudioClip ScreamSoundFX;
     [SerializeField] AudioClip ChaseSound;
     [SerializeField] AudioClip PatrollingSound;
-
+    bool isChasing=false;
+    [SerializeField] float maxChaseDistance = 25f;
 
 
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         monsterSound = GetComponent<AudioSource>();
-        SettingManager.Instance.SfxSounds.Add(monsterSound);
+        SettingManager.Instance.addSfxSound(monsterSound);
         player = GameObject.FindGameObjectWithTag("Player").transform;
         maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<Maze>();
         agent = GetComponent<NavMeshAgent>();
@@ -44,23 +39,14 @@ public class MonsterBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, PlayerMask);
+        playerInSightRange = player.GetComponentInChildren<Torch>().LightTorch.activeSelf && Physics.SphereCast(transform.position, transform.localScale.x, elements.transform.forward, out RaycastHit hitInfo, 50, PlayerMask);
+        Debug.DrawRay(transform.position, elements.transform.forward * 50f, Color.magenta);
+
+        playerInHeardRange = Physics.CheckSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.y, PlayerMask);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerMask);
-        if (!playerInSightRange) Patroling();
-        if (playerInSightRange) ChasePlayer();
-        // if (playerInSightRange && PlayerInAttackRange) AttackPlayer();
-
+        if ((!playerInHeardRange || !playerInSightRange) && !isChasing) Patroling();
+        if (playerInHeardRange || playerInSightRange) ChasePlayer();
     }
-
-    private void SearchWalkPoint()
-    {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundMask))
-            walkPointset = true;
-    }
-
 
     private void Patroling()
     {
@@ -69,8 +55,6 @@ public class MonsterBehaviour : MonoBehaviour
             monsterSound.clip = PatrollingSound;
             monsterSound.Play();
         }
-        monsterSound.clip = PatrollingSound;
-        //   monsterSound.Play();
         isDestinationReached = new Vector3(transform.position.x, 0, transform.position.z) == new Vector3(agent.destination.x, 0, agent.destination.z);
         hand.SetActive(false);
         elements.localRotation = Quaternion.Euler(0, 0, 0);
@@ -94,32 +78,39 @@ public class MonsterBehaviour : MonoBehaviour
         monsterSound.PlayOneShot(ScreamSoundFX);
         hand.SetActive(true);
         elements.transform.LookAt(player);
-        agent.speed = 30;
+        agent.speed = 35;
         agent.SetDestination(player.position);
         // transform.LookAt(player);
+        if (Vector3.Distance(transform.position, player.transform.position) >= maxChaseDistance)
+        {
+            isChasing = false;
+        }
     }
     private void AttackPlayer()
     {
         agent.SetDestination(player.position);
 
         //   transform.LookAt(player);
-        if (Vector3.Distance(transform.position, player.transform.position) <= 50f)
+        if (Vector3.Distance(transform.position, player.transform.position) <= maxChaseDistance)
         {
             Patroling();
         }
     }
-    void ResetAttack()
-    {
-        alreadyAttacked = false;
-    }
+
     private void OnDrawGizmosSelected()
     {
+        if (player == null) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.DrawWireSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.y);
+
+
+
     }
-    void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         if (player == null) return;
 
@@ -134,4 +125,8 @@ public class MonsterBehaviour : MonoBehaviour
         for (int i = 1; i < path.corners.Length; ++i)
             Gizmos.DrawLine(path.corners[i - 1] + offset, path.corners[i] + offset);
     }
+    /* void OnDrawGizmos()
+     {
+
+     }*/
 }

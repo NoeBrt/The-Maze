@@ -9,6 +9,8 @@ public class Torch : MonoBehaviour
     [SerializeField] AudioClip lightToggleOffFX;
     [SerializeField] private GameObject lightTorch;
 
+    public GameObject LightTorch { get => lightTorch; set => lightTorch = value; }
+
     // Update is called once per frame
     void Update()
     {

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement and Physics")]
     [SerializeField] private float sprintSpeed = 20f;
     [SerializeField] private float walkSpeed = 10f;
-    public float speedGain { get; set; }=0f;
+    public float speedGain { get; set; } = 0f;
 
     private float currentSpeed;
     [SerializeField] private float gravityForce = -(9.81f * 3); //gravity constant *3
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public float SprintSpeed { get => sprintSpeed; set => sprintSpeed = value; }
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
+    public Vector2 stepSoundVolume { get; set; } = new Vector2(0.45f, 0.65f);
     private UIPlayerManager playerUi;
 
 
@@ -86,16 +87,21 @@ public class PlayerController : MonoBehaviour
 
     void crouch()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             normalPlayerHeight = playerController.height;
             playerController.height = crouchPlayerHeight;
-            Feet.localPosition += new Vector3(0, (normalPlayerHeight - crouchPlayerHeight) / 2, 0);
+            Feet.localPosition += new Vector3(0, (normalPlayerHeight - crouchPlayerHeight) / 3.5f, 0);
+            speedGain -= 3;
+            stepSoundVolume -= Vector2.one * 0.3f;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        else if (Input.GetKeyUp(KeyCode.C))
         {
             playerController.height = normalPlayerHeight;
-            Feet.localPosition -= new Vector3(0, (normalPlayerHeight - crouchPlayerHeight) / 2, 0);
+            Feet.localPosition -= new Vector3(0, (normalPlayerHeight - crouchPlayerHeight) / 3.5f, 0);
+            speedGain += 3;
+            stepSoundVolume += Vector2.one * 0.3f;
+
         }
     }
 
@@ -121,11 +127,8 @@ public class PlayerController : MonoBehaviour
     void PlayFootstep()
     {
         int n = Random.Range(1, FootstepSounds.Length);
-        //FootAudioSource.clip = FootstepSounds[n];
         FootAudioSource.pitch = Random.Range(0.7f, 1f);
-        FootAudioSource.PlayOneShot(FootstepSounds[n], Random.Range(0.45f, 0.65f));
-        // FootstepSounds[n] = FootstepSounds[0];
-        //FootstepSounds[0] = FootAudioSource.clip;
+        FootAudioSource.PlayOneShot(FootstepSounds[n], Random.Range(stepSoundVolume.x, stepSoundVolume.y));
     }
 
 
@@ -138,7 +141,7 @@ public class PlayerController : MonoBehaviour
         Vector2 movingVelocity = new Vector2(velocity.x, velocity.z);
         if (isOnGround)
         {
-            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed < sprintSpeed && movingVelocity.magnitude > 0)
+            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed + speedGain < sprintSpeed && movingVelocity.magnitude > 0)
             {
                 currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
