@@ -27,7 +27,7 @@ public class MazeKey : MonoBehaviour
             maze.setFinishWallsSound();
             finalWall.GetComponent<MeshRenderer>().material = maze.FinishMaterial;
             finalWall.GetComponent<BoxCollider>().isTrigger = true;
-            other.transform.GetComponentInChildren<AudioSource>().PlayOneShot(keySound);
+            other.gameObject.transform.GetComponentInChildren<AudioSource>().PlayOneShot(keySound, 1f);
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
             playerUi.displayMessage("Key Founded", 5f);
             Destroy(gameObject);

@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToRemove: 10
-  bonusEffectDuration: 10
-  BonusSound: {fileID: 0}
+  bonusEffectDuration: 1.5
+  BonusSound: {fileID: 8300000, guid: 735b0ca1d59521a429088a24634633e9, type: 3}
 --- !u!108 &-5290333299496276773
 Light:
   m_ObjectHideFlags: 0

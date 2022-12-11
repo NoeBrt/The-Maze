@@ -15,7 +15,7 @@ public class TimeBonus : MonoBehaviour
         {
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
             playerUi.removeTime(timeToRemove);
-            other.gameObject.transform.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound, 0.5f);
+            other.gameObject.transform.GetComponentInChildren<AudioSource>().PlayOneShot(BonusSound, 1f);
             playerUi.updateBonusText("Time Bonus", bonusEffectDuration);
             Destroy(gameObject);
         }

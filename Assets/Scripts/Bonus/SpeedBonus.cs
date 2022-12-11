@@ -6,7 +6,7 @@ public class SpeedBonus : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] float effectDuration = 10f;
-    [SerializeField] float speedBonusGain = 7f;
+    [SerializeField] float speedBonusGain = 5f;
     [SerializeField] AudioClip BonusSound;
     private void OnTriggerEnter(Collider other)
     {
