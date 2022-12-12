@@ -33,7 +33,6 @@ public class MonsterBehaviour : MonoBehaviour
     bool isSeePlayer = false;
     [SerializeField] float chaseSpeed = 35f;
     [SerializeField] float patrolingSpeed = 20f;
-
     public float ChaseSpeed { get => chaseSpeed; set => chaseSpeed = value; }
     public float PatrolingSpeed { get => patrolingSpeed; set => patrolingSpeed = value; }
 
@@ -66,10 +65,8 @@ public class MonsterBehaviour : MonoBehaviour
     void setHear()
     {
         Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
-        heardFactor = Mathf.Lerp(1f, 50f, velocityPlayer.magnitude * 0.01f) * player.GetComponent<PlayerController>().stepSoundVolume.x;
-        float parameter = Mathf.InverseLerp(1f, 50f, velocityPlayer.magnitude * 0.01f);
-        heardFactor = Mathf.Lerp(1f, 50f, parameter);
-        hearRange = Mathf.Clamp(hearRange * heardFactor, 20f, 50f);
+        heardFactor = velocityPlayer.magnitude * player.GetComponent<PlayerController>().stepSoundVolume.x;
+        hearRange = heardFactor * 5f + 10f;
         playerInHeardRange = Physics.CheckSphere(transform.position, hearRange, PlayerMask);
 
     }
