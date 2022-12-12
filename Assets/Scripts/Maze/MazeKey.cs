@@ -10,7 +10,9 @@ public class MazeKey : MonoBehaviour
     GameObject finalWall;
     Maze maze;
     [SerializeField] float rotateSpeed = 90f;
-    [SerializeField] float monsterSpeedGain = 5f;
+    [SerializeField] float monsterPatrolingSpeedGain = 5f;
+        [SerializeField] float monsterChaseSpeedGain = 3f;
+
 
     [SerializeField] AudioClip keySound;
     void Start()
@@ -36,8 +38,8 @@ public class MazeKey : MonoBehaviour
             SpawnManager spawn = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
             foreach (GameObject monster in spawn.MonstersInScene)
             {
-                monster.GetComponent<MonsterBehaviour>().PatrolingSpeed += 5f;
-                monster.GetComponent<MonsterBehaviour>().ChaseSpeed += 3f;
+                monster.GetComponent<MonsterBehaviour>().PatrolingSpeed += monsterPatrolingSpeedGain;
+                monster.GetComponent<MonsterBehaviour>().ChaseSpeed += monsterChaseSpeedGain;
             }
             playerUi.displayMessage("Key Founded", 5f);
             Destroy(gameObject);
