@@ -11,7 +11,7 @@ public class MazeKey : MonoBehaviour
     Maze maze;
     [SerializeField] float rotateSpeed = 90f;
     [SerializeField] float monsterPatrolingSpeedGain = 5f;
-        [SerializeField] float monsterChaseSpeedGain = 3f;
+    [SerializeField] float monsterChaseSpeedGain = 3f;
 
 
     [SerializeField] AudioClip keySound;
