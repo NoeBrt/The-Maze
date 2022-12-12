@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 Velocity { get => velocity; set => velocity = value; }
 
     private UIPlayerManager playerUi;
+    private float magnitude;
 
 
     // [SerializeField] private Camera playerCamera;
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
         velocity = movement + Vector3.up * velocity.y;
         sprint();
         playerController.Move(velocity * Time.deltaTime);
-
+        magnitude = new Vector2(velocity.x, velocity.z).magnitude;
         distanceWalked += Mathf.Clamp(new Vector3(velocity.x, velocity.z).magnitude, 0, 23f) * Time.deltaTime;
         if (distanceWalked > FootstepLength && isOnGround)
         {
@@ -143,12 +144,12 @@ public class PlayerController : MonoBehaviour
         Vector2 movingVelocity = new Vector2(velocity.x, velocity.z);
         if (isOnGround)
         {
-            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed + speedGain < sprintSpeed && movingVelocity.magnitude > 0)
+            if (Input.GetKey(KeyCode.LeftShift) && currentSpeed < sprintSpeed && movingVelocity.magnitude > 0)
             {
                 currentSpeed += sprintSpeed * Time.deltaTime * 2;
 
             }
-            else if (currentSpeed + speedGain >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed || !Input.GetKey(KeyCode.LeftShift)))
+            else if (currentSpeed >= walkSpeed && movingVelocity.magnitude >= 0 && (movingVelocity.magnitude < sprintSpeed || !Input.GetKey(KeyCode.LeftShift)))
             {
 
                 currentSpeed -= walkSpeed * Time.deltaTime * 2;

@@ -66,7 +66,9 @@ public class MonsterBehaviour : MonoBehaviour
     void setHear()
     {
         Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
-        heardFactor = Mathf.Lerp(20f, 50f, player.GetComponent<PlayerController>().Velocity.magnitude * Time.deltaTime) * player.GetComponent<PlayerController>().stepSoundVolume.x;
+        heardFactor = Mathf.Lerp(1f, 50f, velocityPlayer.magnitude * 0.01f) * player.GetComponent<PlayerController>().stepSoundVolume.x;
+        float parameter = Mathf.InverseLerp(1f, 50f, velocityPlayer.magnitude * 0.01f);
+        heardFactor = Mathf.Lerp(1f, 50f, parameter);
         hearRange = Mathf.Clamp(hearRange * heardFactor, 20f, 50f);
         playerInHeardRange = Physics.CheckSphere(transform.position, hearRange, PlayerMask);
 
