@@ -162,4 +162,6 @@ public class MonsterBehaviour : MonoBehaviour
         for (int i = 1; i < path.corners.Length; ++i)
             Gizmos.DrawLine(path.corners[i - 1] + offset, path.corners[i] + offset);
     }
+
+
 }
