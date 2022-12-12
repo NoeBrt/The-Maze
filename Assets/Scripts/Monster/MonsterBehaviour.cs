@@ -13,7 +13,7 @@ public class MonsterBehaviour : MonoBehaviour
     [Range(0, 360)]
     [SerializeField] public float angle = 100;
     //states;
-    public float sightRange, attackRange;
+    public float hearRange, attackRange;
     public bool playerInHeardRange, playerInSightRange, PlayerInAttackRange;
     public GameObject hand;
     public Transform elements;
@@ -52,16 +52,16 @@ public class MonsterBehaviour : MonoBehaviour
         torchFactor = player.GetComponentInChildren<Torch>().LightTorch.activeSelf ? 2 : 1;
         Debug.DrawRay(transform.position, elements.transform.forward * fieldOfViewMagnitude * torchFactor, Color.magenta);
         if ((!playerInHeardRange || !isSeePlayer) && !isChasing) Patroling();
-        if (playerInHeardRange || isSeePlayer) ChasePlayer();
+        if (playerInHeardRange || isSeePlayer || isChasing) ChasePlayer();
     }
 
 
     void setHear()
     {
         Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
-        heardFactor = player.GetComponent<PlayerController>().Velocity.magnitude / 10f * player.GetComponent<PlayerController>().stepSoundVolume.x;
-        sightRange = Mathf.Clamp(sightRange * heardFactor, 20f, 60f);
-        playerInHeardRange = Physics.CheckSphere(transform.position, sightRange, PlayerMask);
+        heardFactor = player.GetComponent<PlayerController>().Velocity.magnitude * player.GetComponent<PlayerController>().stepSoundVolume.x;
+        hearRange = Mathf.Clamp(hearRange * heardFactor, 20f, 50f);
+        playerInHeardRange = Physics.CheckSphere(transform.position, hearRange, PlayerMask);
 
     }
     private void Patroling()
@@ -86,6 +86,7 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        isChasing = true;
         if (monsterSound.clip != ChaseSound)
         {
             monsterSound.clip = ChaseSound;
@@ -144,7 +145,7 @@ public class MonsterBehaviour : MonoBehaviour
     {
         if (player == null) return;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange + heardFactor);
+        Gizmos.DrawWireSphere(transform.position, hearRange);
         var path = new NavMeshPath();
         NavMesh.CalculatePath(transform.position, player.position, NavMesh.AllAreas, path);
 

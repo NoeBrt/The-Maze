@@ -291,7 +291,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   angle: 90
-  sightRange: 60
+  hearRange: 0
   attackRange: 0
   playerInHeardRange: 0
   playerInSightRange: 0
