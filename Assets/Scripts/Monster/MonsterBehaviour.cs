@@ -61,15 +61,16 @@ public class MonsterBehaviour : MonoBehaviour
         if (playerInHeardRange || isSeePlayer || isChasing) ChasePlayer();
     }
 
-
+    float heardOffset = 10f;
+    float amplifier = 5f;
     void setHear()
     {
         Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
         heardFactor = velocityPlayer.magnitude * player.GetComponent<PlayerController>().stepSoundVolume.x;
-        hearRange = heardFactor * 5f + 10f;
+        hearRange = heardFactor * amplifier + heardOffset;
         playerInHeardRange = Physics.CheckSphere(transform.position, hearRange, PlayerMask);
-
     }
+
     private void Patroling()
     {
         agent.speed = patrolingSpeed;

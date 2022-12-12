@@ -1861,10 +1861,10 @@ RectTransform:
   m_Father: {fileID: 1941769011}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -469.54608, y: 263.02966}
-  m_SizeDelta: {x: 127.7879, y: 73.9407}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 64.45392, y: -36.970337}
+  m_SizeDelta: {x: 127.7879, y: 73.940704}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &890207610
 MonoBehaviour:
@@ -3206,8 +3206,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -78.38945}
-  m_SizeDelta: {x: 835.4277, y: 83.3045}
+  m_AnchoredPosition: {x: 0.0000076294, y: -78.386}
+  m_SizeDelta: {x: 925.097, y: 83.304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1486129729
 MonoBehaviour:
@@ -3242,7 +3242,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Materials   :   A dog''s life software ( UnityAssets Store )'
+  m_Text: 'Materials   :   A dog''s life software , Aleksn09  (Assets Store)'
 --- !u!222 &1486129730
 CanvasRenderer:
   m_ObjectHideFlags: 0
