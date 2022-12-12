@@ -25,7 +25,7 @@ public class UIPlayerManager : MonoBehaviour
 
     private void Start()
     {
-        displayMessage("Find the key and get out !", 3f);
+        displayMessage("Find the key and get out", 3f);
     }
     public void setVisible(bool a)
     {

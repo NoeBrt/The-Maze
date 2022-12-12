@@ -40,9 +40,9 @@ public class MonsterBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        playerInSightRange = player.GetComponentInChildren<Torch>().LightTorch.activeSelf && Physics.SphereCast(transform.position, transform.localScale.x, elements.transform.forward, out RaycastHit hitInfo, 50, PlayerMask);
+        playerInSightRange = player.GetComponentInChildren<Torch>().LightTorch.activeSelf && Physics.SphereCast(transform.position, transform.localScale.x, elements.transform.forward, out RaycastHit hitInfo, 60f, PlayerMask);
         // Debug.DrawRay(transform.position, elements.transform.forward * 50f, Color.magenta);
-        playerInHeardRange = Physics.CheckSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.y, PlayerMask);
+        playerInHeardRange = Physics.CheckSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.x, PlayerMask);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerMask);
         if ((!playerInHeardRange || !playerInSightRange) && !isChasing) Patroling();
         if (playerInHeardRange || playerInSightRange) ChasePlayer();
@@ -86,7 +86,7 @@ public class MonsterBehaviour : MonoBehaviour
             isChasing = false;
         }
     }
-/*
+
     private void OnDrawGizmosSelected()
     {
         if (player == null) return;
@@ -115,8 +115,4 @@ public class MonsterBehaviour : MonoBehaviour
         for (int i = 1; i < path.corners.Length; ++i)
             Gizmos.DrawLine(path.corners[i - 1] + offset, path.corners[i] + offset);
     }
-    /* void OnDrawGizmos()
-     {
-
-     }*/
 }

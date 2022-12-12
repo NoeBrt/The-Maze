@@ -76,8 +76,8 @@ public class MazeGenerator : MonoBehaviour
                 MazeNode newNode = Instantiate(nodePrefab, nodePos + offsetParent + new Vector3(0.1f, 0, 0), parent.rotation, parent);
                 Nodes.Add(newNode);
                 newNode.name = "Maze node " + (Nodes.Count - 1);
-                if (isProgressive)
-                    yield return new WaitForSeconds(1f / (size.x * size.y * 2)); ;
+                if (isProgressive && Nodes.Count % (GameManager.Instance.gameCount + 1) == 0)
+                    yield return new WaitForSeconds(1f / (size.x * size.y * 2) * (GameManager.Instance.gameCount + 1)); ;
             }
         }
 
@@ -172,7 +172,7 @@ public class MazeGenerator : MonoBehaviour
                 currentPath.Add(chosenNode);
                 chosenNode.SetState(MazeNode.NodeState.Current);
                 if (isProgressive)
-                    yield return new WaitForSeconds(1f / (Nodes.Count * 2)); ;
+                    yield return new WaitForSeconds(1f / ((Nodes.Count * 2) * (GameManager.Instance.gameCount + 1))); ;
             }
             else
             {
@@ -181,12 +181,12 @@ public class MazeGenerator : MonoBehaviour
                 currentPath[currentPath.Count - 1].SetState(MazeNode.NodeState.Completed);
                 currentPath.RemoveAt(currentPath.Count - 1);
                 if (isProgressive)
-                    yield return new WaitForSeconds(1f / (Nodes.Count * 2)); ;
+                    yield return new WaitForSeconds(1f / ((Nodes.Count * 2) * (GameManager.Instance.gameCount + 1)));
             }
 
         }
         if (isProgressive)
-            yield return new WaitForSeconds(1f / (Nodes.Count * 2)); ;
+            yield return new WaitForSeconds(1f / ((Nodes.Count * 2) * (GameManager.Instance.gameCount + 1)));
 
     }
     static MazeNode getStart(List<MazeNode> Nodes, Vector2Int size)
@@ -206,7 +206,7 @@ public class MazeGenerator : MonoBehaviour
         return finishNode;
     }
 
-  
+
 
 
 
@@ -276,13 +276,16 @@ public class MazeGenerator : MonoBehaviour
     static IEnumerator setAllWallsPlayedState(List<MazeNode> Nodes, Vector2Int size)
     {
         meshFilters = new List<MeshFilter>();
+        int i = 0;
         foreach (MazeNode m in Nodes)
         {
+            i++;
             m.SetState(MazeNode.NodeState.Played);
             /*
             m.RemoveWall(2);
             m.RemoveWall(1);
-*/          if (m.CompareTag("FinishNode"))
+    */
+            if (m.CompareTag("FinishNode"))
             {
                 foreach (GameObject wall in m.Walls)
                 {
@@ -292,7 +295,7 @@ public class MazeGenerator : MonoBehaviour
             }
             else
                 meshFilters.AddRange(m.GetComponentsInChildren<MeshFilter>());
-            if (isProgressive)
+            if (isProgressive && i % (GameManager.Instance.gameCount + 1) == 0)
                 yield return null;
         }
     }
