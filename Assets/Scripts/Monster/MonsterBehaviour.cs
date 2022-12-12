@@ -11,7 +11,7 @@ public class MonsterBehaviour : MonoBehaviour
     public LayerMask GroundMask, PlayerMask;
     //attacking
     [Range(0, 360)]
-    [SerializeField] public float angle = 80f;
+    [SerializeField] public float angle = 90f;
     //states;
     public float sightRange, attackRange;
     public bool playerInHeardRange, playerInSightRange, PlayerInAttackRange;

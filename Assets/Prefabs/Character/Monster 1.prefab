@@ -290,6 +290,7 @@ MonoBehaviour:
   PlayerMask:
     serializedVersion: 2
     m_Bits: 64
+  angle: 90
   sightRange: 60
   attackRange: 0
   playerInHeardRange: 0
@@ -300,6 +301,7 @@ MonoBehaviour:
   ScreamSoundFX: {fileID: 8300000, guid: 2726bcab8beccf34e8cb2a1d33f9f6d7, type: 3}
   ChaseSound: {fileID: 8300000, guid: 2792cbd63cf5b084c8a608295aa9d66f, type: 3}
   PatrollingSound: {fileID: 8300000, guid: 49efb945de731e54d906fbfe87db0ff9, type: 3}
+  fieldOfViewMagnitude: 30
   maxChaseDistance: 25
 --- !u!82 &8346731521186348963
 AudioSource:
