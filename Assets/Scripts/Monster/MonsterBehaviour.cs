@@ -10,6 +10,8 @@ public class MonsterBehaviour : MonoBehaviour
     public Transform player;
     public LayerMask GroundMask, PlayerMask;
     //attacking
+    [Range(0, 360)]
+    [SerializeField] public float angle = 60f;
     //states;
     public float sightRange, attackRange;
     public bool playerInHeardRange, playerInSightRange, PlayerInAttackRange;
@@ -23,7 +25,12 @@ public class MonsterBehaviour : MonoBehaviour
     [SerializeField] AudioClip ChaseSound;
     [SerializeField] AudioClip PatrollingSound;
     bool isChasing = false;
-    [SerializeField] float maxChaseDistance = 25f;
+    [SerializeField] float fieldOfViewMagnitude = 30f;
+
+    [SerializeField] float maxChaseDistance = 30f;
+    float torchFactor;
+    float heardFactor;
+    bool isSeePlayer = false;
 
 
     // Start is called before the first frame update
@@ -40,14 +47,23 @@ public class MonsterBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        playerInSightRange = player.GetComponentInChildren<Torch>().LightTorch.activeSelf && Physics.SphereCast(transform.position, transform.localScale.x, elements.transform.forward, out RaycastHit hitInfo, 60f, PlayerMask);
-        // Debug.DrawRay(transform.position, elements.transform.forward * 50f, Color.magenta);
-        playerInHeardRange = Physics.CheckSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.x, PlayerMask);
-        PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, PlayerMask);
-        if ((!playerInHeardRange || !playerInSightRange) && !isChasing) Patroling();
-        if (playerInHeardRange || playerInSightRange) ChasePlayer();
+        FieldOfViewCheck();
+        setHear();
+        torchFactor = player.GetComponentInChildren<Torch>().LightTorch.activeSelf ? 2 : 1;
+        Debug.DrawRay(transform.position, elements.transform.forward * fieldOfViewMagnitude * torchFactor, Color.magenta);
+        if ((!playerInHeardRange || !isSeePlayer) && !isChasing) Patroling();
+        if (playerInHeardRange || isSeePlayer) ChasePlayer();
     }
 
+
+    void setHear()
+    {
+        Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
+        heardFactor = player.GetComponent<PlayerController>().Velocity.magnitude / 10f * player.GetComponent<PlayerController>().stepSoundVolume.x;
+        sightRange = Mathf.Clamp(sightRange * heardFactor * torchFactor, 20f, 60f);
+        playerInHeardRange = Physics.CheckSphere(transform.position, sightRange, PlayerMask);
+
+    }
     private void Patroling()
     {
         if (monsterSound.clip != PatrollingSound)
@@ -87,14 +103,38 @@ public class MonsterBehaviour : MonoBehaviour
         }
     }
 
+
+    private void FieldOfViewCheck()
+    {
+        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, fieldOfViewMagnitude * torchFactor, PlayerMask);
+
+        if (rangeChecks.Length != 0)
+        {
+            Transform target = rangeChecks[0].transform;
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
+
+            if (Vector3.Angle(elements.transform.forward, directionToTarget) < angle / 2)
+            {
+                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, GroundMask))
+                    isSeePlayer = true;
+                else
+                    isSeePlayer = false;
+            }
+            else
+                isSeePlayer = false;
+        }
+        else if (isSeePlayer)
+            isSeePlayer = false;
+    }
+
+
+
+
+
     private void OnDrawGizmosSelected()
     {
-        if (player == null) return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange * player.GetComponent<PlayerController>().stepSoundVolume.y);
 
 
 
@@ -103,7 +143,8 @@ public class MonsterBehaviour : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (player == null) return;
-
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange + heardFactor);
         var path = new NavMeshPath();
         NavMesh.CalculatePath(transform.position, player.position, NavMesh.AllAreas, path);
 

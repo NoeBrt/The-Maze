@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2338599877659183281}
   - component: {fileID: -8449352943264421227}
   - component: {fileID: 8952007138388435493}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Maze
   m_TagString: Maze
   m_Icon: {fileID: 0}

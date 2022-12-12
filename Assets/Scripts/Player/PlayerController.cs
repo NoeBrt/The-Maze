@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public float SprintSpeed { get => sprintSpeed; set => sprintSpeed = value; }
     public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
     public Vector2 stepSoundVolume { get; set; } = new Vector2(0.45f, 0.65f);
+    public Vector3 Velocity { get => velocity; set => velocity = value; }
+
     private UIPlayerManager playerUi;
 
 
