@@ -19,7 +19,6 @@ public class StartScreenMaze : MonoBehaviour
         startMaze = GetComponent<Maze>();
         startMaze.Nodes = new List<MazeNode>();
         startMaze.Nodes.AddRange(GetComponentsInChildren<MazeNode>());
-        Debug.Log(startMaze.Nodes);
         foreach (MazeNode m in startMaze.Nodes)
         {
             meshFilters.AddRange(m.gameObject.GetComponentsInChildren<MeshFilter>());

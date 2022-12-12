@@ -36,7 +36,6 @@ public class UIPlayerManager : MonoBehaviour
     {
         if (!pauseUi.activeSelf)
             setTimer();
-        Debug.Log(infoTime);
     }
 
 

@@ -110,7 +110,6 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
-        // Debug.Log(speed);
         float HorizontalInput = Input.GetAxis("Horizontal");
         float VerticalInput = Input.GetAxis("Vertical");
         //transform.right and transform.forward to move the object in the local space;

@@ -86,7 +86,6 @@ public class MonsterBehaviour : MonoBehaviour
             destination = maze.transform.TransformPoint(maze.Nodes[Random.Range(0, maze.Nodes.Count)].transform.position);
             agent.SetDestination(destination);
         }
-        //  Debug.Log(new Vector3(transform.position.x, 0, transform.position.z) + "  " + new Vector3(transform.position.x, 0, transform.position.z));
 
     }
 

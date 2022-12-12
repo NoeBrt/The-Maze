@@ -50,7 +50,6 @@ public class MazeGenerator : MonoBehaviour
         maze.StartNode = getStart(maze.Nodes, maze.Size);
         maze.FinishNode = getEnd(maze.Nodes, maze.Size);
         yield return makeComplexMaze(maze.Nodes, maze.Size);
-        Debug.Log("test");
         yield return setAllWallsPlayedState(maze.Nodes, maze.Size);
         if (isProgressive)
             yield return new WaitForSeconds(2f);
@@ -216,22 +215,18 @@ public class MazeGenerator : MonoBehaviour
         int countXHole = 0;
         int countZHole = 0;
 
-        //for (int i = 0; i < Mathf.Max(size.x, size.y); i++)
-        //{
+
         while (countXHole <= Mathf.Max(size.x, size.y) && countZHole <= Mathf.Max(size.x, size.y))
         {
             int index = Random.Range(0, Nodes.Count);
-            //Random.Range(0,Nodes.Count);
             if ((index < Nodes.Count - size.y) && countXHole <= Mathf.Max(size.x, size.y))
             {
-                //Debug.Log(index + " " + (index + mazeSize.y));
                 if (Nodes[index].RemoveWall(0) || Nodes[index + size.y].RemoveWall(1))
                 {
                     Nodes[index + size.y].RemoveWall(1);
                     Nodes[index].RemoveWall(0);
                     countXHole++;
                 }
-                //Debug.Log(index + " " + (index + mazeSize.y));
                 if (isProgressive)
                     yield return null;
             }
@@ -243,13 +238,10 @@ public class MazeGenerator : MonoBehaviour
                     Nodes[index].RemoveWall(2);
                     countZHole++;
                 }
-                // Debug.Log(index + " " + (index + 1));
-                //Debug.Log(size.y+" "+(size.y-1) );
                 if (isProgressive)
                     yield return null;
             }
-            Debug.Log(countXHole + " : " + countZHole);
-        }//}
+        }
     }
 
     static void supressOverlapWall(List<MazeNode> Nodes, Vector2Int size)
@@ -262,7 +254,6 @@ public class MazeGenerator : MonoBehaviour
             }
             if (i % size.y != size.y - 1)
             {
-                Debug.Log(size);
                 Nodes[i].RemoveWall(2);
 
             }

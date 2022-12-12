@@ -32,10 +32,4 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
     }
-
-    private void Update()
-    {
-        Debug.Log("TIMESCALE : " + Time.timeScale);
-
-    }
 }

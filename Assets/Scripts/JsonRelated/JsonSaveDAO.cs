@@ -32,14 +32,12 @@ public class JsonSaveDAO
     {
         model.musicVolume = value;
         setJsonFileModel(model);
-        Debug.Log(JsonUtility.ToJson(model));
 
     }
     public void updateSfxVolume(float value)
     {
         model.sfxVolume = value;
         setJsonFileModel(model);
-        Debug.Log(JsonUtility.ToJson(model));
 
     }
 
@@ -47,14 +45,12 @@ public class JsonSaveDAO
     {
         model.graphicQuality = value;
         setJsonFileModel(model);
-        Debug.Log(JsonUtility.ToJson(model));
 
     }
 
 
     SaveJsonModel getModelFromJson()
     {
-        Debug.Log(path);
         return JsonUtility.FromJson<SaveJsonModel>(File.ReadAllText(path));
     }
     public int getGraphicQualityFromJson()
