@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class MazeKey : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class MazeKey : MonoBehaviour
     GameObject finalWall;
     Maze maze;
     [SerializeField] float rotateSpeed = 90f;
+    [SerializeField] float monsterSpeedGain = 5f;
+
     [SerializeField] AudioClip keySound;
     void Start()
     {
@@ -29,6 +33,12 @@ public class MazeKey : MonoBehaviour
             finalWall.GetComponent<BoxCollider>().isTrigger = true;
             other.gameObject.transform.GetComponentInChildren<AudioSource>().PlayOneShot(keySound, 1f);
             UIPlayerManager playerUi = GameObject.Find("Canvas").GetComponentInChildren<UIPlayerManager>(true);
+            SpawnManager spawn = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+            foreach (GameObject monster in spawn.MonstersInScene)
+            {
+                monster.GetComponent<MonsterBehaviour>().PatrolingSpeed += 5;
+                monster.GetComponent<MonsterBehaviour>().ChaseSpeed += 5;
+            }
             playerUi.displayMessage("Key Founded", 5f);
             Destroy(gameObject);
         }

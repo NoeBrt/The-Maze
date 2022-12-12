@@ -27,10 +27,17 @@ public class MonsterBehaviour : MonoBehaviour
     bool isChasing = false;
     [SerializeField] float fieldOfViewMagnitude = 30f;
 
-    [SerializeField] float maxChaseDistance = 30f;
+    [SerializeField] float maxChaseDistance = 40f;
     float torchFactor;
     float heardFactor;
     bool isSeePlayer = false;
+    [SerializeField] float chaseSpeed = 35f;
+    [SerializeField] float patrolingSpeed = 20f;
+
+    public float ChaseSpeed { get => chaseSpeed; set => chaseSpeed = value; }
+    public float PatrolingSpeed { get => patrolingSpeed; set => patrolingSpeed = value; }
+
+
 
 
     // Start is called before the first frame update
@@ -66,6 +73,7 @@ public class MonsterBehaviour : MonoBehaviour
     }
     private void Patroling()
     {
+        agent.speed = patrolingSpeed;
         if (monsterSound.clip != PatrollingSound)
         {
             monsterSound.clip = PatrollingSound;
@@ -95,10 +103,10 @@ public class MonsterBehaviour : MonoBehaviour
         monsterSound.PlayOneShot(ScreamSoundFX);
         hand.SetActive(true);
         elements.transform.LookAt(player);
-        agent.speed = 35;
+        agent.speed = chaseSpeed;
         agent.SetDestination(player.position);
         // transform.LookAt(player);
-        if (Vector3.Distance(transform.position, player.transform.position) >= maxChaseDistance)
+        if (Vector3.Distance(transform.position, player.transform.position) >= maxChaseDistance * torchFactor)
         {
             isChasing = false;
         }
@@ -129,8 +137,6 @@ public class MonsterBehaviour : MonoBehaviour
         else if (isSeePlayer)
             isSeePlayer = false;
     }
-
-
 
 
 

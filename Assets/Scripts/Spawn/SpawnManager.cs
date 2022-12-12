@@ -28,6 +28,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] Material basicMat;
     [SerializeField] AudioReverbZone audioReverb;
 
+    public List<GameObject> MonstersInScene { get => monstersInScene; set => monstersInScene = value; }
+
     void Start()
     {
 
@@ -85,7 +87,6 @@ public class SpawnManager : MonoBehaviour
     void spawnMonster()
     {
         monstersInScene.Add(InstantiateAtNode(monster, Random.Range(mazeSize.y + mazeSize.y / 2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right)));
-
     }
 
     void spawnBonusItem(int bonusCount)
