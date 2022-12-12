@@ -27,7 +27,7 @@ public class MonsterBehaviour : MonoBehaviour
     bool isChasing = false;
     [SerializeField] float fieldOfViewMagnitude = 30f;
 
-    [SerializeField] float maxChaseDistance = 40f;
+    [SerializeField] float maxChaseDistance = 55f;
     float torchFactor;
     float heardFactor;
     bool isSeePlayer = false;
@@ -66,7 +66,7 @@ public class MonsterBehaviour : MonoBehaviour
     void setHear()
     {
         Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
-        heardFactor = player.GetComponent<PlayerController>().Velocity.magnitude * player.GetComponent<PlayerController>().stepSoundVolume.x;
+        heardFactor = Mathf.Lerp(20f, 50f, player.GetComponent<PlayerController>().Velocity.magnitude * Time.deltaTime) * player.GetComponent<PlayerController>().stepSoundVolume.x;
         hearRange = Mathf.Clamp(hearRange * heardFactor, 20f, 50f);
         playerInHeardRange = Physics.CheckSphere(transform.position, hearRange, PlayerMask);
 
@@ -106,7 +106,7 @@ public class MonsterBehaviour : MonoBehaviour
         agent.speed = chaseSpeed;
         agent.SetDestination(player.position);
         // transform.LookAt(player);
-        if (Vector3.Distance(transform.position, player.transform.position) >= maxChaseDistance * torchFactor)
+        if (Vector3.Distance(transform.position, player.transform.position) > maxChaseDistance * torchFactor)
         {
             isChasing = false;
         }

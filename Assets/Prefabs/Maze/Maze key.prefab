@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7800798957342442404}
   - component: {fileID: -4530890022647313812}
   - component: {fileID: 7371340314826073685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Maze key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 90
+  monsterPatrolingSpeedGain: 5
+  monsterChaseSpeedGain: 3
   keySound: {fileID: 8300000, guid: e742dde0be15ac742a75491a46cf0444, type: 3}
 --- !u!65 &7800798957342442404
 BoxCollider:

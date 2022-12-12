@@ -63,11 +63,11 @@ public class SpawnManager : MonoBehaviour
         {
             spawnBonusItem(bonusCount);
             spawnKey();
-            Player = Instantiate(Player, currentMaze.StartNode.transform.position, Quaternion.Euler(0, 90, 0));
             surface.BuildNavMesh();
+            Player = Instantiate(Player, currentMaze.StartNode.transform.position, Quaternion.Euler(0, 90, 0));
             int monsterCount = 1;
             monstersInScene = new List<GameObject>();
-            if (GameManager.Instance.winCount > 0 && mazeSize.x >= 11 && mazeSize.y >=11)
+            if (GameManager.Instance.winCount > 0 && mazeSize.x >= 11 && mazeSize.y >= 11)
             {
                 monsterCount = Random.Range(Random.Range(1, mazeSize.x % 10), GameManager.Instance.winCount);
             }
