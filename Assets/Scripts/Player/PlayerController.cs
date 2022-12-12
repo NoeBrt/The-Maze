@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     void crouch()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             normalPlayerHeight = playerController.height;
             playerController.height = crouchPlayerHeight;
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             speedGain -= 3;
             stepSoundVolume -= Vector2.one * 0.3f;
         }
-        else if (Input.GetKeyUp(KeyCode.C))
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             playerController.height = normalPlayerHeight;
             Feet.localPosition -= new Vector3(0, (normalPlayerHeight - crouchPlayerHeight) / 3.5f, 0);
