@@ -36,8 +36,8 @@ public class MazeKey : MonoBehaviour
             SpawnManager spawn = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
             foreach (GameObject monster in spawn.MonstersInScene)
             {
-                monster.GetComponent<MonsterBehaviour>().PatrolingSpeed += 5;
-                monster.GetComponent<MonsterBehaviour>().ChaseSpeed += 5;
+                monster.GetComponent<MonsterBehaviour>().PatrolingSpeed += 5f;
+                monster.GetComponent<MonsterBehaviour>().ChaseSpeed += 3f;
             }
             playerUi.displayMessage("Key Founded", 5f);
             Destroy(gameObject);
