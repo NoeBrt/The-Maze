@@ -133,12 +133,6 @@ public class PlayerController : MonoBehaviour
         FootAudioSource.pitch = Random.Range(0.7f, 1f);
         FootAudioSource.PlayOneShot(FootstepSounds[n], Random.Range(stepSoundVolume.x, stepSoundVolume.y));
     }
-
-
-
-
-
-
     private void sprint()
     {
         Vector2 movingVelocity = new Vector2(velocity.x, velocity.z);
