@@ -60,7 +60,7 @@ public class MonsterBehaviour : MonoBehaviour
     {
         Vector2 velocityPlayer = new Vector2(player.GetComponent<PlayerController>().Velocity.x, player.GetComponent<PlayerController>().Velocity.z);
         heardFactor = player.GetComponent<PlayerController>().Velocity.magnitude / 10f * player.GetComponent<PlayerController>().stepSoundVolume.x;
-        sightRange = Mathf.Clamp(sightRange * heardFactor * torchFactor, 20f, 60f);
+        sightRange = Mathf.Clamp(sightRange * heardFactor, 20f, 60f);
         playerInHeardRange = Physics.CheckSphere(transform.position, sightRange, PlayerMask);
 
     }
@@ -113,7 +113,7 @@ public class MonsterBehaviour : MonoBehaviour
             Transform target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            if (Vector3.Angle(elements.transform.forward, directionToTarget) < angle / 2)
+            if (Vector3.Angle(elements.transform.forward, directionToTarget) < angle * torchFactor / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
