@@ -11,7 +11,7 @@ public class MonsterBehaviour : MonoBehaviour
     public LayerMask GroundMask, PlayerMask;
     //attacking
     [Range(0, 360)]
-    [SerializeField] public float angle = 90f;
+    [SerializeField] public float angle = 100;
     //states;
     public float sightRange, attackRange;
     public bool playerInHeardRange, playerInSightRange, PlayerInAttackRange;
@@ -113,7 +113,7 @@ public class MonsterBehaviour : MonoBehaviour
             Transform target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            if (Vector3.Angle(elements.transform.forward, directionToTarget) < angle * torchFactor / 2)
+            if (Vector3.Angle(elements.transform.forward, directionToTarget) < (torchFactor == 2 ? 360 : angle) / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
