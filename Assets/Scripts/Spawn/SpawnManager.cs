@@ -86,7 +86,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnMonster()
     {
-        monstersInScene.Add(InstantiateAtNode(monster, Random.Range(mazeSize.y + mazeSize.y / 2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right)));
+        monstersInScene.Add(InstantiateAtNode(monster, Random.Range(mazeSize.y*2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right)));
     }
 
     void spawnBonusItem(int bonusCount)
