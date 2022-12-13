@@ -26,6 +26,7 @@ public class LevelLoader : MonoBehaviour
             }
         }
         yield return new WaitForSecondsRealtime(1.12f);
+        Time.timeScale = 1;
         SceneManager.LoadScene(levelIndex);
     }
 
