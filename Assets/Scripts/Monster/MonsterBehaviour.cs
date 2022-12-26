@@ -98,8 +98,9 @@ public class MonsterBehaviour : MonoBehaviour
         {
             monsterSound.clip = ChaseSound;
             monsterSound.Play();
+            monsterSound.PlayOneShot(ScreamSoundFX);
+
         }
-        monsterSound.PlayOneShot(ScreamSoundFX);
         hand.SetActive(true);
         elements.transform.LookAt(player);
         agent.speed = chaseSpeed;
@@ -135,15 +136,6 @@ public class MonsterBehaviour : MonoBehaviour
         }
         else if (isSeePlayer)
             isSeePlayer = false;
-    }
-
-
-
-    private void OnDrawGizmosSelected()
-    {
-
-
-
     }
 
     private void OnDrawGizmos()
