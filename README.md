@@ -1,6 +1,6 @@
 # The-Maze
 
-## ITCH IO LINK : https://boringgamesdev.itch.io/the-maze
+## ITCH.IO LINK : https://boringgamesdev.itch.io/the-maze
 
 The MAZE is a game in which the player must navigate through a procedurally generated maze while avoiding monsters. The game uses Steam Audio to create a fully immersive sound environment.
 
