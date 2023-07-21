@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using System.Linq;
-
+using Unity.AI.Navigation;
 
 public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private Maze currentMaze;
-    NavMeshSurface surface;
+   [SerializeField] NavMeshSurface surface;
     [SerializeField] private GameObject Player;
     [SerializeField] private Camera BeginCamera;
     public Vector2Int mazeSize;
@@ -30,12 +29,13 @@ public class SpawnManager : MonoBehaviour
 
     public List<GameObject> MonstersInScene { get => monstersInScene; set => monstersInScene = value; }
 
+
+
     void Start()
     {
 
         mazeSize = GameManager.Instance.currentMazeSize;
         itemPositionList = new List<int>();
-        surface = GetComponent<NavMeshSurface>();
         audioReverb.minDistance = new Vector2(mazeSize.x * nodeScale.x, mazeSize.y * nodeScale.x).magnitude / 2f;
         audioReverb.maxDistance = audioReverb.minDistance;
         generateMaze();
@@ -86,7 +86,7 @@ public class SpawnManager : MonoBehaviour
 
     void spawnMonster()
     {
-        monstersInScene.Add(InstantiateAtNode(monster, Random.Range(mazeSize.y*2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right)));
+        monstersInScene.Add(InstantiateAtNode(monster, Random.Range(mazeSize.y * 2, currentMaze.Nodes.Count), 9.9f, Quaternion.AngleAxis(90f, Vector3.right)));
     }
 
     void spawnBonusItem(int bonusCount)
