@@ -4,8 +4,9 @@
 
 The MAZE is a game in which the player must navigate through a procedurally generated maze while avoiding monsters. 
 
-![output](https://github.com/user-attachments/assets/e74421ee-4178-4554-b223-1dcff3ee9b5c)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e74421ee-4178-4554-b223-1dcff3ee9b5c" alt="output" width="200">
+</p>
 
 The game uses Steam Audio to create a fully immersive sound environment.
 
